@@ -1,0 +1,33 @@
+@import "src/variables.scss";
+
+:host{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100vw;
+    height: 100vh;
+}
+mat-drawer{
+    min-width: 300px;
+    @media (max-width: 800px) {
+        min-width: 100vh;
+    }
+    
+}
+mat-drawer-container{
+    flex: 1;
+}
+
+.menu-item{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    span{
+        margin-bottom: 20px;
+        &:hover{
+            cursor: pointer;
+            color: $hover-link-color;
+        }
+    }
+}

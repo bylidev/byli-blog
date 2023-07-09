@@ -1,0 +1,26 @@
+{
+  "404": {
+    "title": "Not found page !",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "year": 2023,
+    "tags": [
+      "homelab",
+      "logs"
+    ],
+    "md": "/assets/blog/b9c17ce1-e1c4-4d7e-b5d5-e6fa49cb8205",
+    "time": 2
+  },
+  "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
+    "title": "Unifying Log Management: A Guide to Ingesting, Storing, and Visualizing Logs from Various Applications",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "year": 2023,
+    "tags": [
+      "homelab",
+      "logs"
+    ],
+    "md": "/assets/blog/89b2dc93-3dd8-44e6-8a67-9df936f3d4b2",
+    "time": 2
+  }
+}

@@ -1,0 +1,9 @@
+<div class="content">
+    <mat-card *ngFor="let key of manifestMap | async | keyvalue">
+        <mat-card-content (click)="this.router.navigateByUrl(key.key)">
+            <img src="{{ key.value.thumb }}" alt="image" class="image">
+            <h2>{{ key.value.title }}</h2>
+            <span>{{ key.value.time }} min reading</span>
+        </mat-card-content>
+    </mat-card>
+</div>

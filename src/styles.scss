@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@import '~material-design-icons/iconfont/material-icons.css';
+@import 'variables.scss';
+
+@include mat.core();
+@include mat.strong-focus-indicators((
+  --border-style: dotted,
+  border-width: 0px,
+  border-radius: 0px,
+));
+
+$my-accent: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
+
+$my-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $byli-primary,
+    accent: $my-accent,
+  )
+));
+$my-light-theme: mat.define-light-theme((
+  color: (
+    primary: $byli-primary,
+    accent: $my-accent,
+  )
+));
+
+
+$my-custom-level: mat.define-typography-level(
+  $font-family: Roboto,
+  $font-weight: 400,
+  $font-size: 1rem,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
+
+@include mat.all-component-themes($my-dark-theme);
+
+@include mat.strong-focus-indicators-theme(rgb(75, 134, 168));
+
+body{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+img{
+  max-width: 90vw !important;
+}

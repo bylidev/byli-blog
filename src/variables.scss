@@ -1,0 +1,38 @@
+@use '@angular/material' as mat;
+$mobile: 600px;
+$hover-link-color: #0075c9;
+$card-max-width: 270px;
+$card-margin: 5px;
+$max-columns: 3;
+$byli-primary: mat.define-palette((
+    50 : #e0eef9,
+    100 : #b3d6ef,
+    200 : #80bae4,
+    300 : #4d9ed9,
+    400 : #268ad1,
+    500 : #0075c9,
+    600 : #006dc3,
+    700 : #0062bc,
+    800 : #0058b5,
+    900 : #0045a9,
+    A100 : #d3e2ff,
+    A200 : #a0c0ff,
+    A400 : #6d9eff,
+    A700 : #538dff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+), 500);
