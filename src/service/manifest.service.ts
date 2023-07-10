@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 export interface Manifest {
@@ -17,16 +17,20 @@ export interface Manifest {
   providedIn: 'root',
 })
 export class ManifestService {
-  private manifestUrl = '/assets/blog/manifest.json';
+  private menUrl = '/assets/blog/menu.json';
 
   constructor(private http: HttpClient) {}
 
-  getManifest(): Observable<Map<string, Manifest>> {
-    return this.http.get<any>(this.manifestUrl);
+  getManifest(): Subject<Map<string, Manifest>> {
+    return this.getManifestData('all');
+  }
+
+  getManifestByTag(tag: string): Observable<Map<string, Manifest>> {
+    return this.getManifestData(tag);
   }
 
   getManifestValue(key: string): Observable<Manifest> {
-    return this.http.get<any>(this.manifestUrl).pipe(
+    return this.getManifestData('all').pipe(
       map((manifestData: any) => {
         const value = manifestData[key];
         if (!value) {
@@ -39,5 +43,17 @@ export class ManifestService {
         return throwError(error);
       })
     );
+  }
+  private getManifestData(key: string): Subject<Map<string, Manifest>> {
+    const response = new Subject<Map<string, Manifest>>();
+    this.http.get(this.menUrl).subscribe((data: any) => {
+      this.http
+        .get<any>(data[key])
+        .subscribe((manifestData: Map<string, Manifest>) => {
+          response.next(manifestData);
+          response.complete();
+        });
+    });
+    return response;
   }
 }

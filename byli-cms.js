@@ -10,8 +10,8 @@ const mdPath = './cms';
 
 const imagesDir = './src/assets/blog/images';
 const entryPath = './src/assets/blog';
-const metadataFilePath = './src/assets/blog/manifest.json';
-
+const idxTagFilePath = './src/assets/blog/{uuid}.json';
+const menuByTags = './src/assets/blog/menu.json';
 /**
  * Clean script.
  */
@@ -60,13 +60,14 @@ function createManifest(fileNames, metadataFilePath) {
         typeof jsonObj.thumb !== 'string' ||
         typeof jsonObj.year !== 'number' ||
         !Array.isArray(jsonObj.tags)) {
-      throw new Error('Incorrect values in attributes');
+      throw new Error(`Invalid JSON object: ${jsonObj}`);
     }
   
     console.log('JSON object is valid.');
   }
-  const metadata = {};
-
+  const idx_all = {};
+  const idxByTags = {};
+  const menuTags = {};
   // Loop through each Markdown file and extract YAML metadata
   fileNames.forEach(fileName => {
     const filePath = path.join(mdPath, fileName);
@@ -79,7 +80,15 @@ function createManifest(fileNames, metadataFilePath) {
     data.time= 2; //todo get time from md
     const route = data.route;
     data.route = undefined;
-    metadata[route] = data;
+    idx_all[route] = data;
+
+    // Create index by tags
+    data.tags.forEach(tag => {
+      if (!idxByTags[tag]) {
+        idxByTags[tag] = {};
+      }
+      idxByTags[tag][route] = data;
+    });
 
     // Copy the clean Markdown content to another directory
     const cleanMdContent = matter(fileContent).content.replace(/\(\.\/images/g, '('+imagesDir.replace('./src', ''));
@@ -88,10 +97,26 @@ function createManifest(fileNames, metadataFilePath) {
     fs.writeFileSync(cleanMdFilePath, cleanMdContent, 'utf8');
   });
 
-  const jsonData = JSON.stringify(metadata, null, 2);
+  //create all content
+  const uuid = uuidv4();
+  menuTags['all'] = idxTagFilePath.replace('{uuid}', uuid).replace('./src','');
+  const jsonData = JSON.stringify(idx_all, null, 2);
+  fs.writeFileSync(idxTagFilePath.replace('{uuid}',uuid), jsonData, 'utf8');
+  console.log(`JSON file ${idxTagFilePath} created successfully.`);
 
-  fs.writeFileSync(metadataFilePath, jsonData, 'utf8');
-  console.log('JSON file created successfully.');
+  //create tags
+  Object.keys(idxByTags).forEach(tag => {
+    const uuid = uuidv4();
+    menuTags[tag] = idxTagFilePath.replace('{uuid}', uuid).replace('./src','');
+
+    const jsonData = JSON.stringify(idxByTags[tag], null, 2);
+    fs.writeFileSync(idxTagFilePath.replace('{uuid}', uuid), jsonData, 'utf8');
+    console.log(`JSON file ${idxTagFilePath.replace('{uuid}', uuid)} created successfully.`);
+  });
+  //create menu.json
+  const jsonDataMenu = JSON.stringify(menuTags, null, 2);
+  fs.writeFileSync(menuByTags, jsonDataMenu, 'utf8');
+  console.log(`JSON file ${menuByTags} created successfully.`);
 }
 /**
  * Image processing script.
@@ -129,5 +154,5 @@ function processImageDirectory(directory, outputDirectory, sizes, prefix = '') {
 purge().then(() => {
   processImageDirectory(imgSrc, imagesDir, [250, 200], 'thumb_');
   processImageDirectory(imgSrc, imagesDir, [800]);
-  createManifest(getMarkdownFiles(mdPath), metadataFilePath);
+  createManifest(getMarkdownFiles(mdPath), idxTagFilePath);
 });

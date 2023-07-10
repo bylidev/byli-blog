@@ -5,10 +5,9 @@
     "thumb": "/assets/blog/images/thumb_log_data.webp",
     "year": 2023,
     "tags": [
-      "homelab",
       "logs"
     ],
-    "md": "/assets/blog/82fb9685-0142-4673-b404-6c08898136ed",
+    "md": "/assets/blog/546a751a-cd89-4fac-bfa6-76b7ef775c4c",
     "time": 2
   },
   "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
@@ -20,7 +19,7 @@
       "homelab",
       "logs"
     ],
-    "md": "/assets/blog/1c6e4ed4-2e0b-4b9f-803c-9861b1bf150d",
+    "md": "/assets/blog/0990117d-6654-4132-95c3-813582b3dd75",
     "time": 2
   }
 }
