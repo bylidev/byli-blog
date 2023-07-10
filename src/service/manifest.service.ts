@@ -22,7 +22,7 @@ export class ManifestService {
   constructor(private http: HttpClient) {}
 
   getManifest(): Subject<Map<string, Manifest>> {
-    return this.getManifestData('all');
+    return this.getManifestData('home');
   }
 
   getManifestByTag(tag: string): Observable<Map<string, Manifest>> {
@@ -30,7 +30,7 @@ export class ManifestService {
   }
 
   getManifestValue(key: string): Observable<Manifest> {
-    return this.getManifestData('all').pipe(
+    return this.getManifestData('home').pipe(
       map((manifestData: any) => {
         const value = manifestData[key];
         if (!value) {

@@ -4,10 +4,8 @@
     "author": "Ignacio Lopez",
     "thumb": "/assets/blog/images/thumb_log_data.webp",
     "year": 2023,
-    "tags": [
-      "logs"
-    ],
-    "md": "/assets/blog/546a751a-cd89-4fac-bfa6-76b7ef775c4c",
+    "tags": [],
+    "md": "/assets/blog/e6568df8-5f01-49d9-a0fa-e69efc875aed",
     "time": 2
   },
   "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
@@ -19,7 +17,7 @@
       "homelab",
       "logs"
     ],
-    "md": "/assets/blog/0990117d-6654-4132-95c3-813582b3dd75",
+    "md": "/assets/blog/ede54390-169e-451c-abe4-79bc41dd8413",
     "time": 2
   }
 }

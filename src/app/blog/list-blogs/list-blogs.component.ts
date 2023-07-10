@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 import { Manifest, ManifestService } from 'src/service/manifest.service';
 
 @Component({
@@ -10,9 +10,35 @@ import { Manifest, ManifestService } from 'src/service/manifest.service';
 })
 export class ListBlogsComponent {
   router: Router;
-  constructor(private manifestService: ManifestService, router: Router) {
+  manifestMap: Subject<Map<string, Manifest>> = new Subject<
+    Map<string, Manifest>
+  >();
+  constructor(
+    private manifestService: ManifestService,
+    router: Router,
+    private route: ActivatedRoute
+  ) {
     this.router = router;
   }
-  manifestMap: Observable<Map<string, Manifest>> =
-    this.manifestService.getManifest();
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      if (params['tag'] != null) {
+        this.manifestService
+          .getManifestByTag(params['tag'])
+          .subscribe((data: Map<string, Manifest>) => {
+            this.manifestMap.next(data);
+          });
+      } else {
+        this.manifestService
+          .getManifest()
+          .subscribe((data: Map<string, Manifest>) => {
+            this.manifestMap.next(data);
+          });
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.manifestMap.unsubscribe();
+  }
 }

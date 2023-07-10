@@ -11,10 +11,9 @@
 <mat-drawer-container autosize>
   <mat-drawer mode="side" #drawer>
     <div class="menu-item">
-      <ng-container *ngFor="let item of this.menu |async">
-        <span mat-menu-item >
-          <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
-          <span>{{item.title}}</span>
+      <ng-container *ngFor="let item of this.menu | async | keyvalue">
+        <span mat-menu-item (click)="this.router.navigateByUrl('tag/'+item.key)">
+          <span>{{item.key}}</span>
         </span>
       </ng-container>
     </div>

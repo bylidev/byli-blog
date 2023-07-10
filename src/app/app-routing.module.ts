@@ -9,6 +9,10 @@ const routes: Routes = [
     component: ListBlogsComponent,
   },
   {
+    path: 'tag/:tag',
+    component: ListBlogsComponent,
+  },
+  {
     path: ':id',
     component: ViewBlogComponent,
   },

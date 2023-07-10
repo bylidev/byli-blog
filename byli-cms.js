@@ -99,7 +99,7 @@ function createManifest(fileNames, metadataFilePath) {
 
   //create all content
   const uuid = uuidv4();
-  menuTags['all'] = idxTagFilePath.replace('{uuid}', uuid).replace('./src','');
+  menuTags['home'] = idxTagFilePath.replace('{uuid}', uuid).replace('./src','');
   const jsonData = JSON.stringify(idx_all, null, 2);
   fs.writeFileSync(idxTagFilePath.replace('{uuid}',uuid), jsonData, 'utf8');
   console.log(`JSON file ${idxTagFilePath} created successfully.`);

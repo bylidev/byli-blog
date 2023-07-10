@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -5,16 +6,9 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class MenuService {
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
-  getMenu(): Observable<Array<{ icon?: string; title: string; href: string }>> {
-    return of([
-      { title: 'Home', href: '/' },
-      { title: 'Homelab', href: '/homelab' },
-      {
-        title: 'Design Patterns',
-        href: '/design-patterns',
-      },
-    ]);
+  getMenu(): Observable<Map<string, string>> {
+    return this.httpClient.get<Map<string, string>>('/assets/blog/menu.json');
   }
 }
