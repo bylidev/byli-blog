@@ -1,0 +1,46 @@
+{
+  "404": {
+    "title": "Not found page !",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "year": 2023,
+    "tags": [],
+    "md": "/assets/blog/bc5dbca4-8e86-40db-a4bf-cfb70d970d5d",
+    "time": 2
+  },
+  "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
+    "title": "Unifying Log Management: A Guide to Ingesting, Storing, and Visualizing Logs from Various Applications",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "year": 2023,
+    "tags": [
+      "homelab",
+      "logs",
+      "k8s"
+    ],
+    "md": "/assets/blog/b7335a9a-bf67-4a84-8ff7-45d93a70e07e",
+    "time": 2
+  },
+  "a-clean-architecture-journey": {
+    "title": "Go",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_go.png",
+    "year": 2023,
+    "tags": [
+      "go"
+    ],
+    "md": "/assets/blog/cb7672cd-764f-40f1-abd1-0befa2b6a960",
+    "time": 2
+  },
+  "k8s-cronjob": {
+    "title": "Resilient CronJob-based Webhook in K8S for Distributed services",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_time.jpg",
+    "year": 2023,
+    "tags": [
+      "k8s"
+    ],
+    "md": "/assets/blog/093154a0-324c-47a3-8e7e-85275aa097d4",
+    "time": 2
+  }
+}

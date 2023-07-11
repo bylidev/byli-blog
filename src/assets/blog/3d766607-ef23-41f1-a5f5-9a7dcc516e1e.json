@@ -1,0 +1,13 @@
+{
+  "a-clean-architecture-journey": {
+    "title": "Go",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_go.png",
+    "year": 2023,
+    "tags": [
+      "go"
+    ],
+    "md": "/assets/blog/cb7672cd-764f-40f1-abd1-0befa2b6a960",
+    "time": 2
+  }
+}
