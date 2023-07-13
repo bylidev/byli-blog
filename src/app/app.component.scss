@@ -10,9 +10,9 @@
 }
 mat-drawer{
     min-width: 300px;
+    font-size: 1.5rem;
     @media (max-width: 800px) {
         min-width: 100vh;
-        font-size: 3rem;
     }
     
 }
@@ -21,14 +21,18 @@ mat-drawer-container{
 }
 
 .menu-item{
+    height: 100%;
     display: flex;
     flex-direction: column;
     margin: 20px;
     span{
-        margin-bottom: 20px;
+        margin-bottom: 50px;
         &:hover{
             cursor: pointer;
             color: $hover-link-color;
+        }
+        @media (max-width: 800px) {
+            font-size: 2rem;
         }
     }
 }
