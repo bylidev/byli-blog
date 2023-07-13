@@ -12,6 +12,7 @@ mat-drawer{
     min-width: 300px;
     @media (max-width: 800px) {
         min-width: 100vh;
+        font-size: 3rem;
     }
     
 }
@@ -23,9 +24,6 @@ mat-drawer-container{
     display: flex;
     flex-direction: column;
     margin: 20px;
-    @media (max-width: 800px) {
-        font-size: 3em;
-    }
     span{
         margin-bottom: 20px;
         &:hover{
