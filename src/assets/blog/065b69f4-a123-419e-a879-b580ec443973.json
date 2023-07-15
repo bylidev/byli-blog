@@ -1,0 +1,82 @@
+{
+  "404": {
+    "title": "Not found page !",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "date": "2023",
+    "tags": [],
+    "md": "/assets/blog/a40c90f9-6b5e-4b01-ad9f-fcfd9cd2dd02",
+    "time": 2
+  },
+  "a-clean-architecture-journey": {
+    "title": "Diving Deep into Hexagonal Architecture with Go: Building Modular and Testable Systems",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_go.png",
+    "date": "15/07/2023",
+    "tags": [
+      "go"
+    ],
+    "md": "/assets/blog/34185f4a-c8ae-4eba-ad91-84b338e9a778",
+    "time": 2
+  },
+  "k8s-cronjob": {
+    "title": "Resilient CronJob-based Webhook in K8S for Distributed services",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_time.jpg",
+    "date": "2023",
+    "tags": [
+      "k8s"
+    ],
+    "md": "/assets/blog/a7208329-9224-456a-aaa8-6251b343beb2",
+    "time": 2
+  },
+  "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
+    "title": "Unifying Log Management: A Guide to Ingesting, Storing, and Visualizing Logs from Various Applications",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "date": "2023",
+    "tags": [
+      "homelab",
+      "logs",
+      "k8s"
+    ],
+    "md": "/assets/blog/4f224821-5943-4cea-876b-54fd8f87b5ef",
+    "time": 2
+  },
+  "class-diagram": {
+    "title": "Understanding Class Diagrams: Visualizing Relationships and Structure in Object-Oriented Systems",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_class-diagram.webp",
+    "date": "01/07/2023",
+    "tags": [
+      "design-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/5810a0fa-6133-4c7a-b321-fbafd68fa579",
+    "time": 2
+  },
+  "oop-pilars": {
+    "title": "Exploring the Core Principles of Object-Oriented Programming: The Pillars of OOP",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_pillars.jpeg",
+    "date": "02/07/2023",
+    "tags": [
+      "design-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/c594f8d1-0abc-401a-a403-c7ffdd4bf8d1",
+    "time": 2
+  },
+  "solid-principles": {
+    "title": "Unleashing the Power of SOLID Principles for Robust Code",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_construction.jpg",
+    "date": "03/07/2023",
+    "tags": [
+      "design-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/d51b8a76-e0a9-4553-9d7c-8468331b9cf9",
+    "time": 2
+  }
+}

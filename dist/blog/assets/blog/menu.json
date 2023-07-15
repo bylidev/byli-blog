@@ -1,7 +1,9 @@
 {
-  "home": "/assets/blog/d639e206-1200-47e7-a714-bdef9204559a.json",
-  "homelab": "/assets/blog/e0ed616f-0424-4d2d-95db-e7b9dab90d15.json",
-  "logs": "/assets/blog/5eea51fb-cbb2-44e3-b616-3376cb16601b.json",
-  "k8s": "/assets/blog/492b544f-cd3f-48cb-b065-19d5bfbd5352.json",
-  "go": "/assets/blog/3d766607-ef23-41f1-a5f5-9a7dcc516e1e.json"
+  "home": "/assets/blog/065b69f4-a123-419e-a879-b580ec443973.json",
+  "go": "/assets/blog/ad4492a7-3272-4001-a467-39dbef10419e.json",
+  "k8s": "/assets/blog/20246ba5-08e1-40d7-8c93-4bfc409c6414.json",
+  "homelab": "/assets/blog/f603dd8c-67c4-4e0c-a7dd-9d18538387e0.json",
+  "logs": "/assets/blog/2a9dbe9f-e0a1-4db1-a995-6447e54e61d9.json",
+  "design-patterns": "/assets/blog/974b9f82-fdba-4bd1-a5ff-bd6615d77fa2.json",
+  "oop": "/assets/blog/018ba80f-6993-4eb3-b74e-4d125cbbedcf.json"
 }

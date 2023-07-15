@@ -1,0 +1,26 @@
+{
+  "k8s-cronjob": {
+    "title": "Resilient CronJob-based Webhook in K8S for Distributed services",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_time.jpg",
+    "date": "2023",
+    "tags": [
+      "k8s"
+    ],
+    "md": "/assets/blog/a7208329-9224-456a-aaa8-6251b343beb2",
+    "time": 2
+  },
+  "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
+    "title": "Unifying Log Management: A Guide to Ingesting, Storing, and Visualizing Logs from Various Applications",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "date": "2023",
+    "tags": [
+      "homelab",
+      "logs",
+      "k8s"
+    ],
+    "md": "/assets/blog/4f224821-5943-4cea-876b-54fd8f87b5ef",
+    "time": 2
+  }
+}

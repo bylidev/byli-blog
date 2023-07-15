@@ -1,0 +1,38 @@
+{
+  "class-diagram": {
+    "title": "Understanding Class Diagrams: Visualizing Relationships and Structure in Object-Oriented Systems",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_class-diagram.webp",
+    "date": "01/07/2023",
+    "tags": [
+      "design-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/5810a0fa-6133-4c7a-b321-fbafd68fa579",
+    "time": 2
+  },
+  "oop-pilars": {
+    "title": "Exploring the Core Principles of Object-Oriented Programming: The Pillars of OOP",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_pillars.jpeg",
+    "date": "02/07/2023",
+    "tags": [
+      "design-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/c594f8d1-0abc-401a-a403-c7ffdd4bf8d1",
+    "time": 2
+  },
+  "solid-principles": {
+    "title": "Unleashing the Power of SOLID Principles for Robust Code",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_construction.jpg",
+    "date": "03/07/2023",
+    "tags": [
+      "design-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/d51b8a76-e0a9-4553-9d7c-8468331b9cf9",
+    "time": 2
+  }
+}

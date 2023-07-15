@@ -33,7 +33,7 @@ $my-custom-level: mat.define-typography-level(
   $letter-spacing: normal,
 );
 
-@include mat.all-component-themes($my-dark-theme);
+@include mat.all-component-themes($my-light-theme);
 
 @include mat.strong-focus-indicators-theme(rgb(75, 134, 168));
 

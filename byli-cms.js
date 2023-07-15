@@ -35,7 +35,7 @@ function getMarkdownFiles(mdPath) {
 }
 
 function validateJson(jsonObj) {
-  const requiredAttributes = ['title', 'author', 'route', 'thumb', 'year', 'tags'];
+  const requiredAttributes = ['title', 'author', 'route', 'thumb', 'date', 'tags'];
 
   for (const attribute of requiredAttributes) {
     if (!(attribute in jsonObj)) {
@@ -48,7 +48,7 @@ function validateJson(jsonObj) {
     typeof jsonObj.author !== 'string' ||
     typeof jsonObj.route !== 'string' ||
     typeof jsonObj.thumb !== 'string' ||
-    typeof jsonObj.year !== 'number' ||
+    typeof jsonObj.date !== 'string' ||
     !Array.isArray(jsonObj.tags)
   ) {
     throw new Error(`Invalid JSON object: ${jsonObj}`);
