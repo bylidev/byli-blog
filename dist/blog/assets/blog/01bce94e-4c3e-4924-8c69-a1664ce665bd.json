@@ -5,7 +5,7 @@
     "thumb": "/assets/blog/images/thumb_log_data.webp",
     "date": "2023",
     "tags": [],
-    "md": "/assets/blog/a40c90f9-6b5e-4b01-ad9f-fcfd9cd2dd02",
+    "md": "/assets/blog/bde5020a-ccc7-4c8d-ae3b-673332ef9ed7",
     "time": 2
   },
   "a-clean-architecture-journey": {
@@ -16,7 +16,7 @@
     "tags": [
       "go"
     ],
-    "md": "/assets/blog/34185f4a-c8ae-4eba-ad91-84b338e9a778",
+    "md": "/assets/blog/f98d6cb0-c054-4ade-a372-a59ade075a9f",
     "time": 2
   },
   "k8s-cronjob": {
@@ -27,7 +27,7 @@
     "tags": [
       "k8s"
     ],
-    "md": "/assets/blog/a7208329-9224-456a-aaa8-6251b343beb2",
+    "md": "/assets/blog/c059a396-a31e-487d-92b2-1d9dae9c41ba",
     "time": 2
   },
   "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
@@ -40,7 +40,7 @@
       "logs",
       "k8s"
     ],
-    "md": "/assets/blog/4f224821-5943-4cea-876b-54fd8f87b5ef",
+    "md": "/assets/blog/04f442f4-8e1c-4120-86bc-7ddae1d0080f",
     "time": 2
   },
   "class-diagram": {
@@ -52,7 +52,7 @@
       "design-patterns",
       "oop"
     ],
-    "md": "/assets/blog/5810a0fa-6133-4c7a-b321-fbafd68fa579",
+    "md": "/assets/blog/5e059555-d194-47bc-ba6b-f0cf738382d5",
     "time": 2
   },
   "oop-pilars": {
@@ -64,7 +64,7 @@
       "design-patterns",
       "oop"
     ],
-    "md": "/assets/blog/c594f8d1-0abc-401a-a403-c7ffdd4bf8d1",
+    "md": "/assets/blog/c4f995d2-f07c-401a-b71d-cb8a2e6eb98c",
     "time": 2
   },
   "solid-principles": {
@@ -76,7 +76,7 @@
       "design-patterns",
       "oop"
     ],
-    "md": "/assets/blog/d51b8a76-e0a9-4553-9d7c-8468331b9cf9",
+    "md": "/assets/blog/2ad9a1a6-51a6-4021-b9ea-42c760bf9bf8",
     "time": 2
   }
 }
