@@ -12,7 +12,7 @@
   <mat-drawer mode="side" #drawer>
     <div class="menu-item">
       <ng-container *ngFor="let item of this.menu | async | keyvalue">
-        <span mat-menu-item (click)="this.router.navigateByUrl('tag/'+item.key)">
+        <span mat-menu-item (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.key)">
           <span>{{item.key}}</span>
         </span>
       </ng-container>

@@ -1,13 +1,10 @@
 @import "src/variables.scss";
 
 :host{
-    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
-    flex-direction: column;
     flex: 1;
     align-items: center;
 }
@@ -17,10 +14,10 @@ markdown{
 
 .content{
     flex: 1;
-    padding: 50px;
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin: auto;
     max-width: $card-max-width * $max-columns + $card-margin * 2 * $max-columns;
     width: $card-max-width * $max-columns + $card-margin * 2 * $max-columns;
     @media (max-width: 800px) {
@@ -32,3 +29,7 @@ markdown{
 
     
 }
+pre{
+    display: flex !important;;
+}
+p{    word-wrap: break-word !important;}

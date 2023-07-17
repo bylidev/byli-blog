@@ -3,7 +3,7 @@
     author: "Ignacio Lopez"
     route: "oop-pilars"
     thumb: "pillars.jpeg"
-    date: "02/07/2023"
+    date: "2023-07-02"
     tags:
     - design-patterns
     - oop

@@ -36,6 +36,7 @@ function getMarkdownFiles(mdPath) {
 
 function validateJson(jsonObj) {
   const requiredAttributes = ['title', 'author', 'route', 'thumb', 'date', 'tags'];
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // Expresión regular para validar el formato yyyy-mm-dd
 
   for (const attribute of requiredAttributes) {
     if (!(attribute in jsonObj)) {
@@ -49,9 +50,10 @@ function validateJson(jsonObj) {
     typeof jsonObj.route !== 'string' ||
     typeof jsonObj.thumb !== 'string' ||
     typeof jsonObj.date !== 'string' ||
+    !dateRegex.test(jsonObj.date) || // Validar el formato de la fecha
     !Array.isArray(jsonObj.tags)
   ) {
-    throw new Error(`Invalid JSON object: ${jsonObj}`);
+    throw new Error(`Invalid JSON object: ${JSON.stringify(jsonObj)}`);
   }
 
   console.log('JSON object is valid.');
@@ -92,12 +94,19 @@ async function createManifest(fileDataArray, idxTagFilePath) {
   const idxByTags = {};
   const menuTags = {};
 
-  for (const fileData of fileDataArray) {
+  // Ordenar el arreglo fileDataArray por fecha de creación descendente
+  const sortedFileDataArray = fileDataArray.sort((a, b) => {
+    const dateA = new Date(a.data.date);
+    const dateB = new Date(b.data.date);
+    return dateB - dateA;
+  });
+
+  for (const fileData of sortedFileDataArray) {
     const { data, filePath, uuid, route, fileContent } = fileData;
 
     idx_all[route] = data;
 
-    // Create index by tags
+    // Crear índice por tags
     for (const tag of data.tags) {
       if (!idxByTags[tag]) {
         idxByTags[tag] = {};
@@ -105,7 +114,7 @@ async function createManifest(fileDataArray, idxTagFilePath) {
       idxByTags[tag][route] = data;
     }
 
-    // Copy the clean Markdown content to another directory
+    // Copiar el contenido Markdown limpio a otro directorio
     const cleanMdContent = matter(fileContent).content.replace(/\(\.\/images/g, '(' + imagesDir.replace('./src', ''));
     const cleanMdFilePath = path.join(entryPath, uuid);
     await fs.ensureFile(cleanMdFilePath);
@@ -113,7 +122,7 @@ async function createManifest(fileDataArray, idxTagFilePath) {
   }
 
   const uuid = uuidv4();
-  menuTags['home'] = idxTagFilePath.replace('{uuid}', uuid).replace('./src', '');
+  menuTags['all'] = idxTagFilePath.replace('{uuid}', uuid).replace('./src', '');
   const jsonData = JSON.stringify(idx_all, null, 2);
   await fs.writeFile(idxTagFilePath.replace('{uuid}', uuid), jsonData, 'utf8');
   console.log(`JSON file ${idxTagFilePath} created successfully.`);
@@ -130,7 +139,6 @@ async function createManifest(fileDataArray, idxTagFilePath) {
   await fs.writeFile(menuByTags, jsonDataMenu, 'utf8');
   console.log(`JSON file ${menuByTags} created successfully.`);
 }
-
 /**
  * Image processing script.
  */
@@ -140,15 +148,36 @@ async function processImageDirectory(directory, outputDirectory, sizes, prefix =
 
     for (const file of files) {
       const imagePath = path.join(directory, file);
+      const imageInfo = await sharp(imagePath).metadata();
+      const originalWidth = imageInfo.width;
 
       for (const size of sizes) {
         const newImagePath = path.join(outputDirectory, prefix + file);
 
-        try {
-          await sharp(imagePath).resize(size).toFile(newImagePath);
-          console.log(`${newImagePath} generated successfully.`);
-        } catch (error) {
-          console.error(`Error generating ${size}px image:`, error);
+        if (originalWidth > size) {
+          try {
+            await sharp(imagePath).resize(size).toFile(newImagePath);
+            console.log(`${newImagePath} generated successfully.`);
+          } catch (error) {
+            console.error(`Error generating ${size}px image:`, error);
+          }
+        } else {
+          try {
+            const backgroundColor = { r: 0, g: 0, b: 0, alpha: 0 }; // Fondo transparente
+            await sharp({
+              create: {
+                width: size,
+                height: imageInfo.height,
+                channels: 4, // RGBA
+                background: backgroundColor
+              }
+            }).composite([{ input: imagePath, gravity: 'center' }])
+              .png()
+              .toFile(newImagePath);
+            console.log(`${newImagePath} with transparent background generated successfully.`);
+          } catch (error) {
+            console.error(`Error generating ${size}px image with transparent background:`, error);
+          }
         }
       }
     }
@@ -156,6 +185,8 @@ async function processImageDirectory(directory, outputDirectory, sizes, prefix =
     console.error('Error reading image directory:', error);
   }
 }
+
+
 
 /**
  * Byli CMS builder.

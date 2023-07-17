@@ -3,7 +3,7 @@ title: "Unifying Log Management: A Guide to Ingesting, Storing, and Visualizing 
 author: "Ignacio Lopez"
 route: "how-to-digest-data-with-loki-and-recover-it-with-graphana"
 thumb: "log_data.webp"
-date: "2023"
+date: "2023-07-11"
 tags:
   - homelab
   - logs

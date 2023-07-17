@@ -1,12 +1,11 @@
 <div class="content">
-    <ng-container *ngFor="let key of manifestMap | async | keyvalue">
-        <mat-card *ngIf="key.value.tags.length>0">
-            <mat-card-content (click)="this.router.navigateByUrl(key.key)">
-                <img src="{{ key.value.thumb }}" alt="image" class="image">
-                <h2>{{ key.value.title }}</h2>
-                <span>{{ key.value.time }} min reading</span>
-            </mat-card-content>
-        </mat-card>
+    <ng-container *ngFor="let entry of (manifestMap | async)?.toArray()">
+      <mat-card *ngIf="entry[1].tags.length > 0">
+        <mat-card-content (click)="router.navigateByUrl(entry[0])">
+          <img [src]="entry[1].thumb" alt="image" class="image">
+          <h2>{{ entry[1].title }}</h2>
+          <span>{{ entry[1].time }} min reading</span>
+        </mat-card-content>
+      </mat-card>
     </ng-container>
-   
 </div>

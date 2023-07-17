@@ -3,7 +3,7 @@
     author: "Ignacio Lopez"
     route: "class-diagram"
     thumb: "class-diagram.webp"
-    date: "01/07/2023"
+    date: "2023-07-01"
     tags:
     - design-patterns
     - oop

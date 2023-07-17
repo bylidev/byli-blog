@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { OrderedMap } from 'immutable';
 
 export interface Manifest {
   title: string;
@@ -21,18 +22,18 @@ export class ManifestService {
 
   constructor(private http: HttpClient) {}
 
-  getManifest(): Subject<Map<string, Manifest>> {
-    return this.getManifestData('home');
+  getManifest(): Subject<OrderedMap<string, Manifest>> {
+    return this.getManifestData('all');
   }
 
-  getManifestByTag(tag: string): Observable<Map<string, Manifest>> {
+  getManifestByTag(tag: string): Observable<OrderedMap<string, Manifest>> {
     return this.getManifestData(tag);
   }
 
   getManifestValue(key: string): Observable<Manifest> {
-    return this.getManifestData('home').pipe(
+    return this.getManifestData('all').pipe(
       map((manifestData: any) => {
-        const value = manifestData[key];
+        const value = manifestData.get(key);
         if (!value) {
           throw new Error(`Manifest key '${key}' not found.`);
         }
@@ -44,16 +45,22 @@ export class ManifestService {
       })
     );
   }
-  private getManifestData(key: string): Subject<Map<string, Manifest>> {
-    const response = new Subject<Map<string, Manifest>>();
-    this.http.get(this.menUrl).subscribe((data: any) => {
-      this.http
-        .get<any>(data[key])
-        .subscribe((manifestData: Map<string, Manifest>) => {
-          response.next(manifestData);
-          response.complete();
-        });
-    });
+  private getManifestData(key: string): Subject<OrderedMap<string, Manifest>> {
+    const response = new Subject<OrderedMap<string, Manifest>>();
+    const headers = new HttpHeaders().set('Cache-Control', 'max-age=3600'); // Configurar tiempo de caché en segundos (1 hora)
+
+    this.http
+      .get(this.menUrl, { headers, responseType: 'json' })
+      .subscribe((data: any) => {
+        this.http
+          .get<any>(data[key], { headers, responseType: 'json' })
+          .subscribe((manifestData: any) => {
+            const orderedMap = OrderedMap<string, Manifest>(manifestData);
+            response.next(orderedMap);
+            response.complete();
+          });
+      });
+
     return response;
   }
 }

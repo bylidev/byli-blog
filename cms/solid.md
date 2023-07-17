@@ -3,7 +3,7 @@
     author: "Ignacio Lopez"
     route: "solid-principles"
     thumb: "construction.jpg"
-    date: "03/07/2023"
+    date: "2023-07-03"
     tags:
     - design-patterns
     - oop

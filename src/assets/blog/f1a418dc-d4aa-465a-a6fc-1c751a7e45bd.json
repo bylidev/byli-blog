@@ -3,11 +3,11 @@
     "title": "Diving Deep into Hexagonal Architecture with Go: Building Modular and Testable Systems",
     "author": "Ignacio Lopez",
     "thumb": "/assets/blog/images/thumb_go.png",
-    "date": "15/07/2023",
+    "date": "2023-07-09",
     "tags": [
       "go"
     ],
-    "md": "/assets/blog/34185f4a-c8ae-4eba-ad91-84b338e9a778",
+    "md": "/assets/blog/8c467bf3-edcf-4f51-bfeb-dcc770623167",
     "time": 2
   }
 }

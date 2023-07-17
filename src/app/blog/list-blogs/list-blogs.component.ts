@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrderedMap } from 'immutable';
 import { Observable, Subject } from 'rxjs';
 import { Manifest, ManifestService } from 'src/service/manifest.service';
 
@@ -10,8 +11,8 @@ import { Manifest, ManifestService } from 'src/service/manifest.service';
 })
 export class ListBlogsComponent {
   router: Router;
-  manifestMap: Subject<Map<string, Manifest>> = new Subject<
-    Map<string, Manifest>
+  manifestMap: Subject<OrderedMap<string, Manifest>> = new Subject<
+    OrderedMap<string, Manifest>
   >();
   constructor(
     private manifestService: ManifestService,
@@ -25,13 +26,13 @@ export class ListBlogsComponent {
       if (params['tag'] != null) {
         this.manifestService
           .getManifestByTag(params['tag'])
-          .subscribe((data: Map<string, Manifest>) => {
+          .subscribe((data: OrderedMap<string, Manifest>) => {
             this.manifestMap.next(data);
           });
       } else {
         this.manifestService
           .getManifest()
-          .subscribe((data: Map<string, Manifest>) => {
+          .subscribe((data: OrderedMap<string, Manifest>) => {
             this.manifestMap.next(data);
           });
       }
