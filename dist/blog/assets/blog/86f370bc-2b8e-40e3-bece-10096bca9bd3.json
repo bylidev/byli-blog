@@ -1,0 +1,82 @@
+{
+  "404": {
+    "title": "Not found page !",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "date": "2023-01-01",
+    "tags": [],
+    "md": "/assets/blog/1a4fb8b1-54bd-4394-81df-ff8852b7c140",
+    "time": 1
+  },
+  "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
+    "title": "Unifying Log Management: A Guide to Ingesting, Storing, and Visualizing Logs from Various Applications",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "date": "2023-07-11",
+    "tags": [
+      "homelab",
+      "logs",
+      "k8s"
+    ],
+    "md": "/assets/blog/ba1862ab-0bc0-41c4-8055-163ca20bc221",
+    "time": 6
+  },
+  "k8s-cronjob": {
+    "title": "Resilient CronJob-based Webhook in K8S for Distributed services",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_time.jpg",
+    "date": "2023-07-10",
+    "tags": [
+      "k8s"
+    ],
+    "md": "/assets/blog/2f1e8b93-7db5-428a-948d-ff4de07ec84b",
+    "time": 1
+  },
+  "a-clean-architecture-journey": {
+    "title": "Diving Deep into Hexagonal Architecture with Go: Building Modular and Testable Systems",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_go.png",
+    "date": "2023-07-09",
+    "tags": [
+      "go"
+    ],
+    "md": "/assets/blog/5e8ba8f1-a594-4d4b-b8f0-fe03ca447ef4",
+    "time": 1
+  },
+  "solid-principles": {
+    "title": "Unleashing the Power of SOLID Principles for Robust Code",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_construction.jpg",
+    "date": "2023-07-03",
+    "tags": [
+      "design-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/9bed6a57-f858-4ccf-a8d8-d2a27eeed2ba",
+    "time": 3
+  },
+  "oop-pilars": {
+    "title": "Exploring the Core Principles of Object-Oriented Programming: The Pillars of OOP",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_pillars.jpeg",
+    "date": "2023-07-02",
+    "tags": [
+      "design-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/52a8aac5-d0b8-4b3a-a0a5-863ab7e91e4a",
+    "time": 3
+  },
+  "class-diagram": {
+    "title": "Understanding Class Diagrams: Visualizing Relationships and Structure in Object-Oriented Systems",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_class-diagram.webp",
+    "date": "2023-07-01",
+    "tags": [
+      "design-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/577743ef-c917-4ef8-a5da-ff2e87fe4113",
+    "time": 3
+  }
+}
