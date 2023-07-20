@@ -1,9 +1,9 @@
 {
-  "all": "/assets/blog/12992e7e-16c8-4452-b7af-27c54609337d.json",
-  "homelab": "/assets/blog/75adf79c-3a15-4f1d-87ce-55e04d781af7.json",
-  "logs": "/assets/blog/2a622752-c76c-4fa0-9147-4c40218ee01e.json",
-  "k8s": "/assets/blog/64671b3a-fbe3-40f6-bb21-d8332cae5b7c.json",
-  "go": "/assets/blog/f1a418dc-d4aa-465a-a6fc-1c751a7e45bd.json",
-  "design-patterns": "/assets/blog/4e12057b-5c83-45d5-b186-1572cddb5bea.json",
-  "oop": "/assets/blog/4a8702c5-dcde-487c-838e-b9dace7ebeae.json"
+  "all": "/assets/blog/86f370bc-2b8e-40e3-bece-10096bca9bd3.json",
+  "homelab": "/assets/blog/7721dd28-0f3f-4949-a1b5-235c87739278.json",
+  "logs": "/assets/blog/1dc09c9f-bd2a-4d97-b925-4cd677241d9b.json",
+  "k8s": "/assets/blog/0efcf043-c3f7-435a-a2e5-a7316e3a09b5.json",
+  "go": "/assets/blog/9330bc8f-1ca8-49c9-a596-f11cc3605207.json",
+  "design-patterns": "/assets/blog/52fa20a4-c8bc-4ba1-b279-fce13282d5c0.json",
+  "oop": "/assets/blog/f36223c1-05db-4e9a-9c5d-318f563f4910.json"
 }

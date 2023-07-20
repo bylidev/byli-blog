@@ -67,7 +67,7 @@ async function processFile(filePath, imagesDir, entryPath) {
   data.thumb = path.join(imagesDir.replace('./src', ''), 'thumb_' + data.thumb);
   const uuid = uuidv4();
   data.md = path.join(entryPath.replace('./src', ''), uuid);
-  data.time = 2; // todo: get time from md
+  data.time = Math.ceil(fileContent.length/1000); // todo: get time from md
 
   const route = data.route;
   data.route = undefined;

@@ -5,8 +5,8 @@
     "thumb": "/assets/blog/images/thumb_log_data.webp",
     "date": "2023-01-01",
     "tags": [],
-    "md": "/assets/blog/81b28f21-d2bb-468a-af1f-83fccaf09f36",
-    "time": 2
+    "md": "/assets/blog/1a4fb8b1-54bd-4394-81df-ff8852b7c140",
+    "time": 1
   },
   "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
     "title": "Unifying Log Management: A Guide to Ingesting, Storing, and Visualizing Logs from Various Applications",
@@ -18,8 +18,8 @@
       "logs",
       "k8s"
     ],
-    "md": "/assets/blog/8b0441f4-34ad-48d9-b509-2c13f3cb6d09",
-    "time": 2
+    "md": "/assets/blog/ba1862ab-0bc0-41c4-8055-163ca20bc221",
+    "time": 6
   },
   "k8s-cronjob": {
     "title": "Resilient CronJob-based Webhook in K8S for Distributed services",
@@ -29,8 +29,8 @@
     "tags": [
       "k8s"
     ],
-    "md": "/assets/blog/d5a9ebde-254c-410c-babb-d54656d3c3d1",
-    "time": 2
+    "md": "/assets/blog/2f1e8b93-7db5-428a-948d-ff4de07ec84b",
+    "time": 1
   },
   "a-clean-architecture-journey": {
     "title": "Diving Deep into Hexagonal Architecture with Go: Building Modular and Testable Systems",
@@ -40,8 +40,8 @@
     "tags": [
       "go"
     ],
-    "md": "/assets/blog/8c467bf3-edcf-4f51-bfeb-dcc770623167",
-    "time": 2
+    "md": "/assets/blog/5e8ba8f1-a594-4d4b-b8f0-fe03ca447ef4",
+    "time": 1
   },
   "solid-principles": {
     "title": "Unleashing the Power of SOLID Principles for Robust Code",
@@ -52,8 +52,8 @@
       "design-patterns",
       "oop"
     ],
-    "md": "/assets/blog/0b0b7006-10c7-4ccd-9803-c234fcd31251",
-    "time": 2
+    "md": "/assets/blog/9bed6a57-f858-4ccf-a8d8-d2a27eeed2ba",
+    "time": 3
   },
   "oop-pilars": {
     "title": "Exploring the Core Principles of Object-Oriented Programming: The Pillars of OOP",
@@ -64,8 +64,8 @@
       "design-patterns",
       "oop"
     ],
-    "md": "/assets/blog/4622b3f0-d6dc-4163-a062-a2b324bc37ea",
-    "time": 2
+    "md": "/assets/blog/52a8aac5-d0b8-4b3a-a0a5-863ab7e91e4a",
+    "time": 3
   },
   "class-diagram": {
     "title": "Understanding Class Diagrams: Visualizing Relationships and Structure in Object-Oriented Systems",
@@ -76,7 +76,7 @@
       "design-patterns",
       "oop"
     ],
-    "md": "/assets/blog/c6616a39-16f3-4818-ae5f-0cffee60dc13",
-    "time": 2
+    "md": "/assets/blog/577743ef-c917-4ef8-a5da-ff2e87fe4113",
+    "time": 3
   }
 }

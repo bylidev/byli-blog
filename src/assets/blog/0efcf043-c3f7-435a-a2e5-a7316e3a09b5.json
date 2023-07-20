@@ -9,8 +9,8 @@
       "logs",
       "k8s"
     ],
-    "md": "/assets/blog/8b0441f4-34ad-48d9-b509-2c13f3cb6d09",
-    "time": 2
+    "md": "/assets/blog/ba1862ab-0bc0-41c4-8055-163ca20bc221",
+    "time": 6
   },
   "k8s-cronjob": {
     "title": "Resilient CronJob-based Webhook in K8S for Distributed services",
@@ -20,7 +20,7 @@
     "tags": [
       "k8s"
     ],
-    "md": "/assets/blog/d5a9ebde-254c-410c-babb-d54656d3c3d1",
-    "time": 2
+    "md": "/assets/blog/2f1e8b93-7db5-428a-948d-ff4de07ec84b",
+    "time": 1
   }
 }
