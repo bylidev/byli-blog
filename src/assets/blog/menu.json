@@ -1,0 +1,15 @@
+{
+  "all": "/assets/blog/bcb8245e-246c-464f-b3ed-ac09cd696535.json",
+  "homelab": "/assets/blog/a1cdd962-5185-47ee-9d55-9d99f506ae12.json",
+  "logs": "/assets/blog/edb507ce-50e8-432f-bd1a-7fa8b1962944.json",
+  "k8s": "/assets/blog/82ce2a06-3200-431c-8b93-30647f0793da.json",
+  "go": "/assets/blog/9eb4caf8-0297-4162-a10e-fc55d1678bc7.json",
+  "design-patterns": "/assets/blog/d7a38d37-afce-4e92-a231-79b103085a47.json",
+  "integrations": "/assets/blog/22443436-cdaa-4f13-80e7-6dccbb419d20.json",
+  "telegram": "/assets/blog/e64f2caa-3f4f-4939-bb45-e9f5777c7f36.json",
+  "git": "/assets/blog/835ce134-8a2e-41f7-b860-5d65c5f764e5.json",
+  "structural-patterns": "/assets/blog/1637aeb5-d0b1-4acf-acb0-55371790c431.json",
+  "oop": "/assets/blog/cff43e22-5ac0-48f3-839a-e5046afc7574.json",
+  "creational-patterns": "/assets/blog/9297962d-893e-49ba-8807-f7adee2219f6.json",
+  "behavioral-patterns": "/assets/blog/a49a2d4c-52e1-4dd0-a37e-c17428751219.json"
+}
