@@ -1,11 +1,15 @@
 {
-  "name": "blog",
-  "version": "0.0.0",
+  "name": "byli.dev",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=18.16.0",
+    "npm": ">=9.5.1"
+  },
   "scripts": {
     "prebuild": "node ./byli-cms.js",
     "ng": "ng",
     "start": "ng serve",
-    "build": "node ./byli-cms.js && sng build",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
