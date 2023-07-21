@@ -1,0 +1,108 @@
+{
+  "proxy": {
+    "title": "Proxy Pattern : Controlling Object Access",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_proxy.jpg",
+    "date": "2023-07-06",
+    "tags": [
+      "design-patterns",
+      "structural-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/1ad34cf5-32c1-400e-9dc2-869fa935bc98",
+    "time": 4
+  },
+  "flyweight": {
+    "title": "Flyweight Pattern: Optimizing Memory Usage and Performance",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_flyweight.webp",
+    "date": "2023-07-04",
+    "tags": [
+      "design-patterns",
+      "structural-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/aef6a81a-6708-43d7-83c1-74764be03374",
+    "time": 4
+  },
+  "facade": {
+    "title": "Facade Pattern: Simplifying Complex Systems",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_evil_kermit.png",
+    "date": "2023-07-03",
+    "tags": [
+      "design-patterns",
+      "structural-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/fb8e278d-f704-4c79-bd1f-1bdd9b368db3",
+    "time": 4
+  },
+  "decorator-pattern": {
+    "title": "Decorator Pattern: Adding Flexible Behaviors to Objects",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_decorator-pattern.jpg",
+    "date": "2023-07-02",
+    "tags": [
+      "design-patterns",
+      "structural-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/912cbec0-1343-4e14-9472-07ef1fc88069",
+    "time": 4
+  },
+  "composite-pattern": {
+    "title": "Composite Pattern: Building Tree-like Structures",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_composite.jpg",
+    "date": "2023-07-01",
+    "tags": [
+      "design-patterns",
+      "structural-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/79c42d7a-76ed-44be-912f-a922c0637a1b",
+    "time": 4
+  },
+  "bridge-pattern": {
+    "title": "Bridge Pattern: Building Flexible and Efficient Abstractions",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_bridge.jpg",
+    "date": "2023-06-30",
+    "tags": [
+      "design-patterns",
+      "structural-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/2aaa3914-1e51-4b49-8ec5-55d1ebfff8f7",
+    "time": 4
+  },
+  "adapter": {
+    "title": "Adapter Pattern: Bridging Incompatible Interfaces",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_adapter.jpg",
+    "date": "2023-06-29",
+    "tags": [
+      "design-patterns",
+      "structural-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/6b1df0b4-0087-4e9f-a767-ea7c2eec6af8",
+    "time": 2
+  },
+  "what-is-a-design-pattern": {
+    "title": "Design Patterns: High-Level Solutions to Common Problems",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_design-patterns.png",
+    "date": "2023-06-23",
+    "tags": [
+      "design-patterns",
+      "creational-patterns",
+      "structural-patterns",
+      "behavioral-patterns",
+      "oop"
+    ],
+    "md": "/assets/blog/1a0b9035-d7d6-47da-abdb-18e2ccb2bf01",
+    "time": 3
+  }
+}

@@ -4,7 +4,7 @@ const yaml = require('js-yaml');
 const matter = require('gray-matter');
 const fs = require('fs-extra');
 const { v4: uuidv4 } = require('uuid');
-
+const { create, fragment } = require('xmlbuilder2');
 const imgSrc = './cms/images';
 const mdPath = './cms';
 
@@ -121,12 +121,13 @@ async function createManifest(fileDataArray, idxTagFilePath) {
     await fs.writeFile(cleanMdFilePath, cleanMdContent, 'utf8');
   }
 
+  await createSitemapWithKeywords(idx_all);
+
   const uuid = uuidv4();
   menuTags['all'] = idxTagFilePath.replace('{uuid}', uuid).replace('./src', '');
   const jsonData = JSON.stringify(idx_all, null, 2);
   await fs.writeFile(idxTagFilePath.replace('{uuid}', uuid), jsonData, 'utf8');
   console.log(`JSON file ${idxTagFilePath} created successfully.`);
-
   for (const tag of Object.keys(idxByTags)) {
     const uuid = uuidv4();
     menuTags[tag] = idxTagFilePath.replace('{uuid}', uuid).replace('./src', '');
@@ -185,9 +186,50 @@ async function processImageDirectory(directory, outputDirectory, sizes, prefix =
     console.error('Error reading image directory:', error);
   }
 }
+/**
+ * Site.xml generation.
+ */
+async function createSitemapWithKeywords(urlObjectMap) {
+  const xml = create({ encoding: 'UTF-8' }).ele('urlset', { xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' });
 
+  for (const [route, obj] of Object.entries(urlObjectMap)) {
+    const { title, author, thumb, date, tags } = obj;
+    const loc = `https://byli.dev/${route}`; // Reemplaza 'example.com' con tu dominio real o URL base
+    const lastmod = date; // Asignamos la fecha de última modificación directamente
 
+    const urlElement = xml.ele('url');
+    urlElement.ele('loc').txt(loc);
+    urlElement.ele('lastmod').txt(lastmod);
 
+    if (tags && tags.length > 0) {
+      const keywordsElement = urlElement.ele('keywords');
+      for (const tag of tags) {
+        keywordsElement.ele('keyword').txt(tag);
+      }
+    }
+
+    if (title) {
+      urlElement.ele('title').txt(title);
+    }
+
+    if (author) {
+      urlElement.ele('author').txt(author);
+    }
+
+    if (thumb) {
+      urlElement.ele('thumb').txt(thumb);
+    }
+  }
+
+  const sitemapContent = xml.end({ prettyPrint: true });
+
+  try {
+    await fs.writeFile('./src/sitemap.xml', sitemapContent, 'utf8');
+    console.log('Sitemap file "sitemap.xml" created successfully.');
+  } catch (error) {
+    console.error('Error creating sitemap:', error);
+  }
+}
 /**
  * Byli CMS builder.
  */

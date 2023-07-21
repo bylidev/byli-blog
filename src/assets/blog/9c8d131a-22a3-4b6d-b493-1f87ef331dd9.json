@@ -1,0 +1,15 @@
+{
+  "how-to-digest-data-with-loki-and-recover-it-with-graphana": {
+    "title": "Unifying Log Management: A Guide to Ingesting, Storing, and Visualizing Logs from Various Applications",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_log_data.webp",
+    "date": "2023-07-11",
+    "tags": [
+      "homelab",
+      "logs",
+      "k8s"
+    ],
+    "md": "/assets/blog/de9b3839-f361-4893-8007-993b6372a57c",
+    "time": 6
+  }
+}

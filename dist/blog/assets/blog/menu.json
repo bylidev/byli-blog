@@ -1,9 +1,15 @@
 {
-  "all": "/assets/blog/86f370bc-2b8e-40e3-bece-10096bca9bd3.json",
-  "homelab": "/assets/blog/7721dd28-0f3f-4949-a1b5-235c87739278.json",
-  "logs": "/assets/blog/1dc09c9f-bd2a-4d97-b925-4cd677241d9b.json",
-  "k8s": "/assets/blog/0efcf043-c3f7-435a-a2e5-a7316e3a09b5.json",
-  "go": "/assets/blog/9330bc8f-1ca8-49c9-a596-f11cc3605207.json",
-  "design-patterns": "/assets/blog/52fa20a4-c8bc-4ba1-b279-fce13282d5c0.json",
-  "oop": "/assets/blog/f36223c1-05db-4e9a-9c5d-318f563f4910.json"
+  "all": "/assets/blog/eaca5ef6-2ac1-494f-ad58-3c88bda5766c.json",
+  "homelab": "/assets/blog/9c8d131a-22a3-4b6d-b493-1f87ef331dd9.json",
+  "logs": "/assets/blog/dbeb6ec5-065e-4ce3-a44b-1c86c425db36.json",
+  "k8s": "/assets/blog/7fb601c3-c826-47e0-b7f0-c6f3acf013c4.json",
+  "go": "/assets/blog/74bd351b-8b78-482f-8b94-439cac60893c.json",
+  "design-patterns": "/assets/blog/27b32702-cb70-49ae-a4c4-a560e3b89432.json",
+  "integrations": "/assets/blog/a992c04a-e2e6-49ab-91cf-dde49d3975e9.json",
+  "telegram": "/assets/blog/c1f400b2-1282-42be-906f-4da687a38793.json",
+  "git": "/assets/blog/a4b7de83-e2b3-426a-ae39-7c18f4efb76c.json",
+  "structural-patterns": "/assets/blog/9241f038-6541-4af7-82a5-85ad0f23aba7.json",
+  "oop": "/assets/blog/c76de794-a73d-48c8-b55a-4e9998b9e769.json",
+  "creational-patterns": "/assets/blog/ace69a5b-2e90-41bf-8f09-9c6532642eee.json",
+  "behavioral-patterns": "/assets/blog/3d0891b6-1de5-4fd5-9eaf-b57161c90306.json"
 }

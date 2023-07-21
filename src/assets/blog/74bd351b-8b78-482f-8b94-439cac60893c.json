@@ -1,0 +1,14 @@
+{
+  "a-clean-architecture-journey": {
+    "title": "Diving Deep into Hexagonal Architecture with Go: Building Modular and Testable Systems",
+    "author": "Ignacio Lopez",
+    "thumb": "/assets/blog/images/thumb_go.png",
+    "date": "2023-07-09",
+    "tags": [
+      "go",
+      "design-patterns"
+    ],
+    "md": "/assets/blog/7f382a64-c322-423d-a156-791012cef1c1",
+    "time": 5
+  }
+}
