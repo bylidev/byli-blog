@@ -1,5 +1,5 @@
 ---
-title: " Introducing Byli-CMS - A Lightweight non-overkill Open-Source Serverless Solution"
+title: " Introducing Byli-CMS - An angular based Lightweight, non-overkill, Open-Source, Serverless Solution"
 author: "Ignacio Lopez"
 route: "byli-cms"
 thumb: "open-source.jpeg"
@@ -11,7 +11,7 @@ tags:
 
 ![](./cms/images/open-source.jpeg)
 
-Welcome to BYLI-CMS, a lightweight, serverless, scalable, opensource and easily maintainable CMS built for personal blogs. This CMS is designed to be easily deployable on various platforms, including GitLab Pages, GitHub Pages, or Cloudflare Pages. Powered by Angular, it offers high customizability and seamless integration with modern web technologies. Let's dive into its features:
+BYLI-CMS is an Angular based cms for lightweight, serverless, scalable, opensource and easily maintainable CMS built for personal blogs. This CMS is designed to be easily deployable on various platforms, including GitLab Pages, GitHub Pages, or Cloudflare Pages. Powered by Angular, it offers high customizability and seamless integration with modern web technologies. Let's dive into its features:
 
 ## Features:
 
@@ -75,7 +75,7 @@ Your blog will look great on all devices, thanks to the CMS's responsive design 
 
 ## Live Examples
 ![](./cms/images/byli.jpg)
-- [Byli blog](https://byli.dev)
+- [Byli blog](https://cms.byli.dev)
 
 Now, you have a fully functional Personal Blog CMS running on Angular, ready to share your thoughts with the world!
 
