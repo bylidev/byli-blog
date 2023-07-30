@@ -9,7 +9,7 @@ tags:
 ---
 # BYLI-CMS
 
-![](./cms/images/open-source.jpeg)
+![](./images/open-source.jpeg)
 
 BYLI-CMS is an Angular based cms for lightweight, serverless, scalable, opensource and easily maintainable CMS built for personal blogs. This CMS is designed to be easily deployable on various platforms, including GitLab Pages, GitHub Pages, or Cloudflare Pages. Powered by Angular, it offers high customizability and seamless integration with modern web technologies. Let's dive into its features:
 
