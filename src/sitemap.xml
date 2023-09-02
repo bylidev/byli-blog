@@ -8,6 +8,26 @@
     <thumb>/assets/blog/images/thumb_log_data.webp</thumb>
   </url>
   <url>
+    <loc>https://byli.dev/socks5-proxy</loc>
+    <lastmod>2023-09-02</lastmod>
+    <keywords>
+      <keyword>hacks</keyword>
+    </keywords>
+    <title>Building a SOCKS5 Proxy with Tor and Docker: A Step-by-Step Guide</title>
+    <author>Ignacio Lopez</author>
+    <thumb>/assets/blog/images/thumb_anon.jpg</thumb>
+  </url>
+  <url>
+    <loc>https://byli.dev/byli-cms</loc>
+    <lastmod>2023-07-30</lastmod>
+    <keywords>
+      <keyword>cms</keyword>
+    </keywords>
+    <title> Introducing Byli-CMS - An angular based Lightweight, non-overkill, Open-Source, Serverless Solution</title>
+    <author>Ignacio Lopez</author>
+    <thumb>/assets/blog/images/thumb_open-source.jpeg</thumb>
+  </url>
+  <url>
     <loc>https://byli.dev/how-to-digest-data-with-loki-and-recover-it-with-graphana</loc>
     <lastmod>2023-07-11</lastmod>
     <keywords>
@@ -41,7 +61,7 @@
     <thumb>/assets/blog/images/thumb_go.png</thumb>
   </url>
   <url>
-    <loc>https://byli.dev/sending-telgram-messages</loc>
+    <loc>https://byli.dev/sendingjsonCopy code -telgram-messages</loc>
     <lastmod>2023-07-08</lastmod>
     <keywords>
       <keyword>integrations</keyword>
