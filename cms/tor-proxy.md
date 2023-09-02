@@ -18,9 +18,8 @@ A Tor proxy is a SOCKS5 proxy that routes your traffic through the Tor network. 
 
 1.  Create a Dockerfile using the command `nano torproxy` and add the following content:
 
-dockerCopy code
-
-``# Set Alpine as the base image for the Dockerfile
+```docker
+# Set Alpine as the base image for the Dockerfile
 FROM alpine:latest
 
 # Update the package repository and install Tor
@@ -37,7 +36,8 @@ USER tor
 ENTRYPOINT ["tor"]
 
 # Set the default container command
-CMD ["-f", "/etc/tor/torrc"]`` 
+CMD ["-f", "/etc/tor/torrc"]
+``` 
 
 2.  Building the Docker Image:
     
@@ -56,16 +56,14 @@ Let's test whether the proxy is working correctly with some simple `curl` calls.
 
 The request below doesn't go through the proxy and will display your ISP-provided IP address:
 
-jsonCopy code
-
-`$ curl https://check.torproject.org/api/ip
+```json
+$ curl https://check.torproject.org/api/ip
 {"IsTor":false,"IP":"49.30.XX.XX"}` 
-
+```
 Now, if we specify the Tor proxy when making the request, the IP address will be different:
 
-jsonCopy code
-
-`$ curl --socks5 127.0.0.1:9050 https://check.torproject.org/api/ip
+```json
+$ curl --socks5 127.0.0.1:9050 https://check.torproject.org/api/ip
 {"IsTor":true,"IP":"185.220.XXX.XXX"}` 
-
+```
 Also, note the value of `IsTor` in both cases. The service running at `check.torproject.org` can determine whether the traffic was routed through the Tor network.
