@@ -1,5 +1,6 @@
 ---
-title: "Building a SOCKS5 Proxy with Tor and Docker: A Step-by-Step Guide"
+title: "Building a SOCKS5 Proxy with Tor and Docker: A Step-by-Step Guide"jsonCopy code
+
 author: "Ignacio Lopez"
 route: "socks5-proxy"
 thumb: "anon.jpg"
@@ -18,7 +19,7 @@ A Tor proxy is a SOCKS5 proxy that routes your traffic through the Tor network. 
 
 1.  Create a Dockerfile using the command `nano torproxy` and add the following content:
 
-```docker
+```bash
 # Set Alpine as the base image for the Dockerfile
 FROM alpine:latest
 
@@ -41,7 +42,8 @@ CMD ["-f", "/etc/tor/torrc"]
 
 2.  Building the Docker Image:
     
-    Run `docker build -t torproxy -f ./torproxy .` to save a local torproxy image.
+    Run 
+    `docker build -t torproxy -f ./torproxy .` to save a local torproxy image.
     
 
 ## Running the Proxy
@@ -56,13 +58,13 @@ Let's test whether the proxy is working correctly with some simple `curl` calls.
 
 The request below doesn't go through the proxy and will display your ISP-provided IP address:
 
-```json
+```bash
 $ curl https://check.torproject.org/api/ip
 {"IsTor":false,"IP":"49.30.XX.XX"}` 
 ```
 Now, if we specify the Tor proxy when making the request, the IP address will be different:
 
-```json
+```bash
 $ curl --socks5 127.0.0.1:9050 https://check.torproject.org/api/ip
 {"IsTor":true,"IP":"185.220.XXX.XXX"}` 
 ```

@@ -1,7 +1,8 @@
 ---
 title: "A Guide to Sending Telegram Messages"
 author: "Ignacio Lopez"
-route: "sending-telgram-messages"
+route: "sendingjsonCopy code
+-telgram-messages"
 thumb: "telegram.jpg"
 date: "2023-07-08"
 tags:
