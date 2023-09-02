@@ -52,3 +52,17 @@ img{
 p{
   word-wrap: break-word;
 }
+::-webkit-scrollbar {
+  width: 4px;
+  height: 15px;
+}
+
+::-webkit-scrollbar-track-piece  {
+  background-color:#bdc3c7;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  height: 30px;
+  background-color: grey;
+}
+  
