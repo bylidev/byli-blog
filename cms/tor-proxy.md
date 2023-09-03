@@ -20,7 +20,7 @@ A Tor proxy is a SOCKS5 proxy that routes your traffic through the Tor network. 
 
 1.  Create a Dockerfile using the command `nano torproxy` and add the following content:
 
-```bash
+```docker
 # Set Alpine as the base image for the Dockerfile
 FROM alpine:latest
 

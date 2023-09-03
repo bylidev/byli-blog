@@ -19,6 +19,9 @@ mat-drawer{
 mat-drawer-container{
     flex: 1;
 }
+mat-toolbar-row{
+    justify-content: space-between;
+}
 
 .menu-item{
     height: 100%;

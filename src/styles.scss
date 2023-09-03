@@ -68,4 +68,16 @@ h1{
   height: 30px;
   background-color: grey;
 }
-  
+a {
+  text-decoration: none;
+}
+
+/* Estilo para enlaces naranjas */
+a {
+  color: orange;
+}
+
+/* Estilo para enlaces naranjas cuando se están desplazando sobre ellos */
+a:hover {
+  color: darkorange; /* Cambia el color al pasar el mouse sobre el enlace */
+}
