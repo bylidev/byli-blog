@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { List } from 'immutable';
+import { Observable, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,12 @@ import { Observable, of } from 'rxjs';
 export class MenuService {
   constructor(private httpClient: HttpClient) {}
 
-  getMenu(): Observable<Map<string, string>> {
-    return this.httpClient.get<Map<string, string>>('/assets/blog/menu.json');
+  getMenu(): Observable<List<any>> {
+    return this.httpClient.get<List<any>>('/assets/blog/menu.json').pipe(
+      map((response) => {
+        // Realizar la ordenación
+        return response.sort((a, b) => b.size - a.size);
+      })
+    );
   }
 }

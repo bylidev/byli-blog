@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderedMap } from 'immutable';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Manifest, ManifestService } from 'src/service/manifest.service';
 
 @Component({

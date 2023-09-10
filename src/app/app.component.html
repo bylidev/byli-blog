@@ -12,9 +12,10 @@
 <mat-drawer-container autosize>
   <mat-drawer mode="side" #drawer>
     <div class="menu-item">
-      <ng-container *ngFor="let item of this.menu | async | keyvalue">
-        <span mat-menu-item (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.key)">
-          <span>{{item.key}}</span>
+      <ng-container *ngFor="let item of this.menu | async">
+        <span mat-menu-item (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.tag)">
+          <span> {{item.tag}} <mat-icon style="color: orange" *ngIf="item.size>5 && item.size<99999">trending_up</mat-icon></span>
+          
         </span>
       </ng-container>
     </div>

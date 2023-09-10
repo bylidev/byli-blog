@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { List } from 'immutable';
 import { Observable } from 'rxjs';
 import { MenuService } from 'src/service/menu.service';
 
@@ -9,7 +10,7 @@ import { MenuService } from 'src/service/menu.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  menu: Observable<Map<string, string>>;
+  menu: Observable<List<any>>;
   title = 'Byli.dev!';
   router: Router;
 

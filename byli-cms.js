@@ -4,13 +4,14 @@ const yaml = require('js-yaml');
 const matter = require('gray-matter');
 const fs = require('fs-extra');
 const { v4: uuidv4 } = require('uuid');
-const { create, fragment } = require('xmlbuilder2');
+const { create } = require('xmlbuilder2');
 const imgSrc = './cms/images';
 const mdPath = './cms';
 
 const imagesDir = './src/assets/blog/images';
-const entryPath = './src/assets/blog';
-const idxTagFilePath = './src/assets/blog/{uuid}.json';
+const entryPath = './src/assets/blog/posts';
+const metadataPath = './src/assets/blog/metadata';
+const idxTagFilePath = `${metadataPath}/{uuid}.json`;
 const menuByTags = './src/assets/blog/menu.json';
 
 /**
@@ -19,7 +20,12 @@ const menuByTags = './src/assets/blog/menu.json';
 async function purge() {
   try {
     await fs.emptyDir(entryPath);
+    await fs.emptyDir(imagesDir);
+    await fs.emptyDir(metadataPath);
     await fs.mkdir(imagesDir, { recursive: true });
+    await fs.mkdir(entryPath, { recursive: true });
+    await fs.mkdir(metadataPath, { recursive: true });
+
     console.log(`Directory ${entryPath} successfully emptied.`);
     console.log(`Directory ${imagesDir} successfully created`);
   } catch (error) {
@@ -92,7 +98,7 @@ async function processMarkdownFiles(mdPath, imagesDir, entryPath) {
 async function createManifest(fileDataArray, idxTagFilePath) {
   const idx_all = {};
   const idxByTags = {};
-  const menuTags = {};
+  const menuTags = [];
 
   // Ordenar el arreglo fileDataArray por fecha de creación descendente
   const sortedFileDataArray = fileDataArray.sort((a, b) => {
@@ -124,14 +130,20 @@ async function createManifest(fileDataArray, idxTagFilePath) {
   await createSitemapWithKeywords(idx_all);
 
   const uuid = uuidv4();
-  menuTags['all'] = idxTagFilePath.replace('{uuid}', uuid).replace('./src', '');
+  menuTags.push({"tag":"all","route":idxTagFilePath.replace('{uuid}', uuid).replace('./src', ''),size:9999999999});
   const jsonData = JSON.stringify(idx_all, null, 2);
   await fs.writeFile(idxTagFilePath.replace('{uuid}', uuid), jsonData, 'utf8');
   console.log(`JSON file ${idxTagFilePath} created successfully.`);
-  for (const tag of Object.keys(idxByTags)) {
+  const entriesGroupedByTags = Object.keys(idxByTags);
+  for (const tag of entriesGroupedByTags) {
     const uuid = uuidv4();
-    menuTags[tag] = idxTagFilePath.replace('{uuid}', uuid).replace('./src', '');
-    const jsonData = JSON.stringify(idxByTags[tag], null, 2);
+    const tagMetaData = idxByTags[tag];
+    menuTags.push({
+      "tag":tag,
+      "route": idxTagFilePath.replace('{uuid}', uuid).replace('./src', ''),
+      "size" : Object.keys(tagMetaData).length
+    })
+    const jsonData = JSON.stringify(tagMetaData, null, 2);
     await fs.writeFile(idxTagFilePath.replace('{uuid}', uuid), jsonData, 'utf8');
     console.log(`JSON file ${idxTagFilePath.replace('{uuid}', uuid)} created successfully.`);
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { OrderedMap } from 'immutable';
+import { List, OrderedMap } from 'immutable';
 
 export interface Manifest {
   title: string;
@@ -52,8 +52,15 @@ export class ManifestService {
     this.http
       .get(this.menUrl, { headers, responseType: 'json' })
       .subscribe((data: any) => {
+        let tagsMenu: List<any> = data;
         this.http
-          .get<any>(data[key], { headers, responseType: 'json' })
+          .get<any>(
+            tagsMenu
+              .filter((o) => o.tag === key)
+              .map((o) => o.route)
+              .toString(),
+            { headers, responseType: 'json' }
+          )
           .subscribe((manifestData: any) => {
             const orderedMap = OrderedMap<string, Manifest>(manifestData);
             response.next(orderedMap);
