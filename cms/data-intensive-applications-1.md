@@ -1,5 +1,5 @@
 ---
-title: "Designing Data-Intensive Applications 1 : Reliability, Scalability & Maintainability
+title: "Designing Data-Intensive Applications 1 : Reliability, Scalability & Maintainability"
 author: "Ignacio Lopez"
 route: "data-intensive-applications-1"
 thumb: "data-intensive-applications.png"
