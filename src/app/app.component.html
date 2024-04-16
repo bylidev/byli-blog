@@ -4,7 +4,9 @@
       <button mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <img src="/assets/logo.png">
+      <a href="https://byli.dev">
+        <img src="/assets/logo.png">
+      </a>
     </div>
     <a href="https://github.com/bylidev/byli-cms" style="font-size: 10px;color: darkgray;">Powered by BYLI-CMS</a>
   </mat-toolbar-row>
@@ -15,7 +17,7 @@
       <ng-container *ngFor="let item of this.menu | async">
         <span mat-menu-item (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.tag)">
           <span> {{item.tag}} <mat-icon style="color: orange" *ngIf="item.size>5 && item.size<99999">trending_up</mat-icon></span>
-          
+
         </span>
       </ng-container>
     </div>
