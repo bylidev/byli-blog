@@ -14,11 +14,12 @@ mat-drawer{
     @media (max-width: 800px) {
         min-width: 100vh;
     }
-    
+
 }
 mat-drawer-container{
     flex: 1;
 }
+
 mat-toolbar-row{
     justify-content: space-between;
 }
