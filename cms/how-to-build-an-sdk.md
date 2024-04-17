@@ -7,7 +7,7 @@ date: "2024-04-17"
 tags:
     - software-arquitecture
 ---
-# Managing Microservices: Navigating Team Conflicts and API Delegation
+# Managing Microservices with SDK's
 ![conflict](./images/cat-meme.jpg)
 
 ## Introduction
