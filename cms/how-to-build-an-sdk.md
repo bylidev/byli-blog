@@ -64,4 +64,3 @@ Managing microservices in a multi-team environment presents unique challenges th
 [view poc project on github](https://github.com/bylidev/sdk-poc)
 
 🚀 Embrace the power of SDKs to bridge the gap between teams and unlock the full potential of your microservices ecosystem!
-```
