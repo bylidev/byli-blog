@@ -5,7 +5,28 @@
     <lastmod>2023-01-01</lastmod>
     <title>Not found page !</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_log_data.webp</thumb>
+    <thumb>\assets\blog\images\thumb_log_data.webp</thumb>
+  </url>
+  <url>
+    <loc>https://byli.dev/sdk</loc>
+    <lastmod>2024-04-17</lastmod>
+    <keywords>
+      <keyword>software-arquitecture</keyword>
+    </keywords>
+    <title>Avoiding Team Conflicts: Bridging API Definitions with SDKs</title>
+    <author>Ignacio Lopez</author>
+    <thumb>\assets\blog\images\thumb_sdk.webp</thumb>
+  </url>
+  <url>
+    <loc>https://byli.dev/data-intensive-applications-1</loc>
+    <lastmod>2024-04-16</lastmod>
+    <keywords>
+      <keyword>software-arquitecture</keyword>
+      <keyword>data-intensive-applications</keyword>
+    </keywords>
+    <title>Designing Data-Intensive Applications 1 : Reliability, Scalability &amp; Maintainability</title>
+    <author>Ignacio Lopez</author>
+    <thumb>\assets\blog\images\thumb_data-intensive-applications.png</thumb>
   </url>
   <url>
     <loc>https://byli.dev/socks5-proxy</loc>
@@ -15,7 +36,7 @@
     </keywords>
     <title>Building a SOCKS5 Proxy with Tor and Docker: A Step-by-Step Guide</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_anon.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_anon.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/byli-cms</loc>
@@ -25,7 +46,7 @@
     </keywords>
     <title> Introducing Byli-CMS - An angular based Lightweight, non-overkill, Open-Source, Serverless Solution</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_open-source.jpeg</thumb>
+    <thumb>\assets\blog\images\thumb_open-source.jpeg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/how-to-digest-data-with-loki-and-recover-it-with-graphana</loc>
@@ -37,7 +58,7 @@
     </keywords>
     <title>Unifying Log Management: A Guide to Ingesting, Storing, and Visualizing Logs from Various Applications</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_log_data.webp</thumb>
+    <thumb>\assets\blog\images\thumb_log_data.webp</thumb>
   </url>
   <url>
     <loc>https://byli.dev/k8s-cronjob</loc>
@@ -47,7 +68,7 @@
     </keywords>
     <title>Resilient CronJob-based Webhook in K8S for Distributed services</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_time.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_time.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/a-clean-architecture-journey</loc>
@@ -58,7 +79,7 @@
     </keywords>
     <title>Diving Deep into Hexagonal Architecture with Go: Building Modular and Testable Systems</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_go.png</thumb>
+    <thumb>\assets\blog\images\thumb_go.png</thumb>
   </url>
   <url>
     <loc>https://byli.dev/sendingjsonCopy code -telgram-messages</loc>
@@ -69,7 +90,7 @@
     </keywords>
     <title>A Guide to Sending Telegram Messages</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_telegram.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_telegram.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/how-to-use-multiple-accounts-in-git</loc>
@@ -79,7 +100,7 @@
     </keywords>
     <title>How to use multiple accounts in git?</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_git.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_git.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/proxy</loc>
@@ -91,7 +112,7 @@
     </keywords>
     <title>Proxy Pattern : Controlling Object Access</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_proxy.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_proxy.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/flyweight</loc>
@@ -103,7 +124,7 @@
     </keywords>
     <title>Flyweight Pattern: Optimizing Memory Usage and Performance</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_flyweight.webp</thumb>
+    <thumb>\assets\blog\images\thumb_flyweight.webp</thumb>
   </url>
   <url>
     <loc>https://byli.dev/facade</loc>
@@ -115,7 +136,7 @@
     </keywords>
     <title>Facade Pattern: Simplifying Complex Systems</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_evil_kermit.png</thumb>
+    <thumb>\assets\blog\images\thumb_evil_kermit.png</thumb>
   </url>
   <url>
     <loc>https://byli.dev/decorator-pattern</loc>
@@ -127,7 +148,7 @@
     </keywords>
     <title>Decorator Pattern: Adding Flexible Behaviors to Objects</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_decorator-pattern.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_decorator-pattern.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/composite-pattern</loc>
@@ -139,7 +160,7 @@
     </keywords>
     <title>Composite Pattern: Building Tree-like Structures</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_composite.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_composite.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/bridge-pattern</loc>
@@ -151,7 +172,7 @@
     </keywords>
     <title>Bridge Pattern: Building Flexible and Efficient Abstractions</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_bridge.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_bridge.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/adapter</loc>
@@ -163,7 +184,7 @@
     </keywords>
     <title>Adapter Pattern: Bridging Incompatible Interfaces</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_adapter.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_adapter.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/singleton</loc>
@@ -175,7 +196,7 @@
     </keywords>
     <title>Singleton Pattern: Ensuring a Single Instance</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_singleton.jpeg</thumb>
+    <thumb>\assets\blog\images\thumb_singleton.jpeg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/prototype-pattern</loc>
@@ -187,7 +208,7 @@
     </keywords>
     <title>Prototype Pattern: Creating New Objects via Cloning</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_prototype.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_prototype.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/builder-pattern</loc>
@@ -199,7 +220,7 @@
     </keywords>
     <title>Builder Pattern: Constructing Complex Objects Step by Step</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_builder.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_builder.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/abstract-factory</loc>
@@ -211,7 +232,7 @@
     </keywords>
     <title>Abstract Factory Pattern: Creating Family of Objects</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_abstract-factory.jpeg</thumb>
+    <thumb>\assets\blog\images\thumb_abstract-factory.jpeg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/factory-method</loc>
@@ -223,7 +244,7 @@
     </keywords>
     <title>Factory Method Pattern: Creating Objects Without Knowing Exact Types</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_factory.jpeg</thumb>
+    <thumb>\assets\blog\images\thumb_factory.jpeg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/what-is-a-design-pattern</loc>
@@ -237,7 +258,7 @@
     </keywords>
     <title>Design Patterns: High-Level Solutions to Common Problems</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_design-patterns.png</thumb>
+    <thumb>\assets\blog\images\thumb_design-patterns.png</thumb>
   </url>
   <url>
     <loc>https://byli.dev/solid-principles</loc>
@@ -248,7 +269,7 @@
     </keywords>
     <title>Unleashing the Power of SOLID Principles for Robust Code</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_construction.jpg</thumb>
+    <thumb>\assets\blog\images\thumb_construction.jpg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/oop-pilars</loc>
@@ -259,7 +280,7 @@
     </keywords>
     <title>Exploring the Core Principles of Object-Oriented Programming: The Pillars of OOP</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_pillars.jpeg</thumb>
+    <thumb>\assets\blog\images\thumb_pillars.jpeg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/class-diagram</loc>
@@ -270,6 +291,6 @@
     </keywords>
     <title>Understanding Class Diagrams: Visualizing Relationships and Structure in Object-Oriented Systems</title>
     <author>Ignacio Lopez</author>
-    <thumb>/assets/blog/images/thumb_class-diagram.webp</thumb>
+    <thumb>\assets\blog\images\thumb_class-diagram.webp</thumb>
   </url>
 </urlset>
