@@ -11,8 +11,12 @@
 
 mat-drawer-container{
     flex: 1;
-  background: white;
+    background: white;
 }
+.mat-drawer-container{
+  background: white !important;
+}
+
 
 .content{
     margin: 63px;
