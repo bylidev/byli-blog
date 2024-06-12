@@ -2,7 +2,7 @@
 title: "Relational Model versus Document Model"
 author: "Ignacio Lopez"
 route: "events"
-thumb: "event.png"
+thumb: "event_bus.png"
 date: "2024-06-11"
 tags:
     - software-arquitecture
