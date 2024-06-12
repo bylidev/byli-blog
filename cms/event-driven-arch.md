@@ -1,5 +1,5 @@
 ---
-title: "Relational Model versus Document Model"
+title: "Exploring Events: Use Cases, Event Types, Delivery Semantics, and Broker Technologies"
 author: "Ignacio Lopez"
 route: "events"
 thumb: "event_bus.png"
