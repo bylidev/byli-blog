@@ -12,14 +12,22 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-drawer-container autosize>
-  <mat-drawer mode="side" #drawer>
+  <mat-drawer mode="over" #drawer>
     <div class="menu-item">
-      <ng-container *ngFor="let item of this.menu | async">
-        <span color="primary" mat-menu-item (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.tag)">
-          <span> {{item.tag}} <mat-icon *ngIf="item.size>5 && item.size<99999">trending_up</mat-icon></span>
-
-        </span>
-      </ng-container>
+      <mat-chip-set
+        class="example-chip"
+        cdkDropList
+        cdkDropListOrientation="horizontal">
+        <ng-container *ngFor="let item of this.menu | async">
+       <mat-chip
+         (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.tag)"
+         [ngStyle]="{
+                'font-size': item.size === 1 ? 'small' : (item.size > 1 && item.size < 5) ? 'small' : '',
+                'background-color': item.size > 1 ? '#cee195' : ''
+              }"
+         cdkDrag>{{ item.tag }}</mat-chip>
+        </ng-container>
+      </mat-chip-set>
     </div>
   </mat-drawer>
   <router-outlet></router-outlet>

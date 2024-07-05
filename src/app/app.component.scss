@@ -10,7 +10,7 @@
 }
 
 mat-drawer {
-  min-width: 300px;
+  max-width: 400px;
   font-size: 1.5rem;
   @media (max-width: 800px) {
     min-width: 100vh;
@@ -30,7 +30,7 @@ mat-toolbar-row {
   display: flex;
   flex-direction: column;
   margin: 25px;
-
+  max-width: 90vw;
   span {
     margin-bottom: 25px;
 

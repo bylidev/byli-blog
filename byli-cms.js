@@ -1,6 +1,5 @@
 const sharp = require('sharp');
 const path = require('path');
-const yaml = require('js-yaml');
 const matter = require('gray-matter');
 const fs = require('fs-extra');
 const { v4: uuidv4 } = require('uuid');

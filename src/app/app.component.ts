@@ -11,7 +11,6 @@ import { MenuService } from 'src/service/menu.service';
 })
 export class AppComponent {
   menu: Observable<List<any>>;
-  title = 'Byli.dev!';
   router: Router;
 
   constructor(menuService: MenuService, router: Router) {

@@ -8,6 +8,16 @@
     <thumb>\assets\blog\images\thumb_log_data.webp</thumb>
   </url>
   <url>
+    <loc>https://byli.dev/events</loc>
+    <lastmod>2024-06-11</lastmod>
+    <keywords>
+      <keyword>software-arquitecture</keyword>
+    </keywords>
+    <title>Exploring Events: Use Cases, Event Types, Delivery Semantics, and Broker Technologies</title>
+    <author>Ignacio Lopez</author>
+    <thumb>\assets\blog\images\thumb_event_bus.png</thumb>
+  </url>
+  <url>
     <loc>https://byli.dev/sdk</loc>
     <lastmod>2024-04-17</lastmod>
     <keywords>

@@ -10,6 +10,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BlogModule } from './blog/blog.module';
+import {MatChipsModule} from '@angular/material/chips';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -22,6 +24,7 @@ import { BlogModule } from './blog/blog.module';
     MatButtonModule,
     MatIconModule,
     BlogModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
