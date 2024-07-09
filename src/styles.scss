@@ -25,6 +25,7 @@ $my-light-theme: mat.define-light-theme((
 ));
 
 
+
 $my-custom-level: mat.define-typography-level(
   $font-family: Roboto,
   $font-weight: 400,
@@ -36,7 +37,14 @@ $my-custom-level: mat.define-typography-level(
 @include mat.all-component-themes($my-light-theme);
 
 @include mat.strong-focus-indicators-theme(rgb(75, 134, 168));
+.my-dark-theme {
+  @include mat.all-component-themes($my-dark-theme);
+}
 
+// Estilo adicional para el tema claro (opcional)
+.my-light-theme {
+  @include mat.all-component-themes($my-light-theme);
+}
 body{
     display: flex;
     width: 100vw;

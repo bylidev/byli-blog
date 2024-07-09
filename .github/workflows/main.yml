@@ -1,0 +1,46 @@
+name: Transfer Folder
+
+on:
+  push:
+    branches:
+      - master
+      - test
+jobs:
+  transfer-folder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'bylidev/byli-cms'
+          ref: 'master'
+          token:  ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          
+      - name: Checkout source repository
+        uses: actions/checkout@v2
+
+      - name: Remove CMS entries
+        run: |
+          rm -f README.md
+          rm -rf .git
+          rm -rf .github
+          find cms -type f -delete
+
+      - name: 'Preparing byli-cms'
+        run: |
+          git clone https://${{secrets.PERSONAL_ACCESS_TOKEN}}@github.com/bylidev/byli-cms.git ../byli-cms
+          
+      - name: Clear byli-cms old code except README.md and examples
+        run: |
+          find ../byli-cms -maxdepth 1 ! -name 'README.md' ! -path './cms*' ! -name '.' ! -name '..' ! -name '.git' -type f -delete
+          
+      - name: Copy new files to destination repository
+        run: cp -r . ../byli-cms/
+
+      - name: Commit and push changes to destination repository
+        run: |
+          cd ../byli-cms
+          git add .
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -m "sync with byli.dev"
+          git push --force

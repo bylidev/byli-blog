@@ -19,13 +19,14 @@
         cdkDropList
         cdkDropListOrientation="horizontal">
         <ng-container *ngFor="let item of this.menu | async">
-       <mat-chip
-         (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.tag)"
-         [ngStyle]="{
+          <mat-chip
+            (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.tag)"
+            [ngStyle]="{
                 'font-size': item.size === 1 ? 'small' : (item.size > 1 && item.size < 5) ? 'small' : '',
                 'background-color': item.size > 1 ? '#cee195' : ''
               }"
-         cdkDrag>{{ item.tag }}</mat-chip>
+            cdkDrag>{{ item.tag }}
+          </mat-chip>
         </ng-container>
       </mat-chip-set>
     </div>
