@@ -19,6 +19,8 @@
         cdkDropList
         cdkDropListOrientation="horizontal">
         <ng-container *ngFor="let item of this.menu | async">
+          <button mat-flat-button>This should use the primary color</button>
+
           <mat-chip
             (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.tag)"
             [ngStyle]="{

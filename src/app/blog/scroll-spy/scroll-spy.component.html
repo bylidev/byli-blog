@@ -3,6 +3,6 @@
 </div>
 <ul class="scrollspy-nav">
   <li *ngFor="let heading of headings">
-    <a href="heading.id" (click)="scrollToFragment(heading.id)">{{ heading.innerHTML }}</a>
+    <a (click)="scrollToFragment(heading.id)">{{ heading.innerHTML }}</a>
   </li>
 </ul>

@@ -15,16 +15,6 @@ import {ScrollSpyComponent} from "./scroll-spy/scroll-spy.component";
     HttpClientModule,
     MarkdownModule.forRoot({
       loader: HttpClient, // optional, only if you use [src] attribute
-      markedOptions: {
-        provide: MarkedOptions,
-        useValue: {
-          gfm: true,
-          breaks: false,
-          pedantic: false,
-          smartLists: true,
-          smartypants: false,
-        },
-      },
     })],
 })
 export class BlogModule {
