@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BlogModule } from './blog/blog.module';
 import {MatChipsModule} from '@angular/material/chips';
+import {CdkDropList} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatButtonModule,
     MatIconModule,
     BlogModule,
-    MatChipsModule
+    MatChipsModule,
+    CdkDropList
   ],
   providers: [],
   bootstrap: [AppComponent],

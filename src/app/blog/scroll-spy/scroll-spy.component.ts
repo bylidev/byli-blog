@@ -1,7 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 // @ts-ignore
 import Gumshoe from 'gumshoejs';
-import {ViewportScroller} from "@angular/common";
 
 @Component({
   selector: 'app-scroll-spy',
