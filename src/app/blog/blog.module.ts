@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ListBlogsComponent } from './list-blogs/list-blogs.component';
-import { ViewBlogComponent } from './view-blog/view-blog.component';
-import { MatCardModule } from '@angular/material/card';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ListBlogsComponent} from './list-blogs/list-blogs.component';
+import {ViewBlogComponent} from './view-blog/view-blog.component';
+import {MatCardModule} from '@angular/material/card';
+import {MarkdownModule, MarkedOptions} from 'ngx-markdown';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {ScrollSpyComponent} from "./scroll-spy/scroll-spy.component";
 
 @NgModule({
-  declarations: [ListBlogsComponent, ViewBlogComponent],
+  declarations: [ListBlogsComponent, ViewBlogComponent, ScrollSpyComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -24,7 +25,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
           smartypants: false,
         },
       },
-    }),
-  ],
+    })],
 })
-export class BlogModule {}
+export class BlogModule {
+}

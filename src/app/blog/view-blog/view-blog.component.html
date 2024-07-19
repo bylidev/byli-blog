@@ -1,7 +1,7 @@
 <div class="content">
-    <markdown
-    lineNumbers
-    [src]="mdContent|async"
-    [srcRelativeLink]="true">
+  <app-scroll-spy [headings]="headings">
+    <markdown  (load)="onLoad()"
+      [src]="mdContent|async">
     </markdown>
+  </app-scroll-spy>
 </div>

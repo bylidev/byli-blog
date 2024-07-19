@@ -15,11 +15,8 @@ markdown{
 .content{
     flex: 1;
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    margin: auto;
-    max-width: $card-max-width * $max-columns + $card-margin * 2 * $max-columns;
-    width: $card-max-width * $max-columns + $card-margin * 2 * $max-columns;
     @media (max-width: 800px) {
         flex-direction: column;
         margin: none;
@@ -27,7 +24,7 @@ markdown{
         width: 90%;
     }
 
-    
+
 }
 pre{
     display: flex !important;;

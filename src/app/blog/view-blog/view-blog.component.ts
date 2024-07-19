@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 import { MarkdownService } from 'ngx-markdown';
 import {
   ActivatedRoute,
@@ -18,10 +18,16 @@ export class ViewBlogComponent {
   constructor(
     private markDownService: MarkdownService,
     private route: ActivatedRoute,
-    private manifestService: ManifestService
+    private manifestService: ManifestService,
+    private elementRef: ElementRef<HTMLElement>
   ) {}
-  mdContent: Subject<string> = new Subject<string>();
 
+  mdContent: Subject<string> = new Subject<string>();
+  headings: Element[] | undefined;
+
+  onLoad(): void {
+    this.setHeadings();
+  }
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.manifestService.getManifestValue(params['id']).subscribe(
@@ -39,6 +45,16 @@ export class ViewBlogComponent {
     });
   }
 
+  private setHeadings(): void {
+    const headings: Element[] = [];
+    this.elementRef.nativeElement.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach((element: Element, index: number) => {
+      const id = `section${index + 1}`; // Genera IDs únicos
+      element.id = id;
+      headings.push(element);
+    });
+    this.headings = headings;
+    console.log(this.headings);
+  }
   ngOndestroy() {
     this.mdContent.unsubscribe();
   }

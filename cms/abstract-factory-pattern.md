@@ -19,9 +19,9 @@ The Abstract Factory pattern provides an interface to create families of related
 ![](./images/abstract-factory-structure.png)
 
 1.  **Abstract Products**: Abstract Products declare interfaces for a group of distinct but related products that form a product family. Each abstract product represents a specific type of object, such as a chair or a sofa.
-    
+
 2.  **Concrete Products**: Concrete Products are distinct implementations of abstract products, grouped by variants. Each abstract product (e.g., chair or sofa) must be implemented in all given variants (e.g., Victorian or Modern).
-    
+
 3.  **Abstract Factory Interface**: The Abstract Factory interface declares a set of methods to create each of the abstract products. This interface allows you to create different types of products without exposing their concrete implementations.
     
 4.  **Concrete Factories**: Concrete Factories implement methods for creating the abstract products declared in the Abstract Factory interface. Each concrete factory represents a specific family of products, such as the Victorian furniture family or the Modern furniture family.

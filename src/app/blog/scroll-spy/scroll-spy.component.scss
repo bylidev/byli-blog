@@ -1,0 +1,42 @@
+.blog{
+  overflow: auto;
+  @media (max-width: 800px) {
+    overflow: unset;
+  }
+  max-height: 60vh;
+  margin-left: 20%;
+  margin-top: 50px;
+  padding-bottom: 200px;
+  padding-right: 10%;
+}
+ul.scrollspy-nav {
+  @media (max-width: 800px) {
+    display: none;
+  }
+  padding: 20px;
+  margin-top: 50px;
+  min-width: 350px;
+  li {
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    list-style: none;
+    padding: 4px 0 4px 16px;
+
+    > a,
+    > a:active,
+    > a:focus,
+    > a:hover {
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    &:not(.active) {
+      border-color: transparent;
+      opacity: 0.6;
+    }
+  }
+}
+:host {
+  display: flex;
+}
