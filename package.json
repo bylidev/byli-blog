@@ -2,8 +2,7 @@
   "name": "byli.dev",
   "version": "1.0.0",
   "engines": {
-    "node": ">=18.16.0",
-    "npm": ">=9.5.1"
+    "node": ">=18.19.1"
   },
   "scripts": {
     "prebuild": "node ./byli-cms.js",
@@ -34,15 +33,12 @@
     "ngx-markdown": "^18.0.0",
     "prismjs": "^1.29.0",
     "rxjs": "~7.8.0",
-    "sharp": "^0.32.1",
+    "sharp": "^0.33.4",
     "uuid": "^9.0.0",
     "xmlbuilder2": "^3.1.1",
     "zone.js": "~0.14.8"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^18.0.0"
-  },
-  "engines": {
-    "node": ">=18.19.1"
   }
 }
