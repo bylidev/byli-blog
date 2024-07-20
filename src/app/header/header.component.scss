@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  flex-direction: column;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+
+
+    img {
+      max-width: 100%;
+    }
+  }
+}

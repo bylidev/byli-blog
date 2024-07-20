@@ -12,6 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { BlogModule } from './blog/blog.module';
 import {MatChipsModule} from '@angular/material/chips';
 import {CdkDropList} from "@angular/cdk/drag-drop";
+import {BlogCategoriesComponent} from "./blog/blog-categories/blog-categories.component";
+import {HeaderComponent} from "./header/header.component";
+import {CmsWatermarkComponent} from "./cms-watermark/cms-watermark.component";
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +29,10 @@ import {CdkDropList} from "@angular/cdk/drag-drop";
     MatIconModule,
     BlogModule,
     MatChipsModule,
-    CdkDropList
+    CdkDropList,
+    BlogCategoriesComponent,
+    HeaderComponent,
+    CmsWatermarkComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

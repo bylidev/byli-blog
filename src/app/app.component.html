@@ -1,35 +1,8 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <div style="display: flex;align-items: center;">
-      <button mat-icon-button (click)="drawer.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <a href="https://byli.dev">
-        <img src="/assets/logo.png">
-      </a>
-    </div>
-    <a href="https://github.com/bylidev/byli-cms" style="font-size: 10px;color: white;">Powered by BYLI-CMS</a>
-  </mat-toolbar-row>
-</mat-toolbar>
-<mat-drawer-container style="display: flex">
-  <mat-drawer #drawer mode="over" >
-    <div class="menu-item">
-      <mat-chip-set
-        class="example-chip"
-        cdkDropList
-        cdkDropListOrientation="horizontal">
-        <ng-container *ngFor="let item of this.menu | async">
-          <mat-chip mat-flat-button
-                    (click)="drawer.toggle(); this.router.navigateByUrl('tag/' + item.tag)"
-                    [ngClass]="{
-    'chip-primary': item.size > 1
-  }"
-                    cdkDrag>
-            {{ item.tag }}
-          </mat-chip>
-        </ng-container>
-      </mat-chip-set>
-    </div>
-  </mat-drawer>
+<aside class="sidebar">
+  <app-header></app-header>
+  <app-blog-categories></app-blog-categories>
+  <app-cms-watermark></app-cms-watermark>
+</aside>
+<section class="content">
   <router-outlet></router-outlet>
-</mat-drawer-container>
+</section>

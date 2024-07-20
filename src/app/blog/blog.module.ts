@@ -7,17 +7,20 @@ import {MarkdownModule, MarkedOptions} from 'ngx-markdown';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {ScrollSpyComponent} from "./scroll-spy/scroll-spy.component";
 import {RouterLink} from "@angular/router";
+import {BlogCategoriesComponent} from "./blog-categories/blog-categories.component";
 
 @NgModule({
   declarations: [ListBlogsComponent, ViewBlogComponent, ScrollSpyComponent],
   imports: [
     CommonModule,
     MatCardModule,
+
     HttpClientModule,
     MarkdownModule.forRoot({
       loader: HttpClient, // optional, only if you use [src] attribute
     }),
-    RouterLink
+    RouterLink,
+    BlogCategoriesComponent
   ],
 })
 export class BlogModule {

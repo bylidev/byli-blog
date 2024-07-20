@@ -1,66 +1,72 @@
 @import "src/variables.scss";
 
 
-:host{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    align-items: center;
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  overflow: auto;
 }
 
-mat-drawer-container{
-    flex: 1;
-    background: white;
+mat-drawer-container {
+  flex: 1;
+  background: white;
 }
-.mat-drawer-container{
+
+.mat-drawer-container {
   background: white !important;
 }
 
 
-.content{
-    margin: 63px;
-    flex: 1;
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: $card-max-width * $max-columns + $card-margin * 2 * $max-columns;
-    @media (max-width: 800px) {
-        flex-direction: column;
-        margin: 25px;
-        width: 100%;
-        flex-wrap: nowrap;
-    }
+.content {
+  margin: 63px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: $card-max-width * $max-columns + $card-margin * 2 * $max-columns;
+  @media (max-width: 800px) {
+    flex-direction: column;
+    margin: 25px;
+    width: 100%;
+    flex-wrap: nowrap;
+  }
 }
 
-mat-card{
-    display: flex;
-    min-width: $card-max-width;
-    max-width: $card-max-width;
+mat-card {
+  display: flex;
+  min-width: $card-max-width;
+  max-width: $card-max-width;
+  width: auto;
+  margin: $card-margin;
+  background: #ffffff0d;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  @media (max-width: 800px) {
     width: auto;
-    margin: $card-margin;
-    background: #ffffff0d;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    @media (max-width: 800px) {
-        width: auto;
-        max-width: none;
+    max-width: none;
+  }
+
+  mat-card-content {
+    flex: 1;
+
+    &:hover {
     }
 
-    mat-card-content{
-        flex: 1;
-        &:hover {
-        }
-        img{
-            width: 100%;
-            height: auto;
-        }
-        h2:hover{
-            cursor: pointer;
-        }
-        span{
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-        }
+    img {
+      width: 100%;
+      height: auto;
     }
+
+    h2:hover {
+      cursor: pointer;
+    }
+
+    span {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+    }
+  }
 }

@@ -1,0 +1,12 @@
+<section class="menu-section">
+  <ng-container *ngFor="let item of this.menu | async">
+    <mat-chip mat-flat-button
+              (click)="this.router.navigateByUrl('tag/' + item.tag)"
+              [ngClass]="{
+                    'chip-primary': item.size > 1
+                  }"
+              cdkDrag>
+      {{ item.tag }}
+    </mat-chip>
+  </ng-container>
+</section>

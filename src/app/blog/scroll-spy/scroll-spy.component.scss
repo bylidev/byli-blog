@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@use 'src/app/styles/m3-theme' as theme;
+@use '../../../styles' as theme;
 
 .blog {
   overflow: auto;
@@ -7,10 +7,9 @@
   padding-bottom: 200px;
   padding-right: 1%;
   padding-left: 1%;
-
-  max-width: 40%;
+  flex:1;
+  max-width: 1000px;
   @media (max-width: 800px) {
-    max-width: 100vw;
     overflow: unset;
     flex: 3 !important;
     padding-right: 3%;
@@ -30,6 +29,7 @@ ul {
     margin-bottom: 10px;
     font-size: small;
     cursor: pointer;
+    color: rgba(mat.get-theme-color(theme.$theme, on-background),0.7);
 
     > a,
     > a:active,
@@ -38,26 +38,18 @@ ul {
       text-decoration: none;
       cursor: pointer;
     }
-
-    &:not(.active) {
-      border-color: transparent;
-      opacity: 0.6;
-    }
   }
 }
 
 :host {
   display: flex;
   justify-content: center;
+  max-width: 100vw;
   @media (max-width: 800px) {
     flex-direction: column;
   }
 }
 
-:host > div {
-  flex: 1;
-}
-
 .active {
-  color: mat.get-theme-color(theme.$dark-theme, primary, 40);
+  color: mat.get-theme-color(theme.$theme, primary, 50);
 }
