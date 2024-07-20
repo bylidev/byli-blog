@@ -6,6 +6,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MarkdownModule, MarkedOptions} from 'ngx-markdown';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {ScrollSpyComponent} from "./scroll-spy/scroll-spy.component";
+import {RouterLink} from "@angular/router";
 
 @NgModule({
   declarations: [ListBlogsComponent, ViewBlogComponent, ScrollSpyComponent],
@@ -15,7 +16,9 @@ import {ScrollSpyComponent} from "./scroll-spy/scroll-spy.component";
     HttpClientModule,
     MarkdownModule.forRoot({
       loader: HttpClient, // optional, only if you use [src] attribute
-    })],
+    }),
+    RouterLink
+  ],
 })
 export class BlogModule {
 }

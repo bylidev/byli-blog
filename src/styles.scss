@@ -46,14 +46,16 @@ h1 {
 }
 
 a {
-  text-decoration: none;
+  color: mat.get-theme-color($dark-theme, primary, 40);
 }
+
 .mat-drawer{
   border-top-right-radius: unset !important;
 }
 .mat-drawer-content {
   display: flex !important;
   flex: 1;
+  overflow: unset !important;
 }
 .mat-drawer-container{
   overflow: auto !important;

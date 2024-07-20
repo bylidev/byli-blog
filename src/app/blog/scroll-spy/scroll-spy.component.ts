@@ -1,40 +1,102 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-// @ts-ignore
-import Gumshoe from 'gumshoejs';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 
 @Component({
   selector: 'app-scroll-spy',
   templateUrl: './scroll-spy.component.html',
-  styleUrls: ['./scroll-spy.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./scroll-spy.component.scss']
 })
-export class ScrollSpyComponent implements AfterViewInit{
+export class ScrollSpyComponent implements OnChanges, OnDestroy, AfterViewInit {
 
-  @Input()
-  headings: Element[] | undefined;
-  @ViewChild('scrollContainer', { static: true }) scrollContainer: ElementRef | undefined;
-
-  private scrollSpy: Gumshoe | undefined;
-  ngAfterViewInit(): void {
-    // Inicializar Gumshoe
-    this.scrollSpy = new Gumshoe('.scrollspy-nav a', {
-      offset: 60, // Ajusta según la altura de tu header
-      scrollDelay: 0,
-      callback: (e:any) => {
-        console.log('Navegación activa:', e);
-      }
-    });
-
-    // Configurar el comportamiento de scrollToFragment
-    // Puedes llamar a esta función según sea necesario en tu componente
+  @Input() headings: { id: string, innerHTML: string, active?: boolean }[] | undefined;
+  @ViewChild('scrollContainer', {static: true}) scrollContainer: ElementRef | undefined;
+  private observer: IntersectionObserver | null = null;
+  constructor(private cdr: ChangeDetectorRef) {
   }
-   scrollToFragment(fragment: string): void {
-     const container = this.scrollContainer?.nativeElement;
-     const target = container.querySelector('#' + fragment);
 
-     if (target) {
-       container.scrollTop = target.offsetTop;
-     }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['headings']) {
+      this.updateHeadings();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.initIntersectionObserver();
+  }
+
+  ngOnDestroy(): void {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
+
+  private initIntersectionObserver(): void {
+    const container = this.scrollContainer?.nativeElement;
+
+    if (container) {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.updateActiveLink(entry.target as HTMLElement);
+          }
+        });
+      }, {root: container, rootMargin: '0px 0px -90% 0px', threshold: 0});
+
+      this.updateHeadings();
+    }
+  }
+
+  private updateHeadings(): void {
+    if (this.observer && this.headings) {
+      // Disconnect previously observed elements
+      this.headings.forEach(heading => {
+        const element = document.getElementById(heading.id);
+        if (element) {
+          this.observer?.unobserve(element);
+        }
+      });
+
+      // Observe new elements
+      this.headings.forEach(heading => {
+        const element = document.getElementById(heading.id);
+        if (element) {
+          this.observer?.observe(element);
+        }
+      });
+    }
+  }
+
+  private updateActiveLink(activeElement: HTMLElement): void {
+    if (this.headings) {
+      this.headings.forEach(heading => {
+        heading.active = heading.id === activeElement.id;
+        this.cdr.detectChanges();
+        if (heading.id === activeElement.id) {
+          console.log(heading);
+        }
+      });
+    }
+  }
+
+  scrollToFragment(id: string): void {
+    const container = this.scrollContainer?.nativeElement;
+    const target = container?.querySelector('#' + id);
+
+    if (container && target) {
+      container.scrollTo({
+        top: target.offsetTop-50,
+        behavior: 'smooth'
+      });
+    }
   }
 
 

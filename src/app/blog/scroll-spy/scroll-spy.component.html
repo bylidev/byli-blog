@@ -1,8 +1,11 @@
-<div class="blog" #scrollContainer>
+<div></div>
+<nav class="blog container" #scrollContainer >
   <ng-content></ng-content>
+</nav>
+<div>
+  <ul id="scrollspy-nav">
+    <li *ngFor="let heading of headings">
+      <span [ngClass]="{ 'active': heading.active }" (click)="scrollToFragment(heading.id)">{{ heading.innerHTML }}</span>
+    </li>
+  </ul>
 </div>
-<ul class="scrollspy-nav">
-  <li *ngFor="let heading of headings">
-    <a (click)="scrollToFragment(heading.id)">{{ heading.innerHTML }}</a>
-  </li>
-</ul>
