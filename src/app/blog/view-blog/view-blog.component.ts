@@ -1,4 +1,4 @@
-import {Component, ElementRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef} from '@angular/core';
 import { MarkdownService } from 'ngx-markdown';
 import {
   ActivatedRoute,
@@ -13,6 +13,7 @@ import { ManifestService } from 'src/service/manifest.service';
   selector: 'app-view-blog',
   templateUrl: './view-blog.component.html',
   styleUrls: ['./view-blog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewBlogComponent {
   constructor(

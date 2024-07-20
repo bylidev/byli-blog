@@ -1,32 +1,34 @@
 @import "src/variables.scss";
 
-:host{
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    flex: 1;
-    align-items: center;
-}
-markdown{
-    max-width: 100%;
+:host {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  flex: 1;
+  align-items: center;
+  display: flex;
 }
 
-.content{
-    flex: 1;
-    display:flex;
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  @media (max-width: 800px) {
     flex-direction: column;
-    flex-wrap: wrap;
-    @media (max-width: 800px) {
-        flex-direction: column;
-        margin: none;
-        padding: none !important;
-        width: 90%;
-    }
+    margin: none;
+    padding: none !important;
+    width: 90%;
+  }
 
 
 }
-pre{
-    display: flex !important;;
+
+pre {
+  display: flex !important;;
 }
-p{    word-wrap: break-word !important;}
+
+p {
+  word-wrap: break-word !important;
+}

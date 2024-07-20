@@ -1,47 +1,62 @@
 @use '@angular/material' as mat;
-@import 'src/app/styles/arg-m3-theme.scss';
+@import 'src/app/styles/m3-theme.scss';
 
-html{
-  @include mat.core-theme($dark-theme-1);
-  @include mat.button-theme($dark-theme-1);
+$theme: $dark-theme;
+mat-toolbar {
+}
+.chip-primary {
+  background: mat.get-theme-color($theme, primary, 40) !important;
 }
 
-body{
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.15rem;
-    line-height: 30px;
+body {
+  @include mat.all-component-themes($theme);
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.15rem;
+  line-height: 30px;
 }
-img{
+
+img {
   width: 100%;
 }
-p{
+
+p {
   word-wrap: break-word;
 }
-h1{
+
+h1 {
   line-height: 50px;
 }
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 15px;
 }
 
-::-webkit-scrollbar-track-piece  {
-  background-color:#bdc3c7;
+::-webkit-scrollbar-track-piece {
+  background-color: #bdc3c7;
 }
 
 ::-webkit-scrollbar-thumb:vertical {
   height: 30px;
   background-color: grey;
 }
+
 a {
   text-decoration: none;
 }
-
-.mat-drawer-container {
-  background: white !important;
-  overflow: unset !important;
+.mat-drawer{
+  border-top-right-radius: unset !important;
 }
+.mat-drawer-content {
+  display: flex !important;
+  flex: 1;
+}
+.mat-drawer-container{
+  overflow: auto !important;
+}
+@include mat.core();
+@include mat.color-variants-backwards-compatibility($theme);

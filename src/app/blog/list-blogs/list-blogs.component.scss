@@ -39,6 +39,7 @@ mat-card{
     max-width: $card-max-width;
     width: auto;
     margin: $card-margin;
+    background: #ffffff0d;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     @media (max-width: 800px) {
         width: auto;

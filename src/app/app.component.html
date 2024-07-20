@@ -11,23 +11,21 @@
     <a href="https://github.com/bylidev/byli-cms" style="font-size: 10px;color: white;">Powered by BYLI-CMS</a>
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-drawer-container autosize>
-  <mat-drawer mode="over" #drawer>
+<mat-drawer-container style="display: flex">
+  <mat-drawer #drawer mode="over" >
     <div class="menu-item">
       <mat-chip-set
         class="example-chip"
         cdkDropList
         cdkDropListOrientation="horizontal">
         <ng-container *ngFor="let item of this.menu | async">
-          <button mat-flat-button>This should use the primary color</button>
-
-          <mat-chip
-            (click)="drawer.toggle();this.router.navigateByUrl('tag/'+item.tag)"
-            [ngStyle]="{
-                'font-size': item.size === 1 ? 'small' : (item.size > 1 && item.size < 5) ? 'small' : '',
-                'background-color': item.size > 1 ? '#cee195' : ''
-              }"
-            cdkDrag>{{ item.tag }}
+          <mat-chip mat-flat-button
+                    (click)="drawer.toggle(); this.router.navigateByUrl('tag/' + item.tag)"
+                    [ngClass]="{
+    'chip-primary': item.size > 1
+  }"
+                    cdkDrag>
+            {{ item.tag }}
           </mat-chip>
         </ng-container>
       </mat-chip-set>
