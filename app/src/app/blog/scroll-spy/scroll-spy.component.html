@@ -4,7 +4,7 @@
 <div>
   <ul id="scrollspy-nav">
     <li *ngFor="let heading of headings">
-      <span [ngClass]="{ 'active': heading.active }" (click)="scrollToFragment(heading.id)">{{ heading.innerHTML }}</span>
+      <span [ngClass]="{ 'active': heading.active }" (click)="scrollToFragment(heading.id)">{{ heading.innerText }}</span>
     </li>
   </ul>
 </div>

@@ -49,6 +49,7 @@ export class ViewBlogComponent {
   private setHeadings(): void {
     const headings: Element[] = [];
     this.elementRef.nativeElement.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach((element: Element, index: number) => {
+      console.log(element);
       const id = `section${index + 1}`; // Genera IDs únicos
       element.id = id;
       headings.push(element);

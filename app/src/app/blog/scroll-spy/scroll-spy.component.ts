@@ -17,7 +17,7 @@ import {
 })
 export class ScrollSpyComponent implements OnChanges, OnDestroy, AfterViewInit {
 
-  @Input() headings: { id: string, innerHTML: string, active?: boolean }[] | undefined;
+  @Input() headings: any[] | undefined;
   @ViewChild('scrollContainer', {static: true}) scrollContainer: ElementRef | undefined;
   private observer: IntersectionObserver | null = null;
   constructor(private cdr: ChangeDetectorRef) {
