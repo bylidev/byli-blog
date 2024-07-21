@@ -37,7 +37,7 @@
     "uuid": "^9.0.0",
     "xmlbuilder2": "^3.1.1",
     "zone.js": "~0.14.8",
-    "byli": "1.0.1"
+    "byli": "1.0.4"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^18.0.0"

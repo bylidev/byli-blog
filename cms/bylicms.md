@@ -42,6 +42,37 @@ JAMstack and Serverless complement each other perfectly. While JAMstack focuses 
 Serverless handles backend logic seamlessly without the need for server management. Together, they provide a robust and
 efficient solution for building web applications and sites.
 
+## Why BYLI CMS? 🤔
+BYLI CMS is a powerful JAMstack CMS made with Angular +18 and provides you with :
+- **Serverless**: You don't need to worry about servers. Just deploy your Angular static /dist folder
+- **API-less**: You don't need to worry about APIs. Just write your content in markdown files and it will be indexed by the CMS
+- **Image Optimization**: BYLI CMS provides you with image optimization
+- **SCSS compatibility**: BYLI CMS provides you with SCSS compatibility
+- **Material M3 themes**: BYLI CMS provides you with Material M3 themes (light and dark)
+- **Spy menu**: BYLI CMS provides you with a spy menu while scrolling.
+- **SEO**: BYLI CMS provides you with SEO metadata and tags for your articles
+- **Tags**: BYLI CMS provides you with tags for your articles
+- **Author**: BYLI CMS provides you with the author of the article
+- **Date**: BYLI CMS provides you with the date of the article
+- **Thumbnails**: BYLI CMS provides you with thumbnails for your articles
+- **Routing**: BYLI CMS provides you with routing for your articles
+- **Angular**: BYLI CMS is made with Angular, so you can extend it as you want
+- **Markdown**: BYLI CMS uses markdown files for your content
+- **Backup**: BYLI CMS provides you with a backup of your content
+- **Deploy**: BYLI CMS provides you with a workflow for deploying your Angular app to github pages
+
+## Themes 🎨
+BYLI CMS provides you with Material M3 themes (light and dark). You can change the theme in the `src/styles.scss` file.
+```scss
+$theme: $light-theme;
+// $theme: $dark-theme;
+```
+## Light Theme example
+![Material M3 themes](./images/light-theme-2.png)
+
+## Dark Theme example
+![Material M3 themes](./images/dark-theme-2.png)
+
 ## 🛠️ **How to Use BYLICMS**
 
 ### **1. Setting Up Your Environment**
@@ -57,6 +88,8 @@ npm install byli -g
 
 ```bash
 byli init
+# if you have problems with the installation, try with 
+npm exec byli init
 ```
 Now you will see the following directory structure:
 
@@ -111,4 +144,3 @@ You only need to backup the `cms` directory, as it contains all your content. Th
 You can deploy your BYLI CMS to any static hosting provider, like gitlab pages, github pages, cloudflare pages. Just build your Angular app and deploy the `dist` directory.
 byli cms, provides you a configured workflow for github pages.
 
-[Github repo](https://github.com/bylidev/byli-cms)
