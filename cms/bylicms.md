@@ -146,3 +146,4 @@ You only need to backup the `cms` directory, as it contains all your content. Th
 You can deploy your BYLI CMS to any static hosting provider, like gitlab pages, github pages, cloudflare pages. Just build your Angular app and deploy the `dist` directory.
 byli cms, provides you a configured workflow for github pages.
 
+#### [View on GitHub](https://github.com/bylidev/byli-cms)
