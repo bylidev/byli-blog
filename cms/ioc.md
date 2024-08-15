@@ -2,7 +2,7 @@
 title: "Compiled IoC for JAVA"
 author: "Ignacio Lopez"
 route: "dagger-ioc-for-java"
-thumb: "ioc.gif"
+thumb: "ioc.webp"
 date: "2024-08-15"
 tags:
   - java
