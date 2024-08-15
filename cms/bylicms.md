@@ -7,6 +7,7 @@ date: "2024-07-20"
 tags:
   - markdown
   - byli-cms
+  - angular
 ---
 
 ## The Most Powerful JMstack CMS Made with Angular is Serverless and API-less! 💪
