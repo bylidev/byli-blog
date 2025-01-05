@@ -8,6 +8,30 @@
     <thumb>\assets\blog\images\thumb_log_data.webp</thumb>
   </url>
   <url>
+    <loc>https://byli.dev/dagger-ioc-for-java</loc>
+    <lastmod>2024-08-15</lastmod>
+    <keywords>
+      <keyword>java</keyword>
+      <keyword>ioc</keyword>
+      <keyword>dagger</keyword>
+    </keywords>
+    <title>Compiled IoC for JAVA</title>
+    <author>Ignacio Lopez</author>
+    <thumb>\assets\blog\images\thumb_ioc.webp</thumb>
+  </url>
+  <url>
+    <loc>https://byli.dev/mnemosine-wiki</loc>
+    <lastmod>2024-07-20</lastmod>
+    <keywords>
+      <keyword>markdown</keyword>
+      <keyword>wiki</keyword>
+      <keyword>mnemosine</keyword>
+    </keywords>
+    <title>Mnemosine Wiki - Deploy your wiki with markdowns without servers !</title>
+    <author>Ignacio Lopez</author>
+    <thumb>\assets\blog\images\thumb_caffee.gif</thumb>
+  </url>
+  <url>
     <loc>https://byli.dev/events</loc>
     <lastmod>2024-06-11</lastmod>
     <keywords>
@@ -47,16 +71,6 @@
     <title>Building a SOCKS5 Proxy with Tor and Docker: A Step-by-Step Guide</title>
     <author>Ignacio Lopez</author>
     <thumb>\assets\blog\images\thumb_anon.jpg</thumb>
-  </url>
-  <url>
-    <loc>https://byli.dev/byli-cms</loc>
-    <lastmod>2023-07-30</lastmod>
-    <keywords>
-      <keyword>cms</keyword>
-    </keywords>
-    <title> Introducing Byli-CMS - An angular based Lightweight, non-overkill, Open-Source, Serverless Solution</title>
-    <author>Ignacio Lopez</author>
-    <thumb>\assets\blog\images\thumb_open-source.jpeg</thumb>
   </url>
   <url>
     <loc>https://byli.dev/how-to-digest-data-with-loki-and-recover-it-with-graphana</loc>
