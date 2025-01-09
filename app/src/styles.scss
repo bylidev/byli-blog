@@ -2,16 +2,14 @@
 @import './m3-theme.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-$theme: $dark-theme;
+$theme: $light-theme;
 
 @include mat.core();
 @include mat.color-variants-backwards-compatibility($theme);
 
 body {
   @include mat.all-component-themes($theme);
-  display: flex;
-  width: 100vw;
-  height: 100vh;
+
   margin: 0;
   line-height: 30px;
   background-color: mat.get-theme-color($theme, background); // Ajusta según el tema

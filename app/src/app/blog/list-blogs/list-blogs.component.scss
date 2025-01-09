@@ -7,7 +7,6 @@
   flex-direction: column;
   flex: 1;
   align-items: center;
-  overflow: auto;
 }
 
 mat-drawer-container {
@@ -21,7 +20,6 @@ mat-drawer-container {
 
 
 .content {
-  margin: 63px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

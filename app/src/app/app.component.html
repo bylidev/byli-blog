@@ -1,8 +1,26 @@
-<aside class="sidebar">
-  <app-header></app-header>
-  <app-blog-categories></app-blog-categories>
-  <app-cms-watermark></app-cms-watermark>
-</aside>
-<section class="content">
+<div class="blog-banner-container">
+  <header class="blog-header">
+    <h1 class="blog-title" routerLink="/">BYLI</h1>
+    <h2 class="blog-subtitle">Beyond Your Limits of Innovation</h2>
+  </header>
+  <div class="blog-banner"></div>
+</div>
+
+<div class="home">
+  <aside></aside>
   <router-outlet></router-outlet>
-</section>
+</div>
+
+
+<footer class="modern-footer">
+  <div class="footer-content">
+    <p>
+      <a href="https://github.com/bylidev" target="_blank" class="footer-link">
+        <span class="github-emoji">🐙</span> GitHub
+      </a>
+    </p>
+    <p class="copyright">
+      &copy; 2025 BYLI - Beyond Your Limits of Innovation.
+    </p>
+  </div>
+</footer>
