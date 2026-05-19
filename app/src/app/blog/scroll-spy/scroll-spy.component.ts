@@ -18,6 +18,7 @@ import {
 export class ScrollSpyComponent implements OnChanges, OnDestroy, AfterViewInit {
 
   @Input() headings: any[] | undefined;
+  @ViewChild('scrollContainer', {static: true}) scrollContainer: ElementRef | undefined;
   private observer: IntersectionObserver | null = null;
   constructor(private cdr: ChangeDetectorRef) {
   }
@@ -39,14 +40,19 @@ export class ScrollSpyComponent implements OnChanges, OnDestroy, AfterViewInit {
   }
 
   private initIntersectionObserver(): void {
+    const container = this.scrollContainer?.nativeElement;
+
+    if (container) {
       this.observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             this.updateActiveLink(entry.target as HTMLElement);
           }
         });
-      }, {root: null, rootMargin: '0px 0px -90% 0px', threshold: 0});
+      }, {root: container, rootMargin: '0px 0px -90% 0px', threshold: 0});
+
       this.updateHeadings();
+    }
   }
 
   private updateHeadings(): void {
@@ -74,16 +80,20 @@ export class ScrollSpyComponent implements OnChanges, OnDestroy, AfterViewInit {
       this.headings.forEach(heading => {
         heading.active = heading.id === activeElement.id;
         this.cdr.detectChanges();
+        if (heading.id === activeElement.id) {
+          console.log(heading);
+        }
       });
     }
   }
 
   scrollToFragment(id: string): void {
-    const target = document.querySelector('#' + id);
-    if (target) {
-      const targetPosition = target.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: targetPosition,
+    const container = this.scrollContainer?.nativeElement;
+    const target = container?.querySelector('#' + id);
+
+    if (container && target) {
+      container.scrollTo({
+        top: target.offsetTop-50,
         behavior: 'smooth'
       });
     }

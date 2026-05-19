@@ -10,7 +10,7 @@ tags:
   - mnemosine
 ---
 
-## The Most Powerful JMstack WIKI Made with Angular is Serverless and API-less! 💪
+## [The Most Powerful JMstack WIKI Made with Angular is Serverless and API-less!](https://github.com/bylidev/mnemosine-wiki) 💪
 
 ![](./images/caffee.gif)
 
@@ -56,9 +56,9 @@ Before you start, ensure you have Node.js and npm installed.
 Now you will see the following directory structure:
 
 ```bash
--- 
+--
     |-- app
-    |-- 
+    |--
     |---- images
     |---- *.md
 -- app
@@ -67,10 +67,10 @@ Now you will see the following directory structure:
     |-- angular.json
     |-- ...
 ```
-To this point, you have created a new Mnemosine Wiki  project with the default structure. 
 
+To this point, you have created a new Mnemosine Wiki project with the default structure.
 
-### **3. Running Your Mnemosine Wiki  Project 🚀**
+### **3. Running Your Mnemosine Wiki Project 🚀**
 
 ```bash
 cd ./app
@@ -79,6 +79,7 @@ ng serve
 ```
 
 ### **4. Markdown needed metadata 📝**
+
 When creating a new markdown file, you need to add the following metadata at the beginning of the file:
 
 ```markdown
@@ -92,6 +93,7 @@ tags:
   - markdown
 ---
 ```
+
 - title: The title of the article. 📚
 - author: The author of the article. ✍️
 - route: The Angular route of the article. 🌐
@@ -99,10 +101,11 @@ tags:
 - date: The date of the article (important for sorting). 📅
 - tags: Tags of the article (important for generating tags and SEO metadata). 🏷️
 
-### 5. backups  💾
-You only need to backup the `` directory, as it contains all your content. The `app` directory is your Angular project, and you can always recreate it.
+### 5. backups 💾
 
-### 6. Deploying your Mnemosine Wiki  🚀
-You can deploy your Mnemosine Wiki  to any static hosting provider, like gitlab pages, github pages, cloudflare pages. Just build your Angular app and deploy the `dist` directory.
+You only need to backup the ``directory, as it contains all your content. The`app` directory is your Angular project, and you can always recreate it.
+
+### 6. Deploying your Mnemosine Wiki 🚀
+
+You can deploy your Mnemosine Wiki to any static hosting provider, like gitlab pages, github pages, cloudflare pages. Just build your Angular app and deploy the `dist` directory.
 Mnemosine Wiki , provides you a configured workflow for github pages.
-

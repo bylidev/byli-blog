@@ -9,7 +9,9 @@ $theme: $light-theme;
 
 body {
   @include mat.all-component-themes($theme);
-
+  display: flex;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   line-height: 30px;
   background-color: mat.get-theme-color($theme, background); // Ajusta según el tema

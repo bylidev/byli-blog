@@ -13,7 +13,9 @@ export interface Manifest {
   time: number;
   md: string;
 }
-
+export const headers = new HttpHeaders()
+.set('Cache-Control', 'private, max-age=86400')
+.set('Pragma', 'cache');
 @Injectable({
   providedIn: 'root',
 })
@@ -47,7 +49,6 @@ export class ManifestService {
   }
   private getManifestData(key: string): Subject<OrderedMap<string, Manifest>> {
     const response = new Subject<OrderedMap<string, Manifest>>();
-    const headers = new HttpHeaders().set('Cache-Control', 'max-age=3600'); // Configurar tiempo de caché en segundos (1 hora)
 
     this.http
       .get(this.menUrl, { headers, responseType: 'json' })
