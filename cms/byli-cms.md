@@ -109,3 +109,5 @@ You only need to backup the ``directory, as it contains all your content. The`ap
 
 You can deploy your Mnemosine Wiki to any static hosting provider, like gitlab pages, github pages, cloudflare pages. Just build your Angular app and deploy the `dist` directory.
 Mnemosine Wiki , provides you a configured workflow for github pages.
+
+[DEMO](https://cms.byli.dev)
