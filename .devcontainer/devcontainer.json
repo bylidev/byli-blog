@@ -1,0 +1,64 @@
+{
+    "name": "Byli Blog - Angular",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".",
+        "args": {
+            "VARIANT": "18"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Angular.ng-template",
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint",
+                "ms-vscode.vscode-typescript-next",
+                "eamodio.gitlens",
+                "ms-azuretools.vscode-docker"
+            ],
+            "settings": {
+                "[typescript]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode",
+                    "editor.formatOnSave": true,
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll.eslint": "explicit"
+                    }
+                },
+                "[html]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode",
+                    "editor.formatOnSave": true
+                },
+                "[scss]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode",
+                    "editor.formatOnSave": true
+                },
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "editor.rulers": [
+                    80,
+                    120
+                ]
+            }
+        }
+    },
+    "forwardPorts": [
+        4200,
+        9876
+    ],
+    "portsAttributes": {
+        "4200": {
+            "label": "Angular App",
+            "onAutoForward": "notify"
+        },
+        "9876": {
+            "label": "Karma Test",
+            "onAutoForward": "ignore"
+        }
+    },
+    "postCreateCommand": "npm install --prefix app && npm run prebuild --prefix app",
+    "postStartCommand": "bash -lc 'if ! pgrep -f \"ng serve\" >/dev/null; then nohup npm run start --prefix app >/tmp/byli-angular.log 2>&1 & fi'",
+    "remoteUser": "node",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {}
+    }
+}
