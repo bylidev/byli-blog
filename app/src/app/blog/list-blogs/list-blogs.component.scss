@@ -67,10 +67,8 @@ mat-card {
   mat-card-content {
     flex: 1;
     padding: 0 !important;
-    position: relative;
 
     .card-media {
-      position: relative;
       min-height: 160px;
       overflow: hidden;
     }
@@ -84,20 +82,12 @@ mat-card {
       margin: 0;
     }
 
-    .card-overlay {
-      position: absolute;
-      inset: auto 0 0;
+    .card-body {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      gap: 6px;
-      padding: 36px 14px 12px;
-      background: linear-gradient(
-        to top,
-        rgba(17, 24, 39, 0.94),
-        rgba(17, 24, 39, 0.58),
-        transparent
-      );
+      gap: 8px;
+      padding: 12px 14px 14px;
+      background: #ffffff;
     }
 
     h2 {
@@ -105,13 +95,12 @@ mat-card {
       font-weight: 600;
       line-height: 1.35;
       margin: 0;
-      color: #ffffff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+      color: #111827;
     }
 
     span {
       font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.82);
+      color: #6b7280;
       font-weight: 500;
     }
   }

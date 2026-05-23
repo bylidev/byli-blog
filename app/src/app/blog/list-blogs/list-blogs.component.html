@@ -4,10 +4,10 @@
       <mat-card-content (click)="router.navigateByUrl(entry[0])">
         <div class="card-media">
           <img [src]="entry[1].thumb" alt="image" class="image" />
-          <div class="card-overlay">
-            <h2>{{ entry[1].title }}</h2>
-            <span>{{ entry[1].time }} min reading</span>
-          </div>
+        </div>
+        <div class="card-body">
+          <h2>{{ entry[1].title }}</h2>
+          <span>{{ entry[1].time }} min reading</span>
         </div>
       </mat-card-content>
     </mat-card>
