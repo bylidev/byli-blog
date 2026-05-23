@@ -57,7 +57,7 @@
         }
     },
     "postCreateCommand": "npm install && npm run prebuild",
-    "postStartCommand": "bash -lc 'if ! pgrep -f \"ng serve\" >/dev/null; then nohup npm run start >/tmp/byli-angular.log 2>&1 & fi'",
+    "postStartCommand": "bash -lc 'if ! pgrep -f \"ng serve\" >/dev/null; then nohup npm run start -- --host 0.0.0.0 --port 4200 >/tmp/byli-angular.log 2>&1 & fi'",
     "remoteUser": "node",
     "features": {
         "ghcr.io/devcontainers/features/git:1": {}

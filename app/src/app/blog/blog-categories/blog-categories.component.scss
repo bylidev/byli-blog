@@ -9,11 +9,23 @@
     font-size: 0.75rem !important;
     font-weight: 500 !important;
     height: 26px !important;
-    border-radius: 99px !important;
-    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+    line-height: 1 !important;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease !important;
 
     &:hover {
       transform: translateY(-1px);
     }
+  }
+
+  // Keep label vertically centered after global typography changes.
+  ::ng-deep .mat-mdc-chip .mdc-evolution-chip__action--primary {
+    height: 100% !important;
+  }
+
+  ::ng-deep .mat-mdc-chip .mdc-evolution-chip__text-label,
+  ::ng-deep .mat-mdc-chip .mat-mdc-chip-action-label {
+    line-height: 1.1 !important;
   }
 }

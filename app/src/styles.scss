@@ -1,6 +1,6 @@
-@use '@angular/material' as mat;
-@import './m3-theme.scss';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+@use "@angular/material" as mat;
+@import "./m3-theme.scss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap");
 
 $theme: $light-theme;
 
@@ -18,7 +18,7 @@ body {
   line-height: 1.75;
   background-color: #fafafa;
   color: #1a1c1e;
-  font-family: 'Inter', 'Roboto', sans-serif;
+  font-family: "Inter", "Roboto", sans-serif;
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -26,8 +26,13 @@ body {
 
 // ─── Headings ────────────────────────────────────────────────────────────────
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Inter', 'Roboto', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inter", "Roboto", sans-serif;
   font-weight: 700;
   line-height: 1.25;
   margin-top: 2rem;
@@ -36,12 +41,28 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.01em;
 }
 
-h1 { font-size: 2.25rem; margin-top: 0; }
-h2 { font-size: 1.75rem; padding-bottom: 0.35em; border-bottom: 1px solid #e5e7eb; }
-h3 { font-size: 1.375rem; }
-h4 { font-size: 1.125rem; }
-h5 { font-size: 1rem; }
-h6 { font-size: 0.9rem; color: #6b7280; }
+h1 {
+  font-size: 2.25rem;
+  margin-top: 0;
+}
+h2 {
+  font-size: 1.75rem;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid #e5e7eb;
+}
+h3 {
+  font-size: 1.375rem;
+}
+h4 {
+  font-size: 1.125rem;
+}
+h5 {
+  font-size: 1rem;
+}
+h6 {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
 
 // ─── Prose ───────────────────────────────────────────────────────────────────
 
@@ -54,7 +75,9 @@ p {
 a {
   color: #2579ca !important;
   text-decoration: none;
-  transition: color 0.15s ease, opacity 0.15s ease;
+  transition:
+    color 0.15s ease,
+    opacity 0.15s ease;
 
   &:hover {
     color: #1a5fa8 !important;
@@ -88,7 +111,7 @@ blockquote {
 // ─── Code ────────────────────────────────────────────────────────────────────
 
 code {
-  font-family: 'Fira Code', 'Courier New', monospace;
+  font-family: "Fira Code", "Courier New", monospace;
   font-size: 0.875em;
   background: #f3f4f6;
   color: #1f2937;
@@ -107,7 +130,7 @@ pre {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 
   code {
-    font-family: 'Fira Code', 'Courier New', monospace;
+    font-family: "Fira Code", "Courier New", monospace;
     font-size: 0.875rem;
     background: transparent;
     color: #cdd6f4;
@@ -188,7 +211,8 @@ img {
 
 // ─── Lists ───────────────────────────────────────────────────────────────────
 
-ul, ol {
+ul,
+ol {
   padding-left: 1.5rem;
   margin-bottom: 1.25rem;
   color: #374151;
@@ -204,8 +228,12 @@ ul, ol {
 .chip-primary {
   background: #2579ca !important;
   color: white !important;
+  --mdc-chip-label-text-color: #ffffff;
+  --mdc-chip-with-icon-icon-color: #ffffff;
 
-  > span > span > .mat-mdc-chip-action-label {
+  > span > span > .mat-mdc-chip-action-label,
+  .mdc-evolution-chip__text-label,
+  .mat-mdc-chip-action-label {
     color: white !important;
   }
 }
