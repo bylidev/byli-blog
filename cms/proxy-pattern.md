@@ -12,42 +12,204 @@ tags:
 
 # Proxy Pattern: Controlling Object Access
 
+The Proxy pattern is a **structural design pattern** that provides a surrogate or placeholder for another object. The proxy controls access to the original object, allowing you to perform something before or after the request reaches the actual target.
+
+> **Core idea:** Instead of accessing a resource directly, clients go through a proxy that adds a layer of control — for lazy initialization, access control, caching, logging, or remote communication.
+
+---
 
 ## Motivation
 
-The Proxy design pattern provides a surrogate or placeholder for another object, allowing us to control access to it. One key reason for using a proxy is to defer the full cost of creating and initializing an object until it's actually needed. For instance, in a document editor with graphical objects, some expensive objects like large raster images should be created only when required, not all at once during document opening, as not all objects may be visible simultaneously.
+Consider a document editor that contains large raster images. When you open the document, you don't need all images to be loaded immediately — only the ones currently visible on screen. Loading all images upfront wastes memory and slows startup.
 
-The solution lies in using an image proxy that serves as a stand-in for the actual image. The proxy behaves like the image and handles instantiation when needed.
+**Without a proxy:** All images are instantiated and fully loaded when the document opens — even for images that are never scrolled into view.
 
-When the document editor invokes the Draw operation, the image proxy creates the real image, and subsequent requests are directly forwarded to the image. The proxy keeps a reference to the image after creation to manage further interactions.
+**With a proxy:** An `ImageProxy` acts as a stand-in for the real image. It stores only the metadata (filename, dimensions). The actual image object is created only when `draw()` is called for the first time — this is **lazy initialization**.
 
+```
+Document Editor → ImageProxy (lightweight stand-in)
+                    ↓ (on first draw)
+                  RealImage (expensive object, created on demand)
+```
 
+---
 
-## Use Cases
+## Structure
 
-The Proxy pattern is applicable whenever a more versatile or sophisticated reference to an object is required, beyond a simple pointer. Here are common situations where the Proxy pattern is beneficial:
+![](./images/proxy-structure.png)
 
-1.  **Remote Proxy**: Responsible for encoding requests and arguments and sending them to the real subject in a different address space. Useful for remote communication scenarios.
-    
-2.  **Virtual Proxy**: Caches additional information about the real subject, postponing direct access until necessary. For instance, the ImageProxy from the Motivation caches the real image's extent.
-    
-3.  **Protection Proxy**: Controls access to the original object, providing different access rights. KernelProxies in operating systems offer protected access to operating system objects.
+| Component | Responsibility |
+|---|---|
+| **Subject** (interface) | Defines the common interface for the proxy and real object |
+| **RealSubject** | The actual object that does the real work |
+| **Proxy** | Implements the Subject interface; holds a reference to RealSubject; controls access |
+| **Client** | Works only with the Subject interface — unaware of whether it's talking to a proxy or the real object |
+
+---
+
+## Types of Proxies
 
 ![](./images/proxy-example.png)
 
-The image proxy creates the real image only when the document editor asks it to display itself by invoking its Draw operation. The proxy forwards subsequent requests directly to the image.It must therefore keep a referenceto the image after creating it.
+### 1. Virtual Proxy (Lazy Initialization)
 
-### Use cases
+Creates the expensive real object only when it's actually needed.
 
-Proxy is applicable whenever there  **is a need for a more versatile or sophisticated reference to an object than a simple pointer**. Here are several common situations in which the Proxy pattern is applicable:
+```typescript
+interface Image {
+  draw(): void;
+}
 
--   A  **remote proxy**  are responsible for encoding a request and its arguments and for sending the encoded request to the real subject in a different address space.
--   A  **virtual proxy**  may cache additional information about the real subject so that they can postpone accessing it. For example, the ImageProxy from the Motivation caches the real image's extent.
--   A  **protection proxy** controls access to the original object. Protection proxies are useful when objects should have different access rights. For example KernelProxies in operating system's provides protected access to operating system objects.
+class RealImage implements Image {
+  private data: string;
 
-### Structure
-![](./images/proxy-structure.png)
+  constructor(private filename: string) {
+    console.log(`Loading image from disk: ${filename}`); // Expensive!
+    this.data = `<binary data of ${filename}>`;
+  }
 
+  draw(): void {
+    console.log(`Drawing image: ${this.filename}`);
+  }
+}
 
-### Example 
-[Cool lazy loading proxy example](https://stackblitz.com/edit/typescript-umzfn2?file=index.ts)
+class ImageProxy implements Image {
+  private realImage: RealImage | null = null;
+
+  constructor(private filename: string) {
+    // No loading here — proxy is lightweight
+  }
+
+  draw(): void {
+    if (!this.realImage) {
+      this.realImage = new RealImage(this.filename); // Lazy — created on first use
+    }
+    this.realImage.draw();
+  }
+}
+
+// Client
+const images: Image[] = [
+  new ImageProxy('photo1.jpg'),
+  new ImageProxy('photo2.jpg'),
+  new ImageProxy('photo3.jpg'),
+];
+
+// Only photo1 is actually loaded — the others are never drawn
+images[0].draw(); // Loading image from disk: photo1.jpg → Drawing image: photo1.jpg
+images[0].draw(); // Drawing image: photo1.jpg (no reload — already cached)
+```
+
+---
+
+### 2. Remote Proxy
+
+Represents an object located in a different address space (another server, process, or network endpoint). The proxy handles encoding/decoding requests and managing the network communication transparently.
+
+- **Examples:** gRPC stubs, REST client wrappers, Java RMI stubs
+
+```typescript
+// The client code thinks it's calling a local object
+const userService: UserService = createRemoteProxy('https://api.example.com/users');
+const user = await userService.getById('123'); // Actually an HTTP call, hidden by proxy
+```
+
+---
+
+### 3. Protection Proxy
+
+Controls access to an object based on permissions or roles. The proxy checks whether the caller has the right to perform an operation before delegating.
+
+```typescript
+class AdminUserService implements UserService {
+  deleteUser(id: string): void {
+    console.log(`Deleting user ${id}`);
+  }
+}
+
+class ProtectionProxy implements UserService {
+  constructor(private realService: UserService, private role: string) {}
+
+  deleteUser(id: string): void {
+    if (this.role !== 'admin') {
+      throw new Error('Access denied: admin role required');
+    }
+    this.realService.deleteUser(id);
+  }
+}
+
+const service = new ProtectionProxy(new AdminUserService(), currentUser.role);
+service.deleteUser('123'); // Throws if not admin
+```
+
+---
+
+### 4. Caching Proxy
+
+Caches results of expensive operations to avoid redundant computation or network calls.
+
+```typescript
+class CachingDataProxy implements DataService {
+  private cache: Map<string, any> = new Map();
+
+  constructor(private realService: DataService) {}
+
+  getData(key: string): any {
+    if (this.cache.has(key)) {
+      console.log(`Cache hit: ${key}`);
+      return this.cache.get(key);
+    }
+    const result = this.realService.getData(key);
+    this.cache.set(key, result);
+    return result;
+  }
+}
+```
+
+---
+
+## Summary of Proxy Types
+
+| Type | Purpose | Example |
+|------|---------|---------|
+| **Virtual** | Lazy initialization of expensive objects | Image loading, large file parsing |
+| **Remote** | Abstract network/IPC communication | gRPC stubs, REST clients |
+| **Protection** | Access control and authorization | Role-based method guards |
+| **Caching** | Avoid redundant expensive operations | DB query cache, API response cache |
+| **Logging** | Transparently record method calls | Audit logs, debugging wrappers |
+| **Smart reference** | Manage object lifecycle (e.g., reference counting) | Memory management in C++ |
+
+---
+
+## Proxy vs. Decorator
+
+Both patterns implement the same interface and wrap another object. The intent differs:
+
+| Aspect | Proxy | Decorator |
+|--------|-------|-----------|
+| **Intent** | Control access to the object | Add new behavior to the object |
+| **Lifecycle** | Often manages the real object's lifecycle | The real object is passed in by the client |
+| **Transparency** | Client often doesn't know it's using a proxy | Client explicitly wraps objects with decorators |
+
+---
+
+## Practical Example
+
+[🔗 Lazy loading Proxy example on StackBlitz](https://stackblitz.com/edit/typescript-umzfn2?file=index.ts)
+
+---
+
+## Benefits and Trade-offs
+
+| ✅ Benefits | ⚠️ Trade-offs |
+|------------|--------------|
+| Controls access without modifying the real subject | Adds an extra layer of indirection |
+| Enables lazy initialization for performance | Response time may increase for the first request (virtual proxy) |
+| Transparent to the client — uses the same interface | Can complicate code if proxies are deeply nested |
+| Supports multiple cross-cutting concerns (caching, logging, auth) | Maintaining synchronization between proxy and real object requires care |
+
+---
+
+## Conclusion
+
+The Proxy pattern is one of the most versatile in the structural pattern family. Whether you're deferring expensive object creation, controlling access with fine-grained permissions, caching results for performance, or abstracting remote service calls, a well-designed proxy keeps your client code clean and decoupled from the complexity it's managing.

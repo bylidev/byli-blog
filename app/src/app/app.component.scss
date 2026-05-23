@@ -3,47 +3,69 @@
 :host {
   display: flex;
   flex: 1;
-  gap: 30px;
+  gap: 0;
+
   @media (max-width: 800px) {
     flex-direction: column;
-    gap: 0px;
+    gap: 0;
   }
 
+  // ─── Sidebar ───────────────────────────────────────────────────────────────
+
   .sidebar {
-    background: rgba(255, 255, 255, 0.051);
-    padding: 20px;
+    background: #ffffff;
+    padding: 28px 20px 20px;
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 24px;
+    border-right: 1px solid #e5e7eb;
+
     @media (min-width: 800px) {
-      max-width: 300px;
-      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 260px;
+      min-width: 220px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
     }
-    gap: 30px;
+
+    @media (max-width: 800px) {
+      border-right: none;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 16px;
+      gap: 16px;
+    }
   }
+
+  // ─── Main content ──────────────────────────────────────────────────────────
 
   .content {
     flex: 4;
     display: flex;
     max-height: 100vh;
     justify-content: center;
+    background: #fafafa;
   }
+
+  // ─── Watermark ─────────────────────────────────────────────────────────────
 
   app-cms-watermark {
     margin-top: auto;
     text-align: center;
+
     @media (max-width: 800px) {
       display: none;
-
     }
   }
 
+  // ─── Category chips (desktop only) ─────────────────────────────────────────
+
   app-blog-categories {
     display: none;
+
     @media (min-width: 800px) {
       display: block;
     }
   }
 }
-
-

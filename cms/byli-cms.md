@@ -10,67 +10,85 @@ tags:
   - mnemosine
 ---
 
-## [The Most Powerful JMstack WIKI Made with Angular is Serverless and API-less!](https://github.com/bylidev/mnemosine-wiki) 💪
+## [The Most Powerful JAMstack WIKI — Serverless, API-less, and Built with Angular](https://github.com/bylidev/mnemosine-wiki) 💪
 
 ![](./images/caffee.gif)
 
-## 🔥 **What is Serverless?** 🚀
+**Mnemosine Wiki** is an open-source, developer-friendly wiki engine built on the JAMstack philosophy. Write your content in Markdown, deploy to any static host, and get a fully-featured wiki with zero servers and zero APIs required.
 
-Serverless is a cloud computing model where you don't manage servers. Instead, you pay only for specific functions that
-execute in response to events.
+---
 
-### **Advantages of Serverless:**
+## 🔥 What is Serverless?
 
-- **Automatic Scalability**: Functions scale automatically based on demand.
-- **Cost Efficiency**: You pay only for the execution time of your functions, not for idle servers.
-- **Less Maintenance**: No need to worry about server infrastructure maintenance.
+Serverless is a cloud computing model where **you don't manage or provision servers**. Instead of running a persistent backend, functions execute on-demand in response to events — and you pay only for actual execution time.
 
-## 🌐 **What is API-less Architecture?** 🤔
+### Advantages of Serverless
 
-API-less architecture focuses on building applications without directly interacting with APIs for every piece of
-functionality. Instead, it may rely on static data or built-in functions and services. This can simplify development and
-reduce dependencies on external systems.
+| Advantage | Description |
+|---|---|
+| **Automatic Scalability** | Functions scale to zero when idle and scale out automatically under load |
+| **Cost Efficiency** | Pay only for the compute time your functions actually use |
+| **Reduced Maintenance** | No OS patches, no capacity planning, no server provisioning |
+| **Faster Deployment** | Deploy a function in seconds, not minutes |
 
-### **Benefits of API-less Architecture:**
+---
 
-- **Simpler Development**: Fewer dependencies and reduced complexity.
-- **Faster Execution**: Eliminates the need for API calls, which can speed up performance.
-- **Reduced Costs**: Fewer external services may mean lower operational costs.
+## 🌐 What is API-less Architecture?
 
-## 🎉 **How Do JAMstack and Serverless Relate?**
+API-less architecture builds applications that **don't rely on runtime API calls** for every piece of functionality. Instead, data is pre-processed and bundled at build time, eliminating the need for a backend server entirely.
 
-JAMstack and Serverless complement each other perfectly. While JAMstack focuses on a modern, fast frontend architecture,
-Serverless handles backend logic seamlessly without the need for server management. Together, they provide a robust and
-efficient solution for building web applications and sites.
+### Benefits of API-less Architecture
 
-## 🛠️ **How to Use Mnemosine Wiki**
+| Benefit | Description |
+|---|---|
+| **Simpler Development** | Fewer moving parts — no backend to build, secure, or maintain |
+| **Faster Performance** | No API round-trips means near-instant content loads |
+| **Reduced Costs** | No backend infrastructure, no API gateway fees |
+| **Better Reliability** | Static files don't have uptime requirements or cold starts |
 
-### **1. Setting Up Your Environment**
+---
 
-Before you start, ensure you have Node.js and npm installed.
+## 🎉 How JAMstack and Serverless Work Together
 
-```bash
- git clone git@github.com:bylidev/mnemosine-wiki.git
+**JAMstack** (JavaScript, APIs, Markup) defines a modern frontend architecture where:
+
+- **J**avaScript handles dynamic behavior at runtime
+- **A**PIs provide backend functionality via HTTPS endpoints
+- **M**arkup is pre-built at deploy time
+
+Mnemosine Wiki takes this further with an API-less approach: **all content is compiled from Markdown at build time** — no API calls needed at runtime. The result is a wiki that's fast, cheap to host, and requires no backend whatsoever.
+
+```
+Markdown Files → Angular Build → Static HTML/JS/CSS → CDN/Static Host
 ```
 
-Now you will see the following directory structure:
+---
+
+## 🛠️ How to Use Mnemosine Wiki
+
+### 1. Clone the Repository
 
 ```bash
---
-    |-- app
-    |--
-    |---- images
-    |---- *.md
--- app
-    |-- src
-    |-- package.json
-    |-- angular.json
-    |-- ...
+git clone git@github.com:bylidev/mnemosine-wiki.git
 ```
 
-To this point, you have created a new Mnemosine Wiki project with the default structure.
+### 2. Understand the Project Structure
 
-### **3. Running Your Mnemosine Wiki Project 🚀**
+```
+/
+├── cms/                   ← Your Markdown content goes here
+│   ├── images/            ← Images referenced by your articles
+│   └── *.md               ← One Markdown file per article
+└── app/                   ← Angular application (don't touch this)
+    ├── src/
+    ├── package.json
+    ├── angular.json
+    └── ...
+```
+
+> **The `cms/` directory is all you need to manage.** The `app/` directory is the Angular engine — you can always recreate it from the repository.
+
+### 3. Run the Wiki Locally
 
 ```bash
 cd ./app
@@ -78,36 +96,98 @@ npm install
 ng serve
 ```
 
-### **4. Markdown needed metadata 📝**
+Navigate to `http://localhost:4200` to see your wiki.
 
-When creating a new markdown file, you need to add the following metadata at the beginning of the file:
+---
+
+## 📝 Markdown Frontmatter
+
+Every Markdown article requires a frontmatter block at the top — a YAML section between `---` delimiters that defines the article's metadata:
 
 ```markdown
 ---
-title: "Mnemosine Wiki - The Most Powerful JAMstack  Made with Angular is Serverless and API-less!"
-author: "Ignacio Lopez"
-route: "abstract-factory"
-thumb: "caffee.gif"
+title: "Your Article Title"
+author: "Your Name"
+route: "url-slug-for-this-article"
+thumb: "thumbnail-image.png"
 date: "2024-07-20"
 tags:
-  - markdown
+  - tag-one
+  - tag-two
 ---
+
+# Your article content starts here...
 ```
 
-- title: The title of the article. 📚
-- author: The author of the article. ✍️
-- route: The Angular route of the article. 🌐
-- thumb: The thumbnail of the article (this image will be resized). 🖼️
-- date: The date of the article (important for sorting). 📅
-- tags: Tags of the article (important for generating tags and SEO metadata). 🏷️
+### Frontmatter Fields Reference
 
-### 5. backups 💾
+| Field | Required | Description |
+|-------|----------|-------------|
+| `title` | ✅ | Article title displayed in the UI and used for SEO |
+| `author` | ✅ | Author name displayed on the article page |
+| `route` | ✅ | The Angular route for the article (e.g., `/my-article`) |
+| `thumb` | ✅ | Thumbnail image filename (must exist in `cms/images/`) |
+| `date` | ✅ | Publication date — used for sorting articles chronologically |
+| `tags` | ✅ | List of tags for filtering and SEO metadata generation |
 
-You only need to backup the ``directory, as it contains all your content. The`app` directory is your Angular project, and you can always recreate it.
+---
 
-### 6. Deploying your Mnemosine Wiki 🚀
+## 💾 Backups
 
-You can deploy your Mnemosine Wiki to any static hosting provider, like gitlab pages, github pages, cloudflare pages. Just build your Angular app and deploy the `dist` directory.
-Mnemosine Wiki , provides you a configured workflow for github pages.
+You only need to **backup the `cms/` directory** — it contains all your content and images. The `app/` directory is your Angular application and can always be recreated from the public repository.
 
-[DEMO](https://cms.byli.dev)
+```bash
+# Simple backup
+tar -czf wiki-backup-$(date +%Y%m%d).tar.gz cms/
+
+# Or push to a private Git repository
+git add cms/
+git commit -m "backup: wiki content $(date +%Y-%m-%d)"
+git push
+```
+
+---
+
+## 🚀 Deploying Your Wiki
+
+Mnemosine Wiki deploys to any **static hosting provider**. Build the Angular app and deploy the output:
+
+```bash
+cd ./app
+npm run build -- --configuration production
+```
+
+The built files will be in `app/dist/`. Deploy this directory to:
+
+| Platform | How to Deploy |
+|---|---|
+| **GitHub Pages** | Use the included GitHub Actions workflow |
+| **GitLab Pages** | Push and CI/CD handles the rest |
+| **Cloudflare Pages** | Connect your repo — auto-builds on push |
+| **Netlify** | Drag and drop the `dist/` folder |
+| **Vercel** | Connect repo — zero configuration |
+
+### GitHub Pages (Automatic)
+
+Mnemosine Wiki includes a pre-configured GitHub Actions workflow. Just push to your repository and it deploys automatically.
+
+---
+
+## 🔗 Live Demo
+
+[📖 Visit the Demo at cms.byli.dev](https://cms.byli.dev)
+
+---
+
+## Why Mnemosine Wiki?
+
+| Feature | Traditional Wiki (e.g., Confluence, MediaWiki) | Mnemosine Wiki |
+|---|---|---|
+| **Infrastructure** | Server + database required | Zero — static files only |
+| **Cost** | Monthly server/license fees | Free (hosting) |
+| **Content format** | Proprietary markup | Standard Markdown |
+| **Version control** | Built-in (often limited) | Full Git history |
+| **Performance** | Depends on server | CDN-served, near-instant |
+| **Customization** | Limited without plugins | Full Angular control |
+
+Mnemosine Wiki is the ideal solution for teams and individuals who want the simplicity of Markdown, the power of Angular, and the zero-maintenance advantage of static hosting.

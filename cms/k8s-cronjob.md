@@ -8,86 +8,159 @@ tags:
   - k8s
 ---
 
-# Resilient CronJob-based Webhook in K8S for Distributed services
+# Resilient CronJob-based Webhook in Kubernetes for Distributed Services
 
-## Requirements
+Running scheduled tasks in a containerized, multi-replica environment introduces a non-trivial problem: how do you ensure a job runs **exactly once** across all replicas, with automatic retries on failure — without building your own scheduler?
 
-I needed a cronjob-based webhook with retries. In other words, if I had a service called 'X' with 10 replicas, I wanted a CronJob that would execute only once on any of those replicas. Additionally, I wanted to ensure that the cron job had resilient retry strategies in case of failures.
+This post covers a production-tested pattern using Kubernetes CronJobs and a curl-based webhook approach.
 
-## 💡 Solution Implemented
+---
 
-We leveraged a CronJob in Kubernetes to address this requirement. We defined the desired schedule for the cron job, but how did we ensure it only ran on a single replica? The solution wasn't to rely on code-based scheduling because with our "10 replicas," the schedule would execute on each of them, which didn't serve our purpose.
+## The Requirement
 
-Instead, we used a CURL image of type 'Webhook.' By doing this, we knew that the request executed by the CronJob would be load-balanced by Kubernetes. This approach not only enabled us to target a single replica but also provided built-in retry strategies if the CURL request (e.g., CURL -X POST) didn't return a 200 OK status code.
+The scenario: a service `X` running with **10 replicas** needs a scheduled task that:
 
-🚀 By combining Kubernete's powerful scheduling capabilities like  [cronJob](https://crontab.guru/?ref=0.0.0.0#10_*_*_*)  and the use of a CURL image, we achieved our goal of executing a distributed cron job with retry resilience. This solution offered the scalability and reliability we needed while leveraging the strengths of the Kubernetes ecosystem.
+1. Executes **only once** — not on every replica
+2. Has **automatic retry** logic on failure
+3. Can be **monitored** through Kubernetes-native tooling
+4. Requires **no application code changes** to implement
 
-```bash
+---
+
+## Why Not Use Application-Level Scheduling?
+
+The naive approach — using `@Scheduled` in Spring Boot, cron expressions in a process, or a scheduling library — fails in this scenario because:
+
+- Every replica runs its own scheduler
+- With 10 replicas, a scheduled task runs **10 times** instead of once
+- Workarounds (database locks, leader election) add complexity and become custom-built infrastructure
+
+> ⚠️ A common anti-pattern seen in the wild: teams build entire internal projects to manage distributed cron jobs, complete with database lock tables and tightly coupled `@Schedule` annotations — reinventing what Kubernetes already provides natively.
+
+---
+
+## The Solution: Kubernetes CronJob + curl Webhook
+
+The key insight: instead of scheduling logic inside the application, use a **Kubernetes CronJob** that fires an HTTP request to the service's webhook endpoint. Kubernetes load-balances the request to a single replica. Failure handling comes for free via `restartPolicy`.
+
+```yaml
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: firsts-cronjob
+  name: service-x-monthly-job
 spec:
-  schedule: "00 00 1 * *" 
+  schedule: "00 00 1 * *"   # First of every month at midnight
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-            - name: firsts-cronjob-container
+            - name: webhook-caller
               image: curlimages/curl
               resources:
                 limits:
-                  cpu: "1"
-                  memory: "300Mi"
+                  cpu: "100m"
+                  memory: "64Mi"
                 requests:
-                  cpu: "1"
-                  memory: "300Mi"
+                  cpu: "50m"
+                  memory: "32Mi"
               args:
                 - /bin/sh
                 - -c
                 - |
-                  date
-                  echo "Starting CronJob"
-                  resp=$(curl -X POST -I -s -o /dev/null -w "%{http_code}" --http2 http://service-x:80/webhook | cut -d$' ' -f2)
-                  if [ "$resp" -ne 200 ]; then
-                    echo "Error: failed with http: $resp" && exit 1
+                  echo "$(date) — Starting scheduled webhook call"
+                  HTTP_STATUS=$(curl \
+                    -X POST \
+                    -s \
+                    -o /dev/null \
+                    -w "%{http_code}" \
+                    --http2 \
+                    http://service-x:80/webhook)
+
+                  echo "Response status: $HTTP_STATUS"
+
+                  if [ "$HTTP_STATUS" -ne 200 ]; then
+                    echo "ERROR: Webhook failed with HTTP $HTTP_STATUS" && exit 1
                   else
-                    echo "Success: http: $resp" && exit 0
+                    echo "SUCCESS: Webhook completed" && exit 0
                   fi
           restartPolicy: OnFailure
   successfulJobsHistoryLimit: 12
   failedJobsHistoryLimit: 12
 ```
 
-### Retries example
+---
+
+## How This Works
+
+| Concern | Solution |
+|---------|---------|
+| **Single execution** | The CronJob creates one Pod; Kubernetes load-balances the HTTP request to one replica of `service-x` |
+| **Retry on failure** | `restartPolicy: OnFailure` — Kubernetes automatically retries the Pod if it exits with a non-zero code |
+| **Failure detection** | The script checks the HTTP status code; any non-200 response causes `exit 1`, triggering a retry |
+| **History retention** | `successfulJobsHistoryLimit: 12` — last 12 successful jobs are retained for auditing |
+| **Monitoring** | Jobs are visible in `kubectl get jobs` and `kubectl describe job <name>` |
+
+---
+
+## Retry Behavior in Action
 
 ![](./images/k8s-cronjob.png)
 
-HTTP != 200's
+When the webhook returns a non-200 status, the Pod exits with code 1. With `restartPolicy: OnFailure`, Kubernetes:
 
-## **Common Problems**
+1. Marks the Pod as failed
+2. Creates a new Pod (with exponential backoff)
+3. Retries until it succeeds or hits `backoffLimit` (default: 6)
 
-Recently, I was working at this company where they had this hilarious issue with cron jobs. They were like, "Don't even think about using cron jobs with Kubernetes! We tried it once, and it was a disaster!" 😭🚫
+You can observe retries with:
 
-So, guess what the genius "pseudo-IT" team did to handle distributed cron jobs? They created their own janky solution! They built a project from scratch to manage cron jobs, complete with database locks and tightly coupled code using the @Schedule annotation in Spring Boot. But here's the catch: no architecture, no documentation, and no best practices whatsoever!
-
-Can you believe it? Instead of trusting a battle-tested and widely-used tool like Kubernetes, they went on an adventure to reinvent the wheel. And guess how they determined if their cron job was successful? Brace yourself... they didn't care about the actual HTTP response code! They just returned an exit 0, considering it a triumph every time. 🙃
-
-```
-              args:
-                - /bin/sh
-                - -c
-                - |
-                  date
-                  echo "Starting card CronJob"
-                  curl -X POST --http2 http://service-x:80/webhook 
-                  exit 0
-              restartPolicy: OnFailure
+```bash
+kubectl get pods --selector=job-name=service-x-monthly-job
+kubectl logs <pod-name>
 ```
 
-this is the reason why the company decided to spend 3 to 4 months developing a new project (how much theft)
+---
+
+## The Anti-Pattern: Getting It Wrong
+
+Here's what **not** to do — a real pattern seen in production that silently swallows failures:
+
+```yaml
+args:
+  - /bin/sh
+  - -c
+  - |
+    echo "Starting job"
+    curl -X POST --http2 http://service-x:80/webhook
+    exit 0   # ← WRONG: always exits successfully, even on HTTP 500 or network failure
+```
+
+**Problems with this approach:**
+- `curl` exits with 0 on HTTP errors (e.g., 500, 404) — the job always appears successful
+- No retry is triggered because exit code is always 0
+- Failures are completely invisible until business impact is noticed
+- The CronJob history shows 100% success — a false sense of reliability
+
+The result: teams discover months later that their scheduled tasks have been silently failing, and they've been looking at green job history the whole time.
+
+---
+
+## Schedule Reference
+
+Use [crontab.guru](https://crontab.guru/) to build and validate your cron expressions:
+
+| Schedule | Expression |
+|----------|-----------|
+| Every day at midnight | `0 0 * * *` |
+| Every Monday at 9am | `0 9 * * 1` |
+| First of every month | `0 0 1 * *` |
+| Every 15 minutes | `*/15 * * * *` |
+
+---
 
 ## Conclusion
 
-> Never underestimate the tried-and-true tools that have been battle-tested by the IT community. Don't be tempted to take shortcuts and reinvent the wheel when there's a perfectly good solution available. Embrace the tools that have proven their worth and save yourself from unnecessary headaches! 💡
+Kubernetes CronJobs combined with a webhook pattern provide a **robust, observable, and zero-code scheduling solution** for distributed services. The approach leverages native Kubernetes primitives — scheduling, restart policies, job history — to handle concerns that teams often try to solve by building their own infrastructure.
+
+> Never underestimate the tried-and-true tools that have been battle-tested by the community. Before building a custom distributed scheduler, evaluate what Kubernetes already provides out of the box.

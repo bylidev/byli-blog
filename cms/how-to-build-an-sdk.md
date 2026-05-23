@@ -7,60 +7,172 @@ date: "2024-04-17"
 tags:
     - software-arquitecture
 ---
-# Managing Microservices with SDK's
+
+# Managing Microservices with SDKs
+
 ![conflict](./images/cat-meme.jpg)
 
 ## Introduction
 
-The rise of microservices architecture has transformed the way we build and deploy applications. While this approach offers scalability and flexibility, it also brings challenges, especially when multiple teams are involved in developing and maintaining these services. One common issue that arises is the potential for conflicts between teams when communicating with each other's APIs.
+The rise of microservices architecture has transformed the way we build and deploy applications. While this approach offers scalability and flexibility, it also introduces a significant challenge: **how do multiple teams communicate reliably with each other's services?**
 
-## The Challenge: Communication Between Microservices
+Without a clear contract enforcement mechanism, teams constantly step on each other's toes — breaking integrations, causing bugs in production, and spending hours debugging issues that could have been caught at compile time.
 
-### Outdated OpenAPI Documentation
+---
 
-One of the main issues teams face is outdated OpenAPI documentation. When services evolve, the documentation can quickly become obsolete, leading to misunderstandings and errors. Developers may waste time trying to figure out the correct endpoints, request/response formats, and error codes, causing delays and frustration.
+## The Challenge: Inter-Team API Communication
 
-### Inconsistent Data Transfer Objects (DTOs)
+### Problem 1: Outdated OpenAPI Documentation
 
-Another challenge is maintaining consistency across Data Transfer Objects (DTOs). If a developer makes changes to an attribute in a DTO without notifying other teams, it can break the functionality of dependent services. This lack of communication can lead to unexpected errors and downtime, affecting the overall reliability of the system.
+API documentation is a snapshot in time. As services evolve, documentation quickly becomes stale. Developers waste time debugging incorrect endpoints, mismatched request formats, and undocumented error codes.
 
-## Bridging the Gap with SDKs
+**The result:** Frustration, lost productivity, and production incidents caused by incorrect API assumptions.
 
-To mitigate these challenges, one solution is to use Software Development Kits (SDKs) to abstract the complexity of interacting with microservices. By encapsulating the API calls and handling data transformations within the SDK, teams can ensure consistency and reduce the risk of conflicts.
+### Problem 2: Inconsistent Data Transfer Objects (DTOs)
 
-### Proposal: SDK Solution
+When a developer modifies a DTO field — renames a property, changes a type, adds a required field — other teams' services that depend on that DTO silently break. Without a shared, versioned contract, these mismatches are discovered at runtime, often in production.
+
+**The result:** Unexpected errors, downtime, and the need for urgent rollbacks.
+
+---
+
+## The Solution: SDKs as Living Contracts
+
+Instead of relying on documentation and hope, we can use a **Software Development Kit (SDK)** that encapsulates the API contract and ships it as a versioned dependency.
+
+The SDK becomes the **single source of truth** for how to communicate with a service. When the service evolves, the SDK is updated and released as a new version — consumers can adopt it at their own pace, with full visibility into what changed.
+
+### Proposal Architecture
 
 ![diagram](./images/sdk.png)
 
-We propose creating an SDK that includes DTOs, clients, and exceptions using Spring Boot's WebFlux library. By embedding the DTOs within the SDK, developers are encouraged to use the standardized data models across services, ensuring consistency.
+The SDK contains three key components:
 
-#### Key Features of the SDK:
+| Component | Purpose |
+|---|---|
+| **DTOs** | Shared data models that both producer and consumer agree on |
+| **Clients** | Pre-built, type-safe HTTP clients that handle the API calls |
+| **Exceptions** | Typed exceptions that map API error codes to meaningful domain errors |
 
-- **DTOs**: Contains all Data Transfer Objects shared across services.
+---
 
-- **Clients**: Encapsulates API calls using WebFlux, providing a simplified interface for service interaction.
+## Implementation: Spring Boot WebFlux SDK
 
-- **Exceptions**: Handles custom exceptions to manage errors effectively.
+The SDK is built using **Spring Boot's WebFlux** library, providing reactive, non-blocking HTTP clients out of the box.
 
-#### Shared DTO Library Debate
-
-While it could be debated to have a shared DTO library between the SDK and the service, we decided to keep it within the SDK. This way, the SDK can be imported in a "provided" scope, allowing not only the use of DTOs but also enabling the service owner to perform integration tests using the clients located in the SDK. This approach ensures that the developer responsible for the SDK delivers an up-to-date package, promoting accountability and consistency across services.
+### Class Diagram
 
 ![diagram](./images/sdk-class-diagram.png)
 
-### Benefits of Using SDKs
+### Example SDK Structure
 
-- **Consistency**: SDKs provide a standardized way to interact with microservices, ensuring that all teams use the same interfaces and data models.
+```
+sdk/
+├── src/main/java/com/example/sdk/
+│   ├── dto/
+│   │   ├── UserDTO.java
+│   │   ├── OrderDTO.java
+│   │   └── CreateOrderRequest.java
+│   ├── client/
+│   │   ├── OrderServiceClient.java
+│   │   └── UserServiceClient.java
+│   └── exception/
+│       ├── ServiceUnavailableException.java
+│       └── ResourceNotFoundException.java
+└── pom.xml
+```
 
-- **Reduced Complexity**: By abstracting the underlying API calls, SDKs simplify the integration process and make it easier for developers to consume services.
+### Example: SDK Client
 
-- **Improved Communication**: SDKs can serve as a central point of communication between teams, documenting best practices and ensuring everyone is on the same page.
+```java
+@Component
+public class OrderServiceClient {
+
+    private final WebClient webClient;
+
+    public OrderServiceClient(WebClient.Builder builder,
+                              @Value("${services.order.url}") String baseUrl) {
+        this.webClient = builder.baseUrl(baseUrl).build();
+    }
+
+    public Mono<OrderDTO> getOrder(String orderId) {
+        return webClient.get()
+                .uri("/orders/{id}", orderId)
+                .retrieve()
+                .onStatus(status -> status.is4xxClientError(), this::handleClientError)
+                .bodyToMono(OrderDTO.class);
+    }
+
+    public Mono<OrderDTO> createOrder(CreateOrderRequest request) {
+        return webClient.post()
+                .uri("/orders")
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(OrderDTO.class);
+    }
+
+    private Mono<? extends Throwable> handleClientError(ClientResponse response) {
+        return response.bodyToMono(String.class)
+                .map(body -> new ResourceNotFoundException("Order not found: " + body));
+    }
+}
+```
+
+---
+
+## Dependency Scope Strategy
+
+The SDK is published as a Maven/Gradle dependency. The key decision: use **provided** scope.
+
+```xml
+<dependency>
+    <groupId>com.example</groupId>
+    <artifactId>order-service-sdk</artifactId>
+    <version>1.2.0</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+**Why `provided` scope?** This ensures:
+1. The SDK is available for both consuming services and the service owner (for integration testing)
+2. The service owner is accountable for keeping the SDK up to date
+3. Integration tests can use the actual clients from the SDK, catching contract issues before they reach production
+
+---
+
+## The Shared DTO Debate
+
+> **Should DTOs live in the SDK or in a separate shared library?**
+
+We recommend keeping them **inside the SDK**. Here's why:
+
+| Approach | Pros | Cons |
+|---|---|---|
+| **DTOs in SDK** | Single package, accountability on service owner, enables integration tests via clients | Service owner must keep SDK updated |
+| **Separate DTO library** | DTOs can be shared without importing clients | Splits responsibility, harder to maintain consistency |
+
+By bundling DTOs with the client, the team that owns the service is directly responsible for delivering accurate, up-to-date interfaces. This accountability is key to keeping contracts fresh.
+
+---
+
+## Benefits of the SDK Approach
+
+| Benefit | Description |
+|---|---|
+| **Compile-time safety** | Breaking changes are caught immediately when consuming teams update the SDK |
+| **Self-documenting** | The SDK itself is the most up-to-date documentation of the API |
+| **Reduced integration bugs** | No manual HTTP calls, no JSON parsing — the SDK handles it all |
+| **Easier onboarding** | New developers import the SDK and get IntelliSense/autocompletion immediately |
+| **Versioned contracts** | Semantic versioning communicates breaking vs. non-breaking changes clearly |
+
+---
 
 ## Conclusion
 
-Managing microservices in a multi-team environment presents unique challenges that require careful planning and coordination. By addressing issues like outdated documentation and inconsistent DTOs proactively, teams can streamline communication and improve collaboration. Adopting SDKs, especially one tailored to the needs of the organization, can further enhance consistency and simplify integration, making it easier to navigate the complexities of microservices architecture.
+Managing microservices in a multi-team environment requires deliberate effort to keep API contracts consistent and trustworthy. SDKs transform a documentation problem into a dependency problem — one that compilers and build systems can catch automatically.
 
+By shipping an SDK alongside each service, teams shift from reactive debugging ("why is this field missing?") to proactive development ("the SDK updated to v2.0.0 — what changed?").
 
-[view poc project on github](https://github.com/bylidev/sdk-poc)
+[🔗 View the proof-of-concept on GitHub](https://github.com/bylidev/sdk-poc)
 
-🚀 Embrace the power of SDKs to bridge the gap between teams and unlock the full potential of your microservices ecosystem!
+> 🚀 Embrace the power of SDKs to bridge the gap between teams and unlock the full potential of your microservices ecosystem!

@@ -8,75 +8,175 @@ tags:
     - software-arquitecture
     - data-intensive-applications
 ---
-# Reliability, Scalability & Maintenability
+
+# Reliability, Scalability & Maintainability
 
 ![](./images/data-intensive-applications.png)
 
-We are going to explain tree concepts that are important in most software systems if we want to ***design data insensive applications***.
+When designing data-intensive applications, three fundamental properties determine whether a system will hold up in production. These are not abstract ideals — they are practical engineering goals that shape every architectural decision you make.
+
+---
 
 ## Reliability
 
-We have an intuitive idea of what it means for something to be reliable. I can say that this is the hability to work properly even if something goes grong. The things that can go wrong are called ***faults***, and the systems that anticipate faults are called **faul tolerant** or **resilient**.
-### Faults
-- Hardware errors
-- Software errors
-- Human errors
+**Reliability** is the ability of a system to work correctly even when things go wrong. A reliable system continues to deliver the correct functionality at the desired level of performance, even when facing hardware failures, software bugs, or human errors.
+
+The things that can go wrong are called **faults**, and systems designed to anticipate and recover from them are called **fault-tolerant** or **resilient**.
+
+> ⚠️ Note: A *fault* is not the same as a *failure*. A fault is when one component deviates from its specification; a failure is when the system as a whole stops providing the required service. The goal is to prevent faults from causing failures.
+
+### Types of Faults
+
+| Fault Type | Description | Examples |
+|---|---|---|
+| **Hardware errors** | Physical component failures | Hard disk crash, RAM corruption, power outage, network switch failure |
+| **Software errors** | Bugs in code or unexpected edge cases | Unhandled exceptions, memory leaks, cascading failures across services |
+| **Human errors** | Mistakes made by operators or developers | Misconfiguration, deploying untested changes, accidental data deletion |
+
+### Building Reliable Systems
+
+- Design for **graceful degradation** — degrade functionality rather than failing completely
+- Use **redundancy** at every layer (disks, servers, network links, datacenters)
+- Implement **chaos engineering** — deliberately introduce faults to test resilience
+- Enforce **staged rollouts** and **feature flags** to limit blast radius of changes
+- Write **comprehensive monitoring and alerting** to detect problems early
+
+---
 
 ## Scalability
-Is the capacity to add  computing resources to handle additional ***load*** and keep the ***performance*** if the system grows in a particular way as growing users, growing request per minutes. etc.
+
+**Scalability** is the capacity to add computing resources to handle additional load while maintaining acceptable performance as the system grows — in terms of users, requests per second, data volume, or complexity.
+
 ### Load Parameters
-Load parameters refer to the metrics or variables used to measure the load or demand on a system, such as a server or a network. These parameters are important for monitoring and evaluating the performance and capacity of a system to handle the work or requests it receives.
 
-Some examples of load parameters include:
+Load parameters are the metrics you use to describe how much demand your system is handling. Choosing the right load parameters is critical for meaningful capacity planning.
 
--   **CPU Load:** Measures the CPU usage and shows how much work the processor is doing at any given time. High CPU load can indicate that the system is overloaded and may experience slower performance.
+| Load Parameter | Description | Typical Units |
+|---|---|---|
+| **CPU Load** | How much processing work the CPU is doing | Percentage, load average |
+| **Memory Load** | RAM utilization across the system | GB used, percentage |
+| **Network Load** | Volume of data in and out of the system | Requests/sec, Mbps, packet rate |
+| **Disk Load** | Read/write operations on storage | IOPS, MB/s, queue depth |
+| **Active Users** | Concurrent users interacting with the system | Users, sessions |
+| **Requests per Second** | Rate of incoming API or database queries | RPS, QPS |
 
--   **Memory Load:** Assesses the utilization of the system's RAM. High memory load can indicate that the system is using a large amount of memory, which can affect performance if the memory becomes exhausted.
+Monitoring these parameters is crucial for identifying bottlenecks before they cause incidents.
 
--   **Network Load:** Measures network traffic and the utilization of available bandwidth. High network load can indicate a large amount of data being transmitted or received, which can affect network speed and performance.
+---
 
--   **Disk Load:** Evaluates hard disk activity, including data read and write operations. High disk load can indicate a large number of input/output (I/O) operations, which can affect system performance if the disk is operating at its maximum capacity.
-
-
-Monitoring these load parameters is crucial for identifying bottlenecks, preventing system failures, and ensuring optimal system performance.
 ### Performance
-You can look it in two ways:
-- If you keep the system resources (cpu, memory, network bandwith, etc.) unchanged, how is the performance of your system affected? Does ram increase or does cpu?
-- When you increase a load parameter, how much do you need to increase the resources if you want to keep performance unchanged?
-  To respond this questions we need performance numbers such as ***throughput***, ***response time***, ***latency***, ***SLOs***, ***SLAs***.
-  #### Throughput
-  The amount of work we can process per second. For example in a batch processing system, We usually care about the number of records we can process per second or the total time it takes to run a job on a dataset of a certain size.
-  #### Response Time
-  ***Is the total time it takes for a system to respond to a request from the client.*** This includes the ***service time***, which is the time taken to process the request, as well as any additional delays such as ***network latency*** or ***queuing time***. In other words, response time measures the elapsed time between when a request is made by the client and when the client receives a complete response from the system.Event if you only make the same request over and over again, you'll get a slightly different response time on every try. We therefore need to think of response time not as a single number, but as a distribution of values that you can measure.
-  The following figure illustrates response time for a sample of 17 request to a service.
-  ![Response time chart](https://mikhail.io/2019/serverless-at-scale-serving-stackoverflow-like-traffic/aws-lambda-p50-p95.png)
-  - ***P50*** : Also known as the 50th percentile, represents the median. If the median is 0.065s that means half your request return in less than 0.065s and half your request take longer than that.
-  - ***P90***: In order to figure out how bad your outliers are, you can look at the higher percentiles such as 95th, 99th and 99.9th. This represents that 90 out of 100 request take less than 0.125s and 10 of 100 request take 0.125s or more.
-  - ***P95***: This means that 95 out of 100 reuqest take less than 0.16s and 5 of 100 request take 0.16s or more.
-#### Latency
-Latency is the delay or time difference between when a request is initiated and when the first response starts to be received. It specifically measures the time it takes for data to travel from the sender (server) to the receiver (client) over the network.
 
-In other words, latency is the time it takes for the data to travel between the two points, excluding the time taken to process the request or any other components of the response time.
+Once you have defined load parameters, you can ask the key scalability questions:
 
-So, latency is indeed the difference between the actual task processing time (service time) and the time it takes for the data to travel to the client over the network.
+1. **If load increases, how does performance change** — assuming you keep resources (CPU, memory, bandwidth) constant?
+2. **If load increases, how much must you increase resources** to keep performance constant?
 
-#### SLOs aka "Service Level Objectives"
-Service Level Objectives (SLOs) are specific goals or targets set by an organization to measure the performance and reliability of a service. They define the acceptable levels of performance and reliability that must be maintained to meet customer expectations.
+To answer these, you need concrete performance metrics.
 
-#### SLAs aka "Service Level Agreements"
-Service Level Agreements (SLAs) are formal contracts or agreements between a service provider and a customer. They outline the specific services to be provided, as well as the expected levels of performance, availability, and other quality metrics that the service provider must adhere to. SLAs help to define the responsibilities and expectations of both parties and often include penalties or remedies for failing to meet the agreed-upon terms.
+#### Throughput
 
-## Maintenability
-We need to pay attention to three design principles for software systems in order to minimize pain during maintenance.
-- ***Operability***
-  - Monitoring the health of the system and restoring service if it goes to a bad state
-  - Tracking down the cause of problems, such a system failures or degraded performance.
-  - Keeping software and platforms up to date, including security patches.
-  - Provide good documentation and easy to understand.
-- ***Simplicity***
-  - Improving abstractions that can hide a great deal of implementation detail behind a clean, simple to understand [facade](https://byli.dev/facade).
-- ***Evolvability***
-  - Making change easy
+The amount of work a system can process per unit of time.
+
+- **Batch systems:** records processed per second, or total time to process a dataset
+- **Online systems:** requests handled per second (RPS / QPS)
+
+#### Response Time
+
+The total time elapsed between when a client sends a request and when it receives a complete response. It includes:
+
+- **Service time** — processing the request
+- **Network latency** — data travel time
+- **Queue time** — waiting behind other requests
+
+> Response time should never be thought of as a single number. It is a **distribution** — run the same request repeatedly and you'll get slightly different values each time. Use percentiles, not averages.
+
+![Response time chart](https://mikhail.io/2019/serverless-at-scale-serving-stackoverflow-like-traffic/aws-lambda-p50-p95.png)
+
+#### Response Time Percentiles
+
+| Percentile | Meaning | Example |
+|---|---|---|
+| **P50 (median)** | Half of requests are faster than this | p50 = 65ms → 50% of requests finish in under 65ms |
+| **P90** | 90% of requests are faster than this | p90 = 125ms → only 10% take longer |
+| **P95** | 95% of requests are faster than this | p95 = 160ms → only 5% take longer |
+| **P99** | 99% of requests are faster than this | p99 = 400ms → only 1% take longer |
+| **P99.9 ("three nines")** | Captures the worst outliers | Critical for SLA compliance |
+
+> 💡 High percentiles (p95, p99) matter more than averages. A slow p99 means your best customers — the ones making the most requests — experience the worst performance.
+
+#### Latency vs. Response Time
+
+These terms are often confused:
+
+- **Latency** is the time data takes to travel between two points over the network — pure transport delay, excluding processing
+- **Response time** is latency + service time + queue time — everything from the client's perspective
+
+#### SLOs — Service Level Objectives
+
+**SLOs** are internal performance targets that define what "good" looks like for your service:
+- "p99 response time < 200ms"
+- "availability > 99.9%"
+- "error rate < 0.1%"
+
+SLOs are the engineering targets your team monitors and builds to.
+
+#### SLAs — Service Level Agreements
+
+**SLAs** are contractual commitments made to customers. They formalize SLOs with consequences — typically financial penalties (credits, refunds) if targets are missed.
+
+| | SLO | SLA |
+|---|---|---|
+| **Audience** | Internal team | External customers |
+| **Nature** | Engineering target | Legal contract |
+| **Consequence of breach** | Alerts, on-call pages | Financial penalties, customer churn |
+
+---
+
+## Maintainability
+
+A system's majority of its cost lies not in initial development, but in **ongoing maintenance** — fixing bugs, adapting to new requirements, adding features, and onboarding new engineers. Good maintainability minimizes this cost over time.
+
+Three design principles drive maintainability:
+
+### 1. Operability
+
+Make it easy for operations teams to keep the system running smoothly.
+
+- **Monitor** system health continuously and restore service quickly when issues arise
+- **Track down** the root cause of failures and degraded performance with good observability
+- **Automate** routine tasks: deployments, backups, failover
+- **Keep software up to date** — including security patches
+- **Document** operational procedures so any team member can act in an incident
+- **Predict problems** before they occur through capacity planning and trending
+
+### 2. Simplicity
+
+Manage complexity so the system remains understandable as it grows.
+
+- Complexity is the root cause of most maintenance pain — it makes bugs harder to find and changes harder to make safely
+- Use good **abstractions** to hide implementation details behind clean interfaces (see the [Facade pattern](https://byli.dev/facade))
+- Avoid **accidental complexity** — complexity that comes from implementation choices rather than the inherent problem domain
+- Keep modules **cohesive** and **loosely coupled**
+
+### 3. Evolvability (Extensibility)
+
+Make it easy to change the system in the future as requirements evolve.
+
+- Design so components can be **replaced or upgraded independently**
+- Use well-defined **contracts between services** (APIs, schemas, events)
+- Follow **Agile** and **iterative** development practices to respond to change
+- Write tests that protect correctness while allowing internal refactoring
+
+---
 
 ## Summary
-In this post, we have expored some fundamental ways of thinking about data-intensive applications. Theses principles will guide us through the rest of this topic, where we dive into deep technical detail.
+
+| Property | Core Question | Key Techniques |
+|---|---|---|
+| **Reliability** | Does it work correctly when things fail? | Redundancy, fault isolation, chaos testing |
+| **Scalability** | Can it handle growth without degrading? | Load measurement, percentile monitoring, horizontal scaling |
+| **Maintainability** | Can the team keep it running and evolving? | Operability, simplicity, evolvability |
+
+These three properties are not independent. A system that is not reliable will not be trusted enough to scale. A system that cannot be maintained will accumulate complexity until it becomes unreliable. Designing with all three in mind from the start is the foundation of data-intensive application architecture.
+
+In the next posts in this series, we'll go deeper into each topic — exploring storage engines, replication, partitioning, and distributed system trade-offs.

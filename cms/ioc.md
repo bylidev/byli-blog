@@ -10,114 +10,205 @@ tags:
   - dagger
 ---
 
-## Compiled IoC for JAVA
+# Compiled IoC for Java with Dagger
 
 ![](./images/ioc.webp)
-# Compiled IoC for Java 🛠️
 
-We’re going to explore **Dagger** as a **compiled** IoC for Java, as opposed to other IoCs like Spring Boot that inject dependencies at runtime.
+Most Java developers are familiar with Spring Boot's dependency injection — a powerful but runtime-based IoC framework that uses reflection under the hood. **Dagger** takes a fundamentally different approach: it resolves and generates all dependency injection code **at compile time**, giving you the same ergonomics with dramatically better performance characteristics.
 
-## What is IoC? 🤔
+---
 
-The term **Inversion of Control (IoC)** arises because, in a traditional design, the application code controls the execution flow by creating and managing dependencies directly. With IoC, this control is "inverted" and delegated to a framework or container, such as Spring. This means that the responsibility for instantiating objects and managing their dependencies is transferred from the application code to the container.
+## What is Inversion of Control (IoC)?
 
-- **Without IoC**: You (the developer) are responsible for creating objects and managing the dependencies between them. For example, if class A needs an instance of class B, you create and pass the instance of B to A directly in your code.
+**Inversion of Control** is a design principle where the control of object creation and dependency wiring is delegated from the application code to a framework or container.
 
-- **With IoC**: Instead of manually creating and passing dependencies, you register your classes with an IoC container. The container is then responsible for instantiating class A, creating the instance of class B that A needs, and passing it to A automatically.
+| Approach | Who creates objects? | How are dependencies wired? |
+|----------|---------------------|---------------------------|
+| **Without IoC** | Your code (`new MyService()`) | Manually, in your code |
+| **With Runtime IoC** (Spring) | Framework at startup | Via reflection, at runtime |
+| **With Compiled IoC** (Dagger) | Framework at compile time | Via generated code, zero reflection |
 
-## Advantages of Dagger 🚀
-### Dagger offers several advantages over other IoC frameworks, particularly those that perform dependency injection at runtime:
+**Without IoC** — you manage everything manually:
+```java
+// You create and wire everything yourself
+Repository repo = new RepositoryImpl();
+Client client = new ClientImpl();
+DummyUseCase useCase = new DummyUseCase(client, repo);
+```
 
-- No Reflection: Unlike some other frameworks, Dagger does not use reflection to perform dependency injection. This eliminates the performance overhead associated with reflection and makes the application more efficient. Instead, Dagger generates code at compile time to handle dependency injection.
-- Faster Runtime Performance: Because dependency injection is resolved at compile time rather than runtime, Dagger applications typically have faster startup times and reduced runtime overhead. This leads to more predictable and faster execution of your application.
-- Improved Type Safety: Dagger provides compile-time checks for dependency injection, which helps catch errors early in the development process. This means fewer runtime errors and a more robust codebase.
-- Simplified Code: By handling the boilerplate code associated with dependency management, Dagger simplifies your application code and reduces the need for manual dependency handling.
-- Better Integration with IDEs: Since Dagger generates code at compile time, IDEs can provide better code completion, refactoring support, and error checking.
+**With IoC** — the container handles creation and wiring:
+```java
+// You declare what you need; the container provides it
+@Inject
+DummyUseCase useCase; // container creates and injects this
+```
 
-## Installation 📦
+---
 
-To get started with Dagger, you need to include the Dagger dependency in your project:
+## Why Dagger? Advantages Over Runtime IoC
+
+| Feature | Spring Boot (Runtime) | Dagger (Compiled) |
+|---------|----------------------|-------------------|
+| **Dependency resolution** | Runtime, via reflection | Compile time, via code generation |
+| **Startup performance** | Slower (reflection overhead) | Faster (pre-generated code) |
+| **Runtime errors** | Wiring errors crash at startup | Wiring errors are **compile errors** |
+| **Memory footprint** | Higher (reflection metadata) | Lower (generated code only) |
+| **IDE support** | Good | Excellent (generated code is navigable) |
+| **Type safety** | Good | Excellent (errors at compile time) |
+
+> 💡 Dagger is particularly valuable in **Android development** and **Java services** where startup time and memory efficiency are critical.
+
+---
+
+## Installation
+
+Add the Dagger dependency to your `pom.xml`:
 
 ```xml
-<!-- Compiled IoC -->  
-<dependency>  
-    <groupId>com.google.dagger</groupId>  
-    <artifactId>dagger</artifactId>  
-    <version>${dagger.version}</version>  
-    <scope>compile</scope>  
+<!-- Runtime dependency -->
+<dependency>
+    <groupId>com.google.dagger</groupId>
+    <artifactId>dagger</artifactId>
+    <version>${dagger.version}</version>
+    <scope>compile</scope>
 </dependency>
 ```
-You also need to add the appropriate annotation processor to generate classes at compile time:
+
+Configure the annotation processor to generate the DI code at compile time:
 
 ```xml
-<build>  
-    <plugins>  
-        <plugin>  
-            <groupId>org.apache.maven.plugins</groupId>  
-            <artifactId>maven-compiler-plugin</artifactId>  
-            <version>3.8.1</version>  
-            <configuration>  
-                <source>${maven.compiler.source}</source>  
-                <target>${maven.compiler.target}</target>  
-                <annotationProcessorPaths combine.children="append">  
-                    <path>  
-                        <groupId>com.google.dagger</groupId>  
-                        <artifactId>dagger-compiler</artifactId>  
-                        <version>${dagger.version}</version>  
-                    </path>  
-                </annotationProcessorPaths>  
-            </configuration>  
-        </plugin>  
-    </plugins>  
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <source>${maven.compiler.source}</source>
+                <target>${maven.compiler.target}</target>
+                <annotationProcessorPaths combine.children="append">
+                    <path>
+                        <groupId>com.google.dagger</groupId>
+                        <artifactId>dagger-compiler</artifactId>
+                        <version>${dagger.version}</version>
+                    </path>
+                </annotationProcessorPaths>
+            </configuration>
+        </plugin>
+    </plugins>
 </build>
-
 ```
 
-## Usage 🧩
-1.  Define a Module class that contains all of your beans:
-    
-    ```java
-        @Module  
-        public class DaggerModule {
-    
-            @Provides  
-            synchronized Client provideClient() {  
-            return new ClientImpl();  
-            }  
-        
-            @Provides  
-            Repository provideRepository() {  
-            return new RepositoryImpl();  
-            }
-          
-            @Provides  
-            DummyUseCase provideDummyUseCase(Client client, Repository repository) {  
-            return new DummyUseCase(client, repository);  
-            }  
-        }
-    ```
-   2. Define a Component class that will contain your instantiated classes. This is similar to your Spring context:
-    
-    ```java
-        @Component(modules = DaggerModule.class)  
-        public interface DaggerComponent {  
-            DummyUseCase getDummyUseCase();  
-        }
-    ``` 
+---
 
-## Testing and Demonstration 📈
-To verify that Dagger generates the necessary classes at compile time, follow these steps:
+## Usage
 
-1. **Compile Your Project:**
-Run the Maven build command to compile your project:
+### Step 1: Define a Module
+
+A `@Module` class declares how to create your dependencies — the recipes Dagger uses to build your object graph:
+
+```java
+@Module
+public class DaggerModule {
+
+    @Provides
+    @Singleton
+    Client provideClient() {
+        return new ClientImpl();
+    }
+
+    @Provides
+    Repository provideRepository() {
+        return new RepositoryImpl();
+    }
+
+    @Provides
+    DummyUseCase provideDummyUseCase(Client client, Repository repository) {
+        // Dagger automatically resolves and passes client and repository
+        return new DummyUseCase(client, repository);
+    }
+}
+```
+
+### Step 2: Define a Component
+
+A `@Component` is the entry point to the dependency graph — equivalent to the Spring Application Context:
+
+```java
+@Component(modules = DaggerModule.class)
+public interface DaggerComponent {
+    DummyUseCase getDummyUseCase();
+}
+```
+
+### Step 3: Use the Generated Component
+
+After compilation, Dagger generates a `DaggerDaggerComponent` class:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Dagger generates this class at compile time
+        DaggerComponent component = DaggerDaggerComponent.builder()
+                .daggerModule(new DaggerModule())
+                .build();
+
+        DummyUseCase useCase = component.getDummyUseCase();
+        useCase.execute();
+    }
+}
+```
+
+---
+
+## Testing and Verifying Code Generation
+
+### 1. Compile and build the project
 
 ```bash
 mvn clean install
 ```
-This command will compile your project and trigger the annotation processor to generate the necessary Dagger classes.
 
-2. **Check Generated Classes:**
-After a successful build, you can find the generated classes in the target/generated-sources/annotations directory of your project. Look for files like DaggerComponent.java which are generated by Dagger.
+This triggers the Dagger annotation processor which generates the DI glue code.
 
+### 2. Inspect the generated code
 
-#### [View on GitHub](https://github.com/bylidev/byli-lab/releases/tag/DAGGER)
+After a successful build, navigate to:
+
+```
+target/generated-sources/annotations/
+```
+
+You'll find files like `DaggerDaggerComponent.java` — fully readable, debuggable, and navigable Java code. This transparency is one of Dagger's biggest advantages: **the generated code has no magic**.
+
+### 3. Verify with a test
+
+```java
+@Test
+public void testDaggerWiring() {
+    DaggerComponent component = DaggerDaggerComponent.create();
+    DummyUseCase useCase = component.getDummyUseCase();
+    
+    assertNotNull(useCase); // Dagger wired it correctly
+}
+```
+
+---
+
+## Dagger vs. Spring: When to Choose Which?
+
+| Use Case | Recommended |
+|---|---|
+| Android application | **Dagger / Hilt** |
+| Java microservice with fast startup requirements | **Dagger** |
+| Full-stack Spring web application | **Spring Boot** |
+| Rapid prototyping | **Spring Boot** |
+| Embedded or resource-constrained Java | **Dagger** |
+
+---
+
+## Conclusion
+
+Dagger brings the ergonomics of dependency injection to Java without the runtime cost of reflection. By resolving dependencies at compile time, it catches wiring errors early, reduces startup latency, and produces transparent, readable generated code. For performance-sensitive Java applications — especially on Android or in cloud environments where cold start time matters — Dagger is a compelling alternative to runtime IoC frameworks.
+
+[🔗 View on GitHub](https://github.com/bylidev/byli-lab/releases/tag/DAGGER)

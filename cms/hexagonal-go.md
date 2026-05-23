@@ -9,37 +9,219 @@ tags:
   - design-patterns
 ---
 
-# Dive into Hexagonal Architecture with Go!
+# Hexagonal Architecture with Go: Building Modular and Testable Systems
 
 ## Introduction
 
-Hexagonal Architecture, also known as Ports and Adapters, is a concept created by Alistair Cockburn to build scalable, clean software while adhering to essential principles of good software architecture. This approach promotes separation of concerns, enabling flexible integration with external systems and enhancing testability, ultimately leading to maintainable and robust applications. In this blog post, we'll explore how the  [Hexa-Notification](https://github.com/igloar96/hexa-notification?ref=0.0.0.0)  project leverages hexagonal architecture to create a highly customizable and easy-to-use notification system.
+**Hexagonal Architecture** — also known as **Ports and Adapters** — is an architectural style created by Alistair Cockburn that aims to build scalable, clean software by isolating the core business logic from external concerns. By enforcing strict boundaries between the application's core and its infrastructure, it delivers three critical benefits:
 
-### 1. Overview of Hexa-Notification
+- **Testability** — the domain logic can be tested in isolation without databases, HTTP, or message queues
+- **Flexibility** — swap external systems (change your database, messaging broker, or HTTP framework) without touching business logic
+- **Maintainability** — each layer has a single, well-defined responsibility
 
-Hexa-Notification is a project focused on providing a customizable and easy-to-use notification system. The solution is based on a modular and scalable architecture, allowing for easy integration into different applications and platforms.
+In this post, we explore how the [Hexa-Notification](https://github.com/igloar96/hexa-notification) project leverages hexagonal architecture to build a highly customizable and easy-to-extend notification system in Go.
 
-### 2. Hexagonal Architecture Components
+---
+
+## The Core Concept
 
 ![](./images/hexagonal.png)
 
-https://online.visual-paradigm.com/es/diagrams/features/hexagonal-architecture-diagram-tool/
+The hexagon represents your **application core** — the domain and use cases. The "ports" on each face of the hexagon are interfaces that define how the core communicates with the outside world. "Adapters" implement these interfaces, translating between the core's language and external systems.
 
-In the Hexa-Notification project, we can identify the following components that adhere to the hexagonal architecture:
+There are two kinds of ports:
 
-1.  **Domain**: The  `domain`  folder contains the core business logic and entities of the notification system. In this case, it consists of a simple  `Message`  struct that represents a notification message.
-2.  **Use Cases**: The  `usecases`  folder implements the application's use cases, which contain the logic required to coordinate the domain entities and interact with external systems. For example, the  `CreateNotificationUseCase`  is responsible for creating and sending notifications using the provided output ports.
-3.  **Ports and Adapters**: The  `ports`  folder defines the interfaces for input and output ports, while the  `drivers`  and  `driven`  folders  **contain the adapters that implement these interfaces**. Input adapters, like the  `GinDriver`  for the HTTP server and  `KafkaDriver`  for Kafka, handle incoming requests and call the appropriate use case. Output adapters, like the  `TelegramNotificationAdapter`  and  `ConsoleAdapter`, send notifications to their respective destinations.
+| Port Type | Direction | Description |
+|---|---|---|
+| **Driving (Input) Port** | Outside → Core | How external actors (HTTP, CLI, Kafka) call the application |
+| **Driven (Output) Port** | Core → Outside | How the application calls external systems (DB, email, Telegram) |
 
+> The key rule: **dependencies always point inward**. The core never imports from infrastructure. Infrastructure imports from the core.
 
-> In summary, as described in the blog, Hexa-notification is a project that embraces the Hexagonal Architecture concept. This approach helps create a notification system that is not only robust and scalable but also easy to understand and maintain. By organizing the project's components like folders, interfaces, adapters, use cases, and domains, we ensure that the system remains flexible and can effortlessly integrate with external systems, all while making testing a breeze.
+---
 
-**Further Reading on Hexagonal Architecture**
+## Project Structure: Hexa-Notification
 
-If you're interested in learning more about hexagonal architecture and how it can improve your software design, check out these resources:
+The Hexa-Notification project is a notification system that can receive events via HTTP or Kafka and send them to multiple destinations (Telegram, console, etc.).
 
-1.  [Alistair Cockburn - Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture/?ref=0.0.0.0)
-2.  [Papers We Love - Hexagonal Architecture: Three Principles and an Implementation Example](https://www.youtube.com/watch?v=th4AgBcrEHA&ref=0.0.0.0)
-3.  [Building Evolutionary Architectures: Support Constant Change](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/?ref=0.0.0.0)  - A book by Neal Ford, Rebecca Parsons, and Patrick Kua
+### Domain Layer
 
-Hey everyone! If you enjoyed this blog post, please don't hesitate to share it with others, contribute ideas, and leave comments. Your feedback is invaluable and helps us grow and improve our content. Also, if you find the Hexa-Notification project on GitHub helpful, feel free to give it a star ⭐. Your support is greatly appreciated! Happy coding.
+The `domain` folder contains pure business entities with no framework dependencies:
+
+```go
+// domain/message.go
+package domain
+
+type Message struct {
+    Title   string
+    Body    string
+    Channel string
+}
+```
+
+This struct knows nothing about HTTP, Kafka, or Telegram. It represents a pure business concept.
+
+---
+
+### Use Cases Layer
+
+The `usecases` folder implements application logic — the "what the system does." Use cases depend only on the domain and on port interfaces:
+
+```go
+// usecases/create_notification.go
+package usecases
+
+import "hexa-notification/domain"
+
+// Output port interface — the use case defines what it NEEDS
+type NotificationSender interface {
+    Send(message domain.Message) error
+}
+
+// The use case: orchestrates domain + output port
+type CreateNotificationUseCase struct {
+    senders []NotificationSender
+}
+
+func NewCreateNotificationUseCase(senders ...NotificationSender) *CreateNotificationUseCase {
+    return &CreateNotificationUseCase{senders: senders}
+}
+
+func (uc *CreateNotificationUseCase) Execute(title, body, channel string) error {
+    msg := domain.Message{Title: title, Body: body, Channel: channel}
+    for _, sender := range uc.senders {
+        if err := sender.Send(msg); err != nil {
+            return err
+        }
+    }
+    return nil
+}
+```
+
+---
+
+### Ports and Adapters Layer
+
+**Input Adapters (Driving)** — receive external events and call use cases:
+
+```go
+// drivers/gin_driver.go
+package drivers
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+    "hexa-notification/usecases"
+)
+
+type GinDriver struct {
+    useCase *usecases.CreateNotificationUseCase
+}
+
+func (d *GinDriver) RegisterRoutes(r *gin.Engine) {
+    r.POST("/notify", func(c *gin.Context) {
+        var req struct {
+            Title   string `json:"title"`
+            Body    string `json:"body"`
+            Channel string `json:"channel"`
+        }
+        if err := c.ShouldBindJSON(&req); err != nil {
+            c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+            return
+        }
+        if err := d.useCase.Execute(req.Title, req.Body, req.Channel); err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+            return
+        }
+        c.JSON(http.StatusOK, gin.H{"status": "sent"})
+    })
+}
+```
+
+**Output Adapters (Driven)** — implement output port interfaces to talk to external systems:
+
+```go
+// driven/telegram_adapter.go
+package driven
+
+import (
+    "fmt"
+    "hexa-notification/domain"
+)
+
+type TelegramNotificationAdapter struct {
+    botToken string
+    chatID   string
+}
+
+// Implements usecases.NotificationSender
+func (a *TelegramNotificationAdapter) Send(msg domain.Message) error {
+    fmt.Printf("[Telegram] Sending to chat %s: %s - %s\n", a.chatID, msg.Title, msg.Body)
+    // Real implementation would call the Telegram Bot API here
+    return nil
+}
+```
+
+---
+
+## Dependency Flow
+
+```
+HTTP Request
+    ↓
+GinDriver (Input Adapter)
+    ↓
+CreateNotificationUseCase (Application Core)
+    ↓
+NotificationSender interface (Output Port)
+    ↓
+TelegramAdapter / ConsoleAdapter (Output Adapters)
+    ↓
+Telegram API / Console
+```
+
+Notice: the **use case never imports** from `drivers` or `driven`. The dependency flow is always inward.
+
+---
+
+## Why This Matters for Testing
+
+Because the use case depends only on the `NotificationSender` interface, you can test it with a mock:
+
+```go
+func TestCreateNotificationUseCase(t *testing.T) {
+    // Mock sender — no real HTTP/Telegram needed
+    mock := &MockSender{}
+    uc := usecases.NewCreateNotificationUseCase(mock)
+
+    err := uc.Execute("Alert", "Server is down", "ops")
+
+    assert.NoError(t, err)
+    assert.Equal(t, 1, mock.CallCount)
+}
+```
+
+You can run the entire test suite without any external services.
+
+---
+
+## Benefits in Practice
+
+| Benefit | How Hexagonal Architecture Delivers It |
+|---------|---------------------------------------|
+| **Fast unit tests** | Domain and use cases are pure Go — no mocks for HTTP/DB needed |
+| **Easy to swap infrastructure** | Change from Gin to Echo? Only update the input adapter |
+| **Multiple delivery mechanisms** | Add Kafka driver without touching business logic |
+| **Clear ownership** | Domain team owns core; platform team owns adapters |
+
+---
+
+## Further Reading
+
+1. [Alistair Cockburn — Hexagonal Architecture (original article)](https://alistair.cockburn.us/hexagonal-architecture/)
+2. [Papers We Love — Three Principles and an Implementation Example (YouTube)](https://www.youtube.com/watch?v=th4AgBcrEHA)
+3. [Building Evolutionary Architectures — O'Reilly](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/)
+
+---
+
+> If you found this post helpful, consider giving the [Hexa-Notification project a star ⭐ on GitHub](https://github.com/igloar96/hexa-notification). Contributions and feedback are always welcome!

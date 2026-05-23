@@ -14,19 +14,19 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+
   @media (max-width: 800px) {
     flex-direction: column;
-    margin: none;
-    padding: none !important;
-    width: 90%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
   }
-
-
 }
 
+// Ensure code blocks scroll horizontally
 pre {
-  display: flex !important;;
+  display: block !important;
+  overflow-x: auto;
 }
 
 p {

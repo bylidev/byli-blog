@@ -1,8 +1,19 @@
 .menu-section {
-  gap: 10px;
-  min-width: 300px;
-  flex-wrap: wrap;
-  align-content: baseline;
   display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-content: flex-start;
 
+  // Override Material chip defaults for cleaner look
+  ::ng-deep .mat-mdc-chip {
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    height: 26px !important;
+    border-radius: 99px !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
 }
